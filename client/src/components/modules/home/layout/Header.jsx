@@ -86,29 +86,29 @@ const Header = () => {
   return (
     <header className="w-full font-sans sticky top-0 z-[100] bg-white">
       {/* Top Bar */}
-      <div className="bg-[#f8f9fa] border-b border-gray-100 py-2.5 px-4 md:px-12 flex flex-wrap justify-between items-center text-sm text-black">
+      <div className="bg-[#f0f2f5] border-b border-gray-100 py-4 px-4 md:px-12 flex flex-wrap justify-between items-center text-sm">
         <div className="flex flex-wrap gap-4 md:gap-8 items-center">
-          <a href="tel:+918270099991" className="flex items-center gap-2 hover:text-[#861B47] transition-colors group">
-            <Phone size={16} className="text-[#861B47] group-hover:scale-110 transition-transform" />
-            <span className="font-semibold text-[13px]">+91 827 0099 991</span>
+          <a href="tel:+918270099991" className="flex items-center gap-2 transition-colors group">
+            <Phone size={16} className="text-[#7A1A40] group-hover:text-[#861B47] stroke-[2.5] transition-colors" />
+            <span className="font-bold text-[15px] text-[#000000] group-hover:text-[#861B47] tracking-wide transition-colors">+91 827 0099 991</span>
           </a>
-          <a href="mailto:contact@whytap.in" className="flex items-center gap-2 hover:text-[#861B47] transition-colors group">
-            <Mail size={16} className="text-[#861B47] group-hover:scale-110 transition-transform" />
-            <span className="font-semibold text-[13px]">contact@whytap.in</span>
+          <a href="mailto:contact@whytap.in" className="flex items-center gap-2 transition-colors group">
+            <Mail size={16} className="text-[#7A1A40] group-hover:text-[#861B47] stroke-[2.5] transition-colors" />
+            <span className="font-bold text-[15px] text-[#000000] group-hover:text-[#861B47] tracking-wide transition-colors">contact@whytap.in</span>
           </a>
         </div>
         
         <div className="flex gap-4 items-center mt-2 lg:mt-0">
           {[Instagram, Facebook, Linkedin].map((Icon, idx) => (
-            <a key={idx} href="#" className="p-1.5 rounded-full border border-gray-200 bg-white hover:border-[#861B47]/30 hover:bg-[#861B47]/5 transition-all shadow-sm">
-              <Icon size={16} className="text-gray-900 hover:text-[#861B47]" />
+            <a key={idx} href="#" className="p-1.5 rounded-full bg-white hover:bg-[#7A1A40]/5 transition-all shadow-md">
+              <Icon size={16} className="text-[#7A1A40]" />
             </a>
           ))}
-          <a href="#" className="p-1.5 rounded-full border border-gray-200 bg-white hover:border-[#861B47]/30 hover:bg-[#861B47]/5 transition-all shadow-sm">
-              <XBrand size={16} className="text-gray-900 hover:text-[#861B47]" />
+          <a href="#" className="p-1.5 rounded-full bg-white hover:bg-[#7A1A40]/5 transition-all shadow-md">
+              <XBrand size={16} className="text-[#7A1A40]" />
           </a>
-          <a href="#" className="p-1.5 rounded-full border border-gray-200 bg-white hover:border-[#861B47]/30 hover:bg-[#861B47]/5 transition-all shadow-sm">
-            <Youtube size={16} className="text-gray-900 hover:text-[#861B47]" />
+          <a href="#" className="p-1.5 rounded-full bg-white hover:bg-[#7A1A40]/5 transition-all shadow-md">
+            <Youtube size={16} className="text-[#7A1A40]" />
           </a>
         </div>
       </div>
@@ -117,9 +117,9 @@ const Header = () => {
       <nav className="bg-white py-3.5 px-4 md:px-12 flex justify-between items-center shadow-sm relative">
         {/* Logo */}
         <div className="flex items-center gap-2.5 cursor-pointer group">
-          <div className="w-10 h-10 bg-[#861B47] rounded-full flex items-center justify-center text-white text-2xl font-bold italic shadow-md group-hover:scale-105 transition-transform">y</div>
+          <div className="w-10 h-10 bg-[#7A1A40] rounded-full flex items-center justify-center text-white text-2xl font-bold italic shadow-md group-hover:scale-105 transition-transform">y</div>
           <div className="flex flex-col leading-tight">
-            <span className="text-[22px] font-bold text-[#333333] tracking-tight lowercase">why tap</span>
+            <span className="text-[22px] font-bold text-[#6B7280] tracking-tight lowercase">why tap</span>
           </div>
         </div>
 
@@ -134,8 +134,8 @@ const Header = () => {
             >
               <a 
                 href={link.href}
-                className={`px-4 py-2 text-[16px] font-bold flex items-center gap-1 transition-all
-                  ${link.active ? 'bg-[#861B47] text-white rounded' : 'text-[#861B47] hover:opacity-80'}`}
+                className={`px-5 py-2.5 text-[16px] font-bold flex items-center gap-1 transition-all
+                  ${link.active ? 'bg-[#7A1A40] text-white rounded-none' : 'text-[#7A1A40] hover:opacity-80'}`}
               >
                 {link.name}
                 {link.hasDropdown && (
@@ -163,14 +163,14 @@ const Header = () => {
 
         {/* Apply Now Button */}
         <div className="hidden lg:block">
-          <button className="px-6 py-2 border-2 border-[#861B47] text-[#861B47] font-bold rounded-lg hover:bg-[#861B47] hover:text-white transition-all cursor-pointer text-[14px]">
+          <button className="px-6 py-2 border-2 border-[#7A1A40] text-[#7A1A40] font-bold rounded-lg hover:bg-[#7A1A40] hover:text-white transition-all cursor-pointer text-[14px]">
             Apply Now
           </button>
         </div>
 
         {/* Mobile Menu Toggle */}
         <button 
-          className="lg:hidden p-2 text-[#861B47] hover:bg-gray-100 rounded-lg transition-colors"
+          className="lg:hidden p-2 text-[#7A1A40] hover:bg-gray-100 rounded-lg transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <LucideX size={30} /> : <Menu size={30} />}
@@ -184,7 +184,7 @@ const Header = () => {
               <div key={idx} className="border-b border-gray-50 last:border-none">
                 <div 
                    className={`flex justify-between items-center px-4 py-3.5 font-bold rounded-lg transition-colors
-                    ${link.active ? 'bg-[#861B47] text-white shadow-md' : 'text-[#861B47] hover:bg-gray-50'}`}
+                    ${link.active ? 'bg-[#7A1A40] text-white shadow-md' : 'text-[#7A1A40] hover:bg-gray-50'}`}
                   onClick={() => link.hasDropdown && setActiveDropdown(activeDropdown === idx ? null : idx)}
                 >
                   <a href={link.href} className="flex-grow">{link.name}</a>
@@ -202,7 +202,7 @@ const Header = () => {
                 )}
               </div>
             ))}
-            <button className="mt-4 w-full py-4 bg-[#861B47] text-white font-bold rounded-xl shadow-lg shadow-[#861B47]/30 transform active:scale-95 transition-all text-lg">
+            <button className="mt-4 w-full py-4 bg-[#7A1A40] text-white font-bold rounded-xl shadow-lg shadow-[#7A1A40]/30 transform active:scale-95 transition-all text-lg">
               Apply Now
             </button>
           </div>
