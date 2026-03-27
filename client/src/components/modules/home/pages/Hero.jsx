@@ -119,7 +119,7 @@ const HeroSection = () => {
         {/* Left Scroll Arrow */}
         <button 
           onClick={() => scroll('left')}
-          className="absolute left-0 md:left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 bg-[#2a2a2a]/90 hover:bg-[#4a4a4a] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)] border border-white/20 opacity-0 group-hover:opacity-100"
+          className="absolute left-0 md:left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 bg-[#2a2a2a]/90 hover:bg-[#4a4a4a] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)] border border-white/20 opacity-0 group-hover:opacity-100 cursor-pointer"
           aria-label="Scroll left"
         >
           <ChevronLeft size={24} />
@@ -163,7 +163,7 @@ const HeroSection = () => {
         {/* Right Scroll Arrow */}
         <button 
           onClick={() => scroll('right')}
-          className="absolute right-0 md:right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 bg-[#2a2a2a]/90 hover:bg-[#4a4a4a] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)] border border-white/20 opacity-0 group-hover:opacity-100"
+          className="absolute right-0 md:right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 bg-[#2a2a2a]/90 hover:bg-[#4a4a4a] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)] border border-white/20 opacity-0 group-hover:opacity-100 cursor-pointer"
           aria-label="Scroll right"
         >
           <ChevronRight size={24} />

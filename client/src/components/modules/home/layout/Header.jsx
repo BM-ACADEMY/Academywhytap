@@ -6,6 +6,7 @@ import {
   Menu, 
   X as LucideX 
 } from 'lucide-react';
+import EnquiryModal from './EnquiryModal';
 
 // Custom SVG Icons for Brands (removed in Lucide v1)
 const Facebook = ({ size = 24, ...props }) => (
@@ -48,6 +49,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -176,7 +178,10 @@ const Header = () => {
 
         {/* Apply Now Button */}
         <div className="hidden lg:block">
-          <button className="px-6 py-2 border-2 border-[#7A1A40] text-[#7A1A40] font-bold rounded-lg hover:bg-[#7A1A40] hover:text-white transition-all cursor-pointer text-[14px]">
+          <button 
+            onClick={() => setIsEnquiryModalOpen(true)}
+            className="px-6 py-2 border-2 border-[#7A1A40] text-[#7A1A40] font-bold rounded-lg hover:bg-[#7A1A40] hover:text-white transition-all cursor-pointer text-[14px]"
+          >
             Apply Now
           </button>
         </div>
@@ -215,11 +220,19 @@ const Header = () => {
                 )}
               </div>
             ))}
-            <button className="mt-4 w-full py-4 bg-[#7A1A40] text-white font-bold rounded-xl shadow-lg shadow-[#7A1A40]/30 transform active:scale-95 transition-all text-lg">
+            <button 
+              onClick={() => setIsEnquiryModalOpen(true)}
+              className="mt-4 w-full py-4 bg-[#7A1A40] text-white font-bold rounded-xl shadow-lg shadow-[#7A1A40]/30 transform active:scale-95 transition-all text-lg cursor-pointer"
+            >
               Apply Now
             </button>
           </div>
         </div>
+
+        <EnquiryModal 
+          isOpen={isEnquiryModalOpen} 
+          onClose={() => setIsEnquiryModalOpen(false)} 
+        />
     </header>
   );
 };
