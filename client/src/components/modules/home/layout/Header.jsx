@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Phone, 
   Mail, 
@@ -47,6 +47,19 @@ const Youtube = ({ size = 24, ...props }) => (
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 80) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { name: 'Home', href: '#', active: true },
@@ -84,9 +97,9 @@ const Header = () => {
   ];
 
   return (
-    <header className="w-full font-sans sticky top-0 z-[100] bg-white">
+    <header className="w-full font-sans sticky top-0 z-[100] bg-white transition-all duration-300">
       {/* Top Bar */}
-      <div className="bg-[#f0f2f5] border-b border-gray-100 py-4 px-4 md:px-12 flex flex-wrap justify-between items-center text-sm">
+      <div className={`bg-[#f0f2f5] border-b border-gray-100 px-4 md:px-12 flex flex-wrap justify-between items-center text-sm transition-all duration-500 ease-in-out overflow-hidden ${isScrolled ? 'max-h-0 py-0 opacity-0' : 'max-h-[60px] py-4 opacity-100'}`}>
         <div className="flex flex-wrap gap-4 md:gap-8 items-center">
           <a href="tel:+918270099991" className="flex items-center gap-2 transition-colors group">
             <Phone size={16} className="text-[#7A1A40] group-hover:text-[#861B47] stroke-[2.5] transition-colors" />

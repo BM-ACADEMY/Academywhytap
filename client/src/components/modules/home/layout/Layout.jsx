@@ -1,6 +1,6 @@
-import React from 'react'
 import Header from './Header'
 import Footer from './Footer'
+import FloatingContact from './FloatingContact'
 
 export const Layout = ({ children }) => {
   return (
@@ -8,6 +8,7 @@ export const Layout = ({ children }) => {
         <Header/>
         {children}
         <Footer/>
+        <FloatingContact />
     </div>
   )
 }
