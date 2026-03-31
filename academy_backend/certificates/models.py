@@ -1,6 +1,5 @@
-# certificates/models.py
 from mongoengine import Document, StringField, DateTimeField
-import datetime
+from django.utils import timezone
 
 
 class Certificate(Document):
@@ -14,7 +13,8 @@ class Certificate(Document):
 
     certificate_type = StringField(default="Course")
     certificate_id = StringField(required=True, unique=True)
-    issue_date = DateTimeField(default=datetime.datetime.utcnow)
+    issue_date = DateTimeField(default=timezone.now)
+
 
     # Save file path or URL (NOT FileField)
     file_path = StringField()  # e.g., "certificates/CERT12345.pdf"

@@ -5,9 +5,7 @@ import { Layout } from './components/modules/home/layout/Layout'
 function App() {
   return (
     <>
-    <Layout>
       <Routes />
-    </Layout>
     </>
   ) 
 }

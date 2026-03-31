@@ -8,6 +8,14 @@ from .models import ContactMessage
 from .serializers import ContactMessageSerializer
 
 
+class ContactMessageListView(generics.ListAPIView):
+    serializer_class = ContactMessageSerializer
+    permission_classes = [permissions.AllowAny] # In development, keeping AllowAny or use TokenAuthentication
+
+    def get_queryset(self):
+        return ContactMessage.objects.all().order_by('-created_at')
+
+
 def send_email_in_background(subject, message):
     """Send email in a background thread"""
     try:
@@ -59,3 +67,21 @@ You have received a new contact form submission:
             },
             status=status.HTTP_201_CREATED,
         )
+
+
+from rest_framework.views import APIView
+
+class ContactMessageDeleteView(APIView):
+    permission_classes = [permissions.AllowAny]
+    
+    def delete(self, request, pk):
+        try:
+            msg = ContactMessage.objects.get(id=pk)
+            msg.delete()
+            return Response({"message": "Successfully deleted"}, status=status.HTTP_200_OK)
+        except ContactMessage.DoesNotExist:
+            return Response({"error": "Message not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+

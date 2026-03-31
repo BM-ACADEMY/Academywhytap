@@ -64,7 +64,7 @@ const Welcome = () => {
                         <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#fbe8f0]/60 rounded-full mb-5 w-fit border border-[#f5d5e3]/30">
                             <Home size={14} className="text-[#9D1B50]" fill="#9D1B50" />
                             <span className="text-[12px] md:text-[13px] font-bold text-[#9D1B50] tracking-wide">
-                                Welcome to WHY TAP – Your gateway to a rewarding IT career
+                                Welcome to Bm Academy – Your gateway to a rewarding IT career
                             </span>
                         </div>
 
@@ -75,7 +75,7 @@ const Welcome = () => {
 
                         {/* Paragraph Text - More elegant line height and slightly smaller font */}
                         <p className="text-gray-600 text-[15px] md:text-[16px] leading-[1.9] mb-8 w-full text-left font-normal max-w-[650px]">
-                            At WHY TAP, we are committed to empowering students and job seekers through
+                            At Bm Academy, we are committed to empowering students and job seekers through
                             industry-focused AI-Powered training programs in the IT sector. Our Full Stack
                             Development, Digital Marketing and Data Science courses, combined with
                             communication, soft skills training, and dedicated placement support, are designed to

@@ -8,8 +8,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
-    # Courses API
-    path("api/", include("courses.urls")),
     # Users API (signup, login, google-login, profile, admin login)
     path("admin/", admin.site.urls),
     path("api/users/", include("users.urls")),

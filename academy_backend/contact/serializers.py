@@ -2,7 +2,9 @@
 from rest_framework import serializers
 
 class ContactMessageSerializer(serializers.Serializer):
+    id = serializers.CharField(read_only=True)
     name = serializers.CharField(max_length=200)
+
     email = serializers.EmailField()
     subject = serializers.CharField(max_length=200, allow_blank=True, required=False)
     message = serializers.CharField()

@@ -180,7 +180,6 @@ class AdminLoginAPIView(APIView):
 
 from django.http import JsonResponse
 from users.models import User as MongoUser
-from courses.models import EnrolledCourse
 
 
 # ✅ 1️⃣ Basic User List (for /api/users/list/)
@@ -204,55 +203,28 @@ def list_users(request):
 
 
 
-# ✅ 2️⃣ User List with Enrolled Courses (for /api/users/list-with-courses/)
-from django.http import JsonResponse
-from users.models import User as MongoUser
-from courses.models import EnrolledCourse
-
+# ✅ 2️⃣ Placeholder for static courses (Backend Courses App Removed)
 def list_users_with_courses(request):
+    """
+    Returns basic user info. Course enrollment is now managed statically on the frontend.
+    """
     if request.method == "GET":
         try:
-            users_data = []
             users = MongoUser.objects.all()
-
-            for user in users:
-                enrolled_courses = EnrolledCourse.objects(user=user)
-                courses_list = []
-
-                for e in enrolled_courses:
-                    # ✅ Validate referenced course
-                    try:
-                        course = e.course
-                        if not course:
-                            continue
-                    except Exception as err:
-                        print(f"⚠️ Skipping broken course ref for user {user.id}: {err}")
-                        continue
-
-                    # ✅ Include EnrolledCourse ID instead of just Course ID
-                    courses_list.append({
-                        "id": str(e.id),  # ✅ EnrolledCourse ID — required for update-status
-                        "course_id": str(course.id),  # optional (original course reference)
-                        "title": getattr(course, "title", ""),
-                        "enrolled_at": e.enrolled_at.isoformat() if e.enrolled_at else None,
-                        "price": getattr(course, "price", 0),
-                        "progress": getattr(e, "progress", 0),
-                        "status": getattr(e, "status", "Not Started"),
-                    })
-
-                users_data.append({
+            users_data = [
+                {
                     "id": str(user.id),
                     "name": getattr(user, "name", ""),
                     "email": getattr(user, "email", ""),
                     "phone": getattr(user, "phone", ""),
-                    "enrolled_courses": courses_list,
-                })
-
+                    "enrolled_courses": [], # Managed statically on frontend
+                }
+                for user in users
+            ]
             return JsonResponse(users_data, safe=False)
-
         except Exception as e:
-            print("❌ ERROR in list_users_with_courses:", e)
             return JsonResponse({"error": str(e)}, status=500)
+
 
 
 from django.http import JsonResponse

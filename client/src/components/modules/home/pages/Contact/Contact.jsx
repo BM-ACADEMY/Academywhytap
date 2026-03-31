@@ -9,8 +9,10 @@ import {
     MessageFilled, 
     EnvironmentFilled, 
     PhoneFilled, 
-    MailFilled 
+    MailFilled,
+    YoutubeFilled
 } from '@ant-design/icons';
+
 
 const Contact = () => {
     const [form] = Antd.Form.useForm();
@@ -22,8 +24,7 @@ const Contact = () => {
         setLoading(true);
         setError(null);
         try {
-            const baseUri = import.meta.env.VITE_BASE_URI || 'http://127.0.0.1:8000/api/';
-            const response = await fetch(`${baseUri}contact/`, {
+            const response = await fetch(`${import.meta.env.VITE_BASE_URI}contact/`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(values),
@@ -134,15 +135,23 @@ const Contact = () => {
 
                                 <div className="mt-16 flex gap-4">
                                     {[
-                                        { Icon: LinkedinFilled, label: 'LinkedIn' },
-                                        { Icon: TwitterOutlined, label: 'Twitter' },
-                                        { Icon: FacebookFilled, label: 'Facebook' }
+                                        { Icon: LinkedinFilled, label: 'LinkedIn', url: 'https://www.linkedin.com/company/bm-academypondy/about/?viewAsMember=true' },
+                                        { Icon: TwitterOutlined, label: 'Twitter', url: 'https://x.com/BMACADEMYPONDY' },
+                                        { Icon: FacebookFilled, label: 'Facebook', url: 'https://www.facebook.com/people/BM-Academy/61566753898165/' },
+                                        { Icon: YoutubeFilled, label: 'YouTube', url: 'https://www.youtube.com/@bmacademypondy' }
                                     ].map((item, i) => (
-                                        <div key={i} className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400 hover:bg-[#9D1B50] hover:text-white transition-all cursor-pointer text-xl shadow-sm">
+                                        <a 
+                                            key={i} 
+                                            href={item.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400 hover:bg-[#9D1B50] hover:text-white transition-all cursor-pointer text-xl shadow-sm"
+                                        >
                                             <item.Icon />
-                                        </div>
+                                        </a>
                                     ))}
                                 </div>
+
                             </div>
                         </div>
 
