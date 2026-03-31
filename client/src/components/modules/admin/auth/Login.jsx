@@ -98,10 +98,8 @@ const Login = () => {
                                 />
                             </Antd.Form.Item>
 
-                            <div className="flex items-center justify-between mt-2">
-                                <Antd.Checkbox className="text-gray-500 font-semibold text-sm">Remember me</Antd.Checkbox>
-                                <a className="text-[#9D1B50] font-bold text-sm hover:underline" href="#">Forgot password?</a>
-                            </div>
+
+
 
                             {error && (
                                 <div className="p-4 bg-red-50 rounded-xl flex items-center gap-3 text-red-500 text-sm font-bold animate-pulse">
@@ -120,27 +118,9 @@ const Login = () => {
                                 <ArrowRightOutlined />
                             </Antd.Button>
 
-                            <div className="relative my-8">
-                                <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-100"></div></div>
-                                <div className="relative flex justify-center text-sm"><span className="px-4 bg-white text-gray-400 font-medium">Or continue with</span></div>
-                            </div>
-
-                            <Antd.Button
-                                block
-                                className="h-14 rounded-xl border-gray-100 text-gray-600 font-bold flex items-center justify-center gap-3 hover:bg-gray-50 transition-all"
-                                icon={<GoogleOutlined className="text-red-500" />}
-                            >
-                                Google
-                            </Antd.Button>
-
-                            <div className="text-center mt-8">
-                                <p className="text-gray-500 font-medium whitespace-nowrap">
-                                    Don't have an account? 
-                                    <Link to="/admin/signup" className="ml-2 text-[#9D1B50] font-bold hover:underline">Register now</Link>
-                                </p>
-                            </div>
                         </Antd.Form>
                     </div>
+
                     
                     <p className="text-center mt-12 text-gray-400 text-xs font-semibold tracking-widest uppercase">
                         &copy; 2026 BM Academy. Secure Admin Access.
