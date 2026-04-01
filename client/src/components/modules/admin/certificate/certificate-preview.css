@@ -1,0 +1,45 @@
+/* admin/src/Components/Pages/certificate-preview.css */
+
+/* 1. Import Montserrat (The closest free twin to Garet) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+.cert-root {
+  width: 1123px;
+  height: 794px;
+  position: relative;
+  background-color: white;
+  overflow: hidden;
+  /* Apply the font globally */
+  font-family: 'Montserrat', sans-serif;
+  color: #1a1a1a; /* Soft black, better than pure #000 */
+}
+
+.cert-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.cert-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  /* Moves the whole text block down/up. Adjust this if text hits the logo */
+  padding-top: 380px;
+}
+
+/* --- THE FIX: MIMIC GARET FONT --- */
+.heavy-text {
+  font-weight: 700 !important; /* Reduced from 800 to 700 for a cleaner look */
+  letter-spacing: 1px;         /* Adds space between letters (The Garet Look) */
+}
+
+/* Regular text styling */
+.regular-text {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: #444;
+}

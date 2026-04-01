@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from '../modules/admin/layout/Layout';
 import Dashboard from '../modules/admin/layout/Dashboard';
 import AdminContact from '../modules/admin/contact/Contact';
-import AdminCertificates from '../modules/admin/certificate/Certificates';
+import AdminCertificate from '../modules/admin/certificate/Certificate';
 
 import AdminLogin from '../modules/admin/auth/Login';
 import AdminSignup from '../modules/admin/auth/Signup';
@@ -27,7 +27,7 @@ const Adminroutes = () => {
             >
                 <Route index element={<Navigate to="dashboard" replace />} />
                 <Route path="dashboard" element={<Dashboard />} />
-                <Route path="certificates" element={<AdminCertificates />} />
+                <Route path="certificates" element={<AdminCertificate />} />
                 <Route path="messages" element={<AdminContact />} />
                 
                 {/* Internal catch-all for admin area */}

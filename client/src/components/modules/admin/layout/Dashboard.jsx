@@ -40,10 +40,12 @@ const Dashboard = () => {
     const adminUser = JSON.parse(localStorage.getItem('adminUser') || '{}');
 
     const fetchDashboardData = async () => {
+        const token = localStorage.getItem('adminToken');
+        if (!token) return; // Prevent race condition fetch before token is stored
+
         setLoading(true);
         try {
-            const token = localStorage.getItem('adminToken');
-            const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+            const headers = { 'Authorization': `Bearer ${token}` };
 
             // Fetch Messages
             const msgResponse = await fetch(`${import.meta.env.VITE_BASE_URI}contact/all/`, { headers });
@@ -73,7 +75,7 @@ const Dashboard = () => {
             });
         } catch (error) {
             console.error('Dashboard data error:', error);
-            message.error('Failed to update live dashboard stats');
+            // message.error('Failed to update live dashboard stats');
         } finally {
             setLoading(false);
         }
@@ -87,39 +89,35 @@ const Dashboard = () => {
         {
             title: 'Total Enquiries',
             value: stats.totalMessages,
-            icon: <Mail size={24} />,
-            color: '#9D1B50',
-            bg: '#fbe8f0',
+            icon: Mail,
+            color: 'from-[#9D1B50] to-[#821440]',
             trend: '+12% from last month'
         },
         {
             title: 'Issued Certificates',
             value: stats.totalCertificates,
-            icon: <Award size={24} />,
-            color: '#3b82f6',
-            bg: '#eff6ff',
+            icon: Award,
+            color: 'from-blue-500 to-indigo-600',
             trend: 'Direct Issue active'
         },
         {
             title: 'New Messages',
             value: stats.newMessagesToday,
-            icon: <MessageSquare size={24} />,
-            color: '#10b981',
-            bg: '#ecfdf5',
+            icon: MessageSquare,
+            color: 'from-emerald-400 to-teal-600',
             description: 'Received in last 24h'
         },
         {
             title: 'Platform Hits',
             value: '4.2k',
-            icon: <MousePointer2 size={24} />,
-            color: '#f59e0b',
-            bg: '#fffbeb',
+            icon: MousePointer2,
+            color: 'from-amber-400 to-orange-500',
             trend: 'Live Tracking'
         },
     ];
 
     return (
-        <div className="space-y-10">
+        <div className="space-y-10 animate-in fade-in duration-700 admin-dashboard-wrapper">
             {/* Welcome Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
@@ -139,10 +137,10 @@ const Dashboard = () => {
                     <Button 
                         type="primary"
                         onClick={() => navigate('/admin/certificates')}
-                        className="h-12 px-6 rounded-xl bg-gray-900 hover:bg-black border-none font-bold flex items-center gap-2 shadow-lg shadow-black/10"
+                        className="h-12 px-6 rounded-2xl font-bold !bg-[#9D1B50] hover:!bg-[#861B47] border-none transition-all shadow-lg shadow-[#9D1B50]/20 flex items-center gap-3"
                     >
                         <Award size={18} />
-                        Issue Certificate
+                        <span>Issue Certificate</span>
                     </Button>
                 </div>
             </div>
@@ -151,35 +149,25 @@ const Dashboard = () => {
             <Row gutter={[24, 24]}>
                 {kpiCards.map((card, i) => (
                     <Col xs={24} sm={12} lg={6} key={i}>
-                        <Card 
-                            className="rounded-3xl border-gray-50 shadow-sm hover:shadow-md transition-all group overflow-hidden relative"
-                            bodyStyle={{ padding: '24px' }}
-                        >
-                            <div className="flex flex-col gap-4">
-                                <div 
-                                    className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110"
-                                    style={{ backgroundColor: card.bg, color: card.color }}
-                                >
-                                    {card.icon}
+                        <div className="bg-white rounded-[2rem] p-6 border border-gray-100 shadow-[0_2px_10px_-3px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_-5px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden h-full">
+                            <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${card.color} opacity-[0.04] rounded-bl-full -mr-8 -mt-8 transition-transform duration-500 group-hover:scale-110`} />
+                            <div className="flex flex-col gap-5 relative z-10">
+                                <div className="flex items-center justify-between">
+                                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br ${card.color} text-white shadow-md transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110`}>
+                                        <card.icon size={26} strokeWidth={2.5} />
+                                    </div>
                                 </div>
                                 
-                                <div>
-                                    <Text className="text-[11px] font-black text-gray-400 uppercase tracking-widest block mb-1">
-                                        {card.title}
-                                    </Text>
-                                    <div className="flex items-baseline gap-2">
-                                        <span className="text-3xl font-black text-gray-900">{card.value}</span>
-                                        {card.trend && <Text className="text-[10px] font-bold text-green-500 bg-green-50 px-2 py-0.5 rounded-full">{card.trend}</Text>}
+                                <div className="flex flex-col">
+                                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1 m-0">{card.title}</p>
+                                    <div className="flex items-center gap-3">
+                                        <p className="text-3xl font-medium text-gray-900 m-0 tracking-tight leading-none">{card.value}</p>
+                                        {card.trend && <span className="text-[10px] font-bold text-green-600 bg-green-50 px-2.5 py-1 rounded-full m-0 tracking-wide">{card.trend}</span>}
                                     </div>
-                                    {card.description && <Text className="text-[11px] font-medium text-gray-400 block mt-1">{card.description}</Text>}
+                                    {card.description && <p className="text-[11px] font-medium text-gray-400 mt-2 m-0">{card.description}</p>}
                                 </div>
                             </div>
-                            
-                            {/* Decorative Pattern */}
-                            <div className="absolute -right-4 -bottom-4 opacity-[0.03] text-gray-900 group-hover:opacity-[0.05] transition-opacity">
-                                {card.icon}
-                            </div>
-                        </Card>
+                        </div>
                     </Col>
                 ))}
             </Row>
@@ -234,7 +222,7 @@ const Dashboard = () => {
                                 {
                                     title: 'STATUS',
                                     key: 'status',
-                                    render: () => <Tag color="processing" className="rounded-full border-none px-3 font-bold text-[10px] uppercase">New</Tag>
+                                    render: () => <Tag className="rounded-full !border-[#9D1B50]/30 !text-[#9D1B50] !bg-[#fbe8f0] px-3 py-0.5 font-bold text-[10px] uppercase m-0">NEW</Tag>
                                 }
                             ]}
                         />
@@ -258,13 +246,11 @@ const Dashboard = () => {
                             {[
                                 { label: 'Issue Membership Certificate', icon: <Award size={18} />, color: '#9D1B50', path: '/admin/certificates' },
                                 { label: 'Manage Contact Enquiries', icon: <Mail size={18} />, color: '#3b82f6', path: '/admin/messages' },
-                                { label: 'Update Academy Policy', icon: <ClipboardList size={18} />, color: '#10b981', path: '#' },
-                                { label: 'User Management', icon: <Users size={18} />, color: '#f59e0b', path: '#' },
                             ].map((item, i) => (
-                                <Button 
+                                <div 
                                     key={i}
                                     onClick={() => navigate(item.path)}
-                                    className="h-16 rounded-2xl border-gray-50 bg-gray-50 hover:bg-white hover:border-[#9D1B50]/20 hover:shadow-md transition-all flex items-center justify-between px-6 group"
+                                    className="cursor-pointer h-16 rounded-2xl border border-gray-100 bg-gray-50 hover:bg-white hover:border-[#9D1B50]/30 hover:shadow-md transition-all flex items-center justify-between px-6 group"
                                 >
                                     <div className="flex items-center gap-4">
                                         <div className="text-gray-400 group-hover:text-[#9D1B50] transition-colors">
@@ -273,7 +259,7 @@ const Dashboard = () => {
                                         <span className="font-bold text-gray-700 text-sm group-hover:text-gray-900 transition-colors text-left">{item.label}</span>
                                     </div>
                                     <ArrowUpRight size={16} className="text-gray-300 group-hover:text-[#9D1B50] transition-colors" />
-                                </Button>
+                                </div>
                             ))}
                         </div>
                     </Card>
@@ -286,16 +272,20 @@ const Dashboard = () => {
                     padding: 0 32px !important;
                     min-height: 80px !important;
                 }
-                .ant-table-thead > tr > th {
+                .admin-dashboard-wrapper .ant-table-thead > tr > th {
                     background: transparent !important;
-                    color: #9ca3af !important;
-                    font-weight: 800 !important;
-                    font-size: 10px !important;
+                    color: #6b7280 !important;
+                    font-weight: 700 !important;
+                    font-size: 12px !important;
                     text-transform: uppercase !important;
-                    letter-spacing: 0.1em !important;
-                    padding: 24px !important;
+                    letter-spacing: 0.05em !important;
+                    padding: 18px 24px !important;
+                    border-bottom: 1px solid #f9fafb !important;
                 }
-                .ant-table-tbody > tr > td {
+                .admin-dashboard-wrapper .ant-table-thead > tr > th::before {
+                    display: none !important;
+                }
+                .admin-dashboard-wrapper .ant-table-tbody > tr > td {
                     padding: 24px !important;
                     border-bottom: 1px solid #f9fafb !important;
                 }

@@ -57,32 +57,30 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             width={280}
             theme="light"
             style={{ height: '100vh', overflowY: 'auto' }}
-            className="border-r border-gray-100 shadow-[20px_0_50px_rgba(0,0,0,0.02)] scrollbar-hide"
+            className="border-r border-gray-100 shadow-none scrollbar-hide"
             trigger={null}
         >
-
-
             <div className="flex flex-col h-full py-8">
                 {/* Logo Section */}
-                <div className="px-4 mb-12 flex items-center justify-between">
+                <div className={`mb-10 flex items-center ${collapsed ? 'justify-center px-0' : 'justify-between px-4'}`}>
                     {!collapsed && (
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-[#9D1B50] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#9D1B50]/20">
-                                <LucideIcons.ShieldCheck size={24} />
+                        <div className="flex items-center gap-3 px-2">
+                            <div className="w-9 h-9 bg-[#9D1B50] rounded-xl flex items-center justify-center text-white shadow-sm">
+                                <LucideIcons.ShieldCheck size={20} />
                             </div>
-                            <span className="text-xl font-black text-gray-900 tracking-tight">BM Admin</span>
+                            <span className="text-[19px] font-bold text-gray-900 tracking-tight">BM Admin</span>
                         </div>
                     )}
                     <button 
                         onClick={() => setCollapsed(!collapsed)}
-                        className="p-2 hover:bg-gray-100 rounded-lg text-gray-400 transition-all ml-auto"
+                        className={`p-2 hover:bg-gray-50 rounded-lg text-gray-400 transition-colors border-none bg-transparent cursor-pointer outline-none ${collapsed ? '' : ''}`}
                     >
                         {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
                     </button>
                 </div>
 
                 {/* Navigation Menu */}
-                <div className="flex-1 px-4">
+                <div className={`flex-1 ${collapsed ? 'px-2' : 'px-4'}`}>
                     <Menu
                         mode="inline"
                         selectedKeys={[location.pathname]}
@@ -93,16 +91,16 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                 </div>
 
                 {/* Footer / Profile Section */}
-                <div className="px-4 mt-auto">
-                    <div className={`p-4 rounded-2xl transition-all duration-300 ${collapsed ? 'bg-transparent' : 'bg-gray-50 border border-gray-100'}`}>
-                        <div className="flex items-center gap-4 overflow-hidden">
-                            <div className="w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-[#9D1B50] shadow-sm shrink-0">
-                                <User size={20} />
+                <div className={`mt-auto ${collapsed ? 'px-0' : 'px-4'}`}>
+                    <div className={`transition-all duration-300 flex flex-col items-center ${collapsed ? 'bg-transparent p-2' : 'bg-gray-50 p-4 rounded-[1.25rem]'}`}>
+                        <div className={`flex items-center gap-3 overflow-hidden w-full ${collapsed ? 'justify-center' : ''}`}>
+                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${collapsed ? 'bg-transparent text-gray-400' : 'bg-[#fbe8f0] text-[#9D1B50] font-bold text-lg'}`}>
+                                {collapsed ? <User size={20} /> : (adminUser.name ? adminUser.name.charAt(0).toUpperCase() : 'A')}
                             </div>
                             {!collapsed && (
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-bold text-gray-900 truncate">{adminUser.name || 'Admin'}</p>
-                                    <p className="text-[10px] uppercase font-black text-gray-400 tracking-wider">Super Admin</p>
+                                    <p className="text-[15px] font-medium text-gray-900 truncate m-0 leading-tight">{adminUser.name || 'Admin User'}</p>
+                                    <p className="text-[11px] uppercase font-bold text-gray-400 tracking-widest mt-1 m-0">Super Admin</p>
                                 </div>
                             )}
                         </div>
@@ -110,7 +108,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                         {!collapsed && (
                             <button 
                                 onClick={handleLogout}
-                                className="w-full mt-4 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-red-50 text-red-500 font-bold text-sm hover:bg-red-500 hover:text-white transition-all duration-300"
+                                className="w-full mt-5 flex items-center justify-center gap-2 py-2.5 rounded-lg text-gray-500 font-medium text-[14px] hover:text-red-600 hover:bg-red-50 border-none bg-transparent cursor-pointer outline-none transition-colors duration-200"
                             >
                                 <LogOut size={16} />
                                 <span>Logout</span>
@@ -120,7 +118,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                         {collapsed && (
                             <button 
                                 onClick={handleLogout}
-                                className="w-full mt-4 flex items-center justify-center p-2 text-gray-400 hover:text-red-500 transition-all"
+                                className="w-full mt-4 flex items-center justify-center p-2 text-gray-400 hover:text-red-500 transition-colors border-none bg-transparent cursor-pointer outline-none"
                             >
                                 <LogOut size={20} />
                             </button>
@@ -131,27 +129,36 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
 
             <style>{`
                 .admin-sidebar-menu .ant-menu-item {
-                    height: 56px !important;
-                    line-height: 56px !important;
-                    border-radius: 14px !important;
-                    margin-bottom: 8px !important;
-                    font-weight: 600 !important;
-                    color: #6b7280 !important;
-                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                    height: 50px !important;
+                    line-height: 50px !important;
+                    border-radius: 10px !important;
+                    margin-bottom: 6px !important;
+                    font-weight: 500 !important;
+                    font-size: 15px !important;
+                    color: #64748b !important;
+                    transition: all 0.2s ease !important;
                 }
                 .admin-sidebar-menu .ant-menu-item-selected {
                     background-color: #fbe8f0 !important;
                     color: #9D1B50 !important;
+                    font-weight: 600 !important;
                 }
                 .admin-sidebar-menu .ant-menu-item-selected .ant-menu-title-content {
                     color: #9D1B50 !important;
                 }
-                .admin-sidebar-menu .ant-menu-item-active {
-                    background-color: #f9fafb !important;
-                    color: #9D1B50 !important;
+                .admin-sidebar-menu .ant-menu-item-active:not(.ant-menu-item-selected) {
+                    background-color: #f8fafc !important;
+                    color: #0f172a !important;
                 }
                 .admin-sidebar-menu.ant-menu-inline-collapsed .ant-menu-item {
-                    padding: 0 calc((80px - 20px) / 2) !important;
+                    padding: 0 !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                }
+                .admin-sidebar-menu.ant-menu-inline-collapsed .ant-menu-item .anticon {
+                    margin: 0 !important;
+                    font-size: 20px !important;
                 }
                 .scrollbar-hide::-webkit-scrollbar {
                     display: none;
@@ -160,7 +167,6 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                     -ms-overflow-style: none;
                     scrollbar-width: none;
                 }
-
             `}</style>
         </Sider>
     );

@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Hero from '../modules/home/pages/Hero';
 import Welcome from '../modules/home/pages/Welcome';
 import Contact from '../modules/home/pages/Contact/Contact';
-import VerifyCertificate from '../modules/home/pages/certificate/Verify';
+import VerifyCertificate from '../modules/home/pages/certificate/VerifyCertificate';
 
 export const Homeroutes = () => {
     return (

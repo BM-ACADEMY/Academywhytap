@@ -40,13 +40,20 @@ const AdminContact = () => {
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
 
     const fetchMessages = async () => {
+        const token = localStorage.getItem('adminToken');
+        if (!token) return;
+
         setLoading(true);
         try {
-            const response = await fetch(`${import.meta.env.VITE_BASE_URI}contact/all/`);
+            const response = await fetch(`${import.meta.env.VITE_BASE_URI}contact/all/`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             if (response.ok) {
                 const data = await response.json();
                 setMessages(data);
-            } else {
+            } else if (response.status !== 401) {
                 message.error('Failed to fetch messages');
             }
         } catch (error) {
@@ -73,14 +80,22 @@ const AdminContact = () => {
             title: 'Delete Message',
             content: 'Are you sure you want to delete this message? This action cannot be undone.',
             okText: 'Yes, Delete',
-            okType: 'danger',
+            okType: 'default',
+            okButtonProps: { 
+                className: "border-gray-200 text-gray-600 hover:!border-red-500 hover:!bg-red-50 hover:!text-red-600 shadow-sm transition-all"
+            },
             cancelText: 'Cancel',
+            cancelButtonProps: { className: "hover:!border-[#9D1B50] hover:!text-[#9D1B50]" },
             centered: true,
             maskClosable: true,
             onOk: async () => {
                 try {
+                    const token = localStorage.getItem('adminToken');
                     const response = await fetch(`${import.meta.env.VITE_BASE_URI}contact/${id}/`, {
                         method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
                     });
                     
                     if (response.ok) {
@@ -136,27 +151,24 @@ const AdminContact = () => {
             title: 'ACTIONS',
             key: 'actions',
             render: (_, record) => (
-                <Space size="middle">
-                    <Tooltip title="View Message">
-                        <Button 
-                            type="text" 
-                            className="bg-gray-50 hover:bg-[#fbe8f0]/50 text-gray-400 hover:text-[#9D1B50] rounded-xl flex items-center justify-center p-0 w-10 h-10 transition-all border-none"
-                            onClick={() => viewMessageDetails(record)}
-                        >
-                            <Eye size={18} />
-                        </Button>
-                    </Tooltip>
-                    <Tooltip title="Delete">
-                        <Button 
-                            type="text" 
-                            className="bg-gray-50 hover:bg-red-50 text-gray-400 hover:text-red-500 rounded-xl flex items-center justify-center p-0 w-10 h-10 transition-all border-none"
-                            onClick={(e) => handleDeleteMessage(record.id, e)}
-                        >
-                            <Trash2 size={18} />
-                        </Button>
-                    </Tooltip>
-
-                </Space>
+                <div className="flex items-center gap-3">
+                    <Button 
+                        type="default" 
+                        icon={<Eye size={16} className="text-current" />}
+                        className="flex items-center justify-center gap-2 rounded-lg border-[#9D1B50]/30 text-[#9D1B50] hover:!border-[#9D1B50] hover:!bg-[#9D1B50] hover:!text-white transition-all font-medium h-9 px-4 shadow-sm"
+                        onClick={() => viewMessageDetails(record)}
+                    >
+                        View
+                    </Button>
+                    <Button 
+                        type="default" 
+                        icon={<Trash2 size={16} className="text-current" />}
+                        className="flex items-center justify-center gap-2 rounded-lg border-gray-200 text-gray-600 hover:!border-red-500 hover:!bg-red-50 hover:!text-red-600 transition-all font-medium h-9 px-4 shadow-sm"
+                        onClick={(e) => handleDeleteMessage(record.id, e)}
+                    >
+                        Delete
+                    </Button>
+                </div>
             ),
         },
     ];
@@ -168,7 +180,7 @@ const AdminContact = () => {
     );
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-700">
+        <div className="space-y-8 animate-in fade-in duration-700 admin-contact-wrapper">
             {/* Header Section */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
@@ -184,44 +196,48 @@ const AdminContact = () => {
                     <Button 
                         icon={<RefreshCw size={16} className={loading ? 'animate-spin' : ''} />} 
                         onClick={fetchMessages}
-                        className="h-12 px-6 rounded-xl border-gray-100 hover:border-[#9D1B50] hover:text-[#9D1B50] font-bold transition-all shadow-sm flex items-center gap-2"
+                        className="h-12 px-6 rounded-xl border-gray-100 hover:!border-[#9D1B50] hover:!text-[#9D1B50] font-bold transition-all shadow-sm flex items-center gap-2"
                     >
                         Refresh List
                     </Button>
                 </div>
             </div>
 
-            {/* Stats Summary (Optional) */}
+            {/* Stats Summary */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 {[
-                    { label: 'Total Inquiries', value: messages.length, color: '#9D1B50', bg: '#fbe8f0' },
-                    { label: 'New Today', value: messages.filter(m => dayjs(m.created_at).utc(true).local().isSame(dayjs(), 'day')).length, color: '#3b82f6', bg: '#eff6ff' },
-                    { label: 'Avg Frequency', value: '2.5 / Day', color: '#10b981', bg: '#ecfdf5' },
+                    { label: 'Total Inquiries', value: messages.length, color: 'from-[#9D1B50] to-[#821440]', icon: Mail },
+                    { label: 'New Today', value: messages.filter(m => dayjs(m.created_at).utc(true).local().isSame(dayjs(), 'day')).length, color: 'from-blue-500 to-indigo-600', icon: Mail },
+                    { label: 'Avg Frequency', value: '2.5', labelSuffix: '/ Day', color: 'from-emerald-400 to-teal-600', icon: Mail },
                 ].map((stat, i) => (
-                    <Card key={i} className="rounded-3xl border-gray-50 shadow-sm overflow-hidden group hover:shadow-md transition-all">
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110" style={{ backgroundColor: stat.bg, color: stat.color }}>
-                                <Mail size={22} />
+                    <div key={i} className="bg-white rounded-[2rem] p-6 pr-8 border border-gray-100 shadow-[0_2px_10px_-3px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_-5px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden">
+                        <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${stat.color} opacity-[0.04] rounded-bl-full -mr-8 -mt-8 transition-transform duration-500 group-hover:scale-110`} />
+                        <div className="flex items-center gap-5 relative z-10">
+                            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br ${stat.color} text-white shadow-md transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110`}>
+                                <stat.icon size={26} strokeWidth={2.5} />
                             </div>
-                            <div>
-                                <p className="text-xs font-black text-gray-400 uppercase tracking-widest m-0">{stat.label}</p>
-                                <p className="text-2xl font-black text-gray-900 m-0">{stat.value}</p>
+                            <div className="flex flex-col">
+                                <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
+                                <div className="flex items-baseline gap-2">
+                                  <p className="text-3xl font-medium text-gray-900 m-0 tracking-tight leading-none">{stat.value}</p>
+                                  {stat.labelSuffix && <span className="text-xs font-bold text-gray-400">{stat.labelSuffix}</span>}
+                                </div>
                             </div>
                         </div>
-                    </Card>
+                    </div>
                 ))}
             </div>
 
             {/* Main Table Content */}
             <Card className="rounded-[2.5rem] border-gray-50 shadow-sm overflow-hidden">
                 <div className="p-6 border-b border-gray-50 flex items-center justify-between">
-                    <div className="relative w-full max-w-md">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <div className="relative w-full max-w-md cursor-pointer">
                         <Input 
+                            prefix={<Search className="text-gray-400 mr-2" size={18} />}
                             placeholder="Search by name, email or subject..." 
                             value={searchText}
                             onChange={e => setSearchText(e.target.value)}
-                            className="h-12 pl-12 pr-6 bg-gray-50 border-none rounded-xl text-sm font-medium w-full focus:bg-white focus:ring-2 focus:ring-[#9D1B50]/10 transition-all outline-none"
+                            className="h-12 px-6 bg-gray-50 border-none rounded-[2rem] text-sm font-medium w-full focus-within:!bg-white focus-within:!ring-2 focus-within:!ring-[#9D1B50]/20 transition-all outline-none group hover:bg-white"
                         />
                     </div>
                 </div>
@@ -254,59 +270,71 @@ const AdminContact = () => {
                 className="message-details-modal"
             >
                 {selectedMessage && (
-                    <div className="py-6">
-                        <div className="flex items-center gap-4 mb-10 pb-8 border-b border-gray-50">
-                            <div className="w-16 h-16 rounded-2xl bg-[#fbe8f0] flex items-center justify-center text-[#9D1B50] font-black text-2xl shadow-sm">
+                    <div className="py-2">
+                        <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gray-50">
+                            <div className="w-16 h-16 rounded-2xl bg-[#fbe8f0] flex items-center justify-center text-[#9D1B50] font-black text-2xl">
                                 {selectedMessage.name.charAt(0).toUpperCase()}
                             </div>
                             <div>
-                                <Title level={3} className="m-0 font-black tracking-tight text-gray-900">{selectedMessage.name}</Title>
+                                <h3 className="text-2xl m-0 font-medium text-gray-900">{selectedMessage.name}</h3>
                                 <div className="flex items-center gap-3 mt-1">
-                                    <Tag color="blue" className="rounded-full px-3 py-0.5 border-none font-bold text-[11px] uppercase tracking-wider">{selectedMessage.email}</Tag>
-                                    <Text className="text-gray-400 font-bold text-[12px]">{dayjs(selectedMessage.created_at).utc(true).local().format('MMM DD, YYYY - HH:mm')}</Text>
+                                    <Tag color="blue" className="px-2 py-0.5 border-none font-bold text-[11px] uppercase tracking-wider bg-blue-50 text-blue-600 m-0">{selectedMessage.email}</Tag>
+                                    <span className="text-gray-900 font-bold text-[13px]">{dayjs(selectedMessage.created_at).utc(true).local().format('MMM DD, YYYY - HH:mm')}</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="space-y-8">
+                        <div className="space-y-6">
                             <div>
-                                <Text type="secondary" className="text-[10px] uppercase font-black tracking-[0.2em] block mb-3 opacity-60">Subject</Text>
-                                <Text className="text-xl font-bold text-gray-900 leading-tight block">
+                                <span className="text-[12px] uppercase font-bold tracking-widest text-gray-400 block mb-2">Subject</span>
+                                <span className="text-[15px] text-gray-900 block">
                                     {selectedMessage.subject || 'No Subject Provided'}
-                                </Text>
+                                </span>
                             </div>
 
-                            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-100/50">
-                                <Text type="secondary" className="text-[10px] uppercase font-black tracking-[0.2em] block mb-4 opacity-60">Message Content</Text>
-                                <div className="text-gray-700 font-medium text-lg leading-relaxed whitespace-pre-wrap">
+                            <div className="bg-gray-50 p-6 rounded-[1.25rem]">
+                                <span className="text-[12px] uppercase font-bold tracking-widest text-gray-400 block mb-3">Message Content</span>
+                                <div className="text-[#334155] text-[15px] leading-relaxed whitespace-pre-wrap">
                                     {selectedMessage.message}
                                 </div>
                             </div>
                         </div>
 
-                        <div className="mt-12 flex justify-end gap-4">
-                            <Button 
-                                type="text"
-                                className="h-14 px-8 rounded-2xl font-bold bg-gray-50 text-gray-500 hover:bg-gray-100 transition-all"
+                        <div className="mt-8 flex justify-end items-center gap-6">
+                            <button 
+                                className="text-gray-600 font-medium text-[14px] hover:text-gray-900 transition-colors bg-transparent border-none cursor-pointer outline-none"
                                 onClick={() => setIsDetailsModalOpen(false)}
                             >
                                 Close View
-                            </Button>
-                            <Button 
-                                type="text"
-                                className="h-14 px-8 rounded-2xl font-bold bg-red-50 text-red-500 hover:bg-red-100 transition-all flex items-center gap-2"
+                            </button>
+                            <button 
+                                className="text-gray-600 font-medium text-[14px] hover:text-gray-900 transition-colors flex items-center gap-2 bg-transparent border-none cursor-pointer outline-none"
                                 onClick={() => handleDeleteMessage(selectedMessage.id)}
                             >
-                                <Trash2 size={18} />
+                                <Trash2 size={16} />
                                 Delete
-                            </Button>
+                            </button>
 
                             <Button 
                                 type="primary"
-                                className="h-14 px-10 rounded-2xl font-bold bg-[#9D1B50] hover:bg-[#861B47] transition-all shadow-lg shadow-[#9D1B50]/20 flex items-center gap-3"
-                                onClick={() => window.location.href = `mailto:${selectedMessage.email}`}
+                                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${selectedMessage.email?.trim()}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ 
+                                    backgroundColor: '#9D1B50', 
+                                    color: 'white', 
+                                    border: 'none', 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    gap: '8px', 
+                                    height: '40px', 
+                                    padding: '0 24px', 
+                                    borderRadius: '8px',
+                                    fontWeight: 500,
+                                    cursor: 'pointer'
+                                }}
                             >
-                                <Mail size={18} />
+                                <Mail size={16} />
                                 <span>Reply via Email</span>
                             </Button>
                         </div>
@@ -316,14 +344,17 @@ const AdminContact = () => {
 
             <style>{`
                 .admin-contact-table .ant-table-thead > tr > th {
-                    background: transparent !important;
-                    color: #9ca3af !important;
-                    font-weight: 800 !important;
-                    font-size: 11px !important;
+                    background: #fcfcfc !important;
+                    color: #6b7280 !important;
+                    font-weight: 700 !important;
+                    font-size: 12px !important;
                     text-transform: uppercase !important;
-                    letter-spacing: 0.1em !important;
-                    padding: 24px !important;
-                    border-bottom: 1px solid #f9fafb !important;
+                    letter-spacing: 0.05em !important;
+                    padding: 18px 24px !important;
+                    border-bottom: 2px solid #f3f4f6 !important;
+                }
+                .admin-contact-table .ant-table-thead > tr > th::before {
+                    display: none !important;
                 }
                 .admin-contact-table .ant-table-tbody > tr > td {
                     padding: 24px !important;
@@ -332,6 +363,40 @@ const AdminContact = () => {
                 .admin-contact-table .ant-table {
                     background: transparent !important;
                 }
+                
+                /* Pagination Theming */
+                .admin-contact-wrapper .ant-pagination-item-active {
+                    border-color: #9D1B50 !important;
+                    background-color: #fbe8f0 !important;
+                }
+                .admin-contact-wrapper .ant-pagination-item-active a {
+                    color: #9D1B50 !important;
+                }
+                .admin-contact-wrapper .ant-pagination-item:hover {
+                    border-color: #9D1B50 !important;
+                }
+                .admin-contact-wrapper .ant-pagination-item:hover a {
+                    color: #9D1B50 !important;
+                }
+                .admin-contact-wrapper .ant-pagination-prev:hover .ant-pagination-item-link,
+                .admin-contact-wrapper .ant-pagination-next:hover .ant-pagination-item-link {
+                    color: #9D1B50 !important;
+                    border-color: #9D1B50 !important;
+                }
+
+                /* Input Overrides */
+                .admin-contact-wrapper .ant-input:hover,
+                .admin-contact-wrapper .ant-input-affix-wrapper:hover {
+                    border-color: #9D1B50 !important;
+                }
+                .admin-contact-wrapper .ant-input:focus,
+                .admin-contact-wrapper .ant-input-focused,
+                .admin-contact-wrapper .ant-input-affix-wrapper:focus,
+                .admin-contact-wrapper .ant-input-affix-wrapper-focused {
+                    border-color: #9D1B50 !important;
+                    box-shadow: 0 0 0 2px rgba(157, 27, 80, 0.1) !important;
+                }
+
                 .message-details-modal .ant-modal-content {
                     border-radius: 3rem !important;
                     padding: 40px !important;

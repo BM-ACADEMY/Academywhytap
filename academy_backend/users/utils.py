@@ -7,7 +7,7 @@ def create_jwt(user):
         "user_id": str(user.id),
         "email": user.email,
         "role": user.role,
-        "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(days=7),
         "iat": datetime.datetime.utcnow(),
     }
     token = jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256")

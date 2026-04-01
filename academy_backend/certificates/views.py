@@ -7,6 +7,7 @@ from bson import ObjectId
 from dateutil import parser as date_parser
 from django.http import FileResponse, Http404
 import os
+import sys
 
 from .models import Certificate
 from users.models import User as MongoUser
@@ -17,11 +18,12 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 # ---------------------------------------------------------
-# CERTIFICATE IMAGE GENERATOR
+# CERTIFICATE IMAGE GENERATOR (PERFECT ALIGNMENT)
 # ---------------------------------------------------------
 def generate_certificate_file(certificate_id, name, course_name, date_str):
     """
-    Generates a high-quality certificate image by drawing text on a template.
+    Generates a premium certificate file matching the reference design exactly.
+    Uses mixed text weights (Regular + Bold) on the same horizontal line.
     """
     template_path = os.path.join("static", "templates", "template.png")
     output_dir = os.path.join("static", "certificates")
@@ -33,53 +35,96 @@ def generate_certificate_file(certificate_id, name, course_name, date_str):
     
     try:
         # Load the template
-        img = Image.open(template_path).convert("RGB") # Convert to RGB for PDF compatibility
+        if not os.path.exists(template_path):
+            raise Exception(f"Template not found at {template_path}")
+            
+        img = Image.open(template_path).convert("RGB")
         draw = ImageDraw.Draw(img)
         
-        # Load Fonts (Using Arial as a professional standard)
-        # On Windows, Arial is typically in C:\Windows\Fonts\
-        font_path_bold = "C:\\Windows\\Fonts\\arialbd.ttf" # Bold
-        font_path_regular = "C:\\Windows\\Fonts\\arial.ttf" # Regular
-        
-        # Fallback for search or other OS
-        if not os.path.exists(font_path_bold):
-            font_path_bold = "arial.ttf" # Try local or system path
+        # Load Fonts (Use standard names, Pillow will search system fonts on Windows)
+        font_name_bold = "arialbd.ttf"
+        font_name_regular = "arial.ttf"
 
-        # Define Font Sizes
-        title_font = ImageFont.truetype(font_path_bold, 80)
-        course_font = ImageFont.truetype(font_path_bold, 50)
-        details_font = ImageFont.truetype(font_path_regular, 35)
-        id_font = ImageFont.truetype(font_path_regular, 25)
+        # Font Sizes (Calibrated for the professional compact design)
+        reg_size = 28
+        bold_size = 38
+        bottom_size = 24
 
-        # Image size for centering
+        try:
+            font_reg = ImageFont.truetype(font_name_regular, reg_size)
+            font_bold = ImageFont.truetype(font_name_bold, bold_size)
+            font_bottom = ImageFont.truetype(font_name_regular, bottom_size)
+        except:
+            # Fallback for systems without Arial
+            print("Font loading failed, using default...")
+            font_reg = ImageFont.load_default()
+            font_bold = ImageFont.load_default()
+            font_bottom = ImageFont.load_default()
+
         W, H = img.size
 
-        # 1. Draw Name (Centered)
-        name_text = name.upper()
-        # draw.text((W/2, H/2 - 50), name_text, fill="#9D1B50", font=title_font, anchor="mm")
-        # For simplicity without anchor, we calculate offset
-        left, top, right, bottom = draw.textbbox((0, 0), name_text, font=title_font)
-        draw.text(((W - (right - left)) / 2, H * 0.45), name_text, fill="#9D1B50", font=title_font)
+        # --- Helper for centers-aligned mixed style lines ---
+        def draw_centered_mixed_text(y, segments, segment_fonts, segment_colors):
+            total_w = 0
+            widths = []
+            for i, p in enumerate(segments):
+                l, t, r, b = draw.textbbox((0, 0), p, font=segment_fonts[i])
+                w = r - l
+                widths.append(w)
+                total_w += w
+            
+            curr_x = (W - total_w) / 2
+            for i, p in enumerate(segments):
+                # Calculate baseline offset so fonts of different sizes align properly
+                _, t, _, b = draw.textbbox((0, 0), p, font=segment_fonts[i])
+                # Ensure coordinates are integers for compatibility
+                draw.text((int(curr_x), int(y - (b - t)/4)), p, fill=segment_colors[i], font=segment_fonts[i])
+                curr_x += widths[i]
 
-        # 2. Draw Course Name
-        course_text = f"for successfully completing the course in {course_name}"
-        left, top, right, bottom = draw.textbbox((0, 0), course_text, font=course_font)
-        draw.text(((W - (right - left)) / 2, H * 0.58), course_text, fill="#333333", font=course_font)
+        # 1. Line 1: Awarded Line
+        draw_centered_mixed_text(
+            H * 0.44,
+            ["This certificate is awarded to Mr./Ms. ", name.upper()],
+            [font_reg, font_bold],
+            ["#444444", "#111111"]
+        )
 
-        # 3. Draw Date
-        date_label = f"Issued on: {date_str}"
-        draw.text((W * 0.15, H * 0.82), date_label, fill="#666666", font=details_font)
+        # 2. Line 2: Completion Line
+        draw_centered_mixed_text(
+            H * 0.51,
+            ["for the successful completion of the Professional Certificate Course in ", course_name],
+            [font_reg, font_bold],
+            ["#444444", "#111111"]
+        )
 
-        # 4. Draw Certificate ID
-        id_label = f"Verification ID: {certificate_id}"
-        draw.text((W * 0.15, H * 0.86), id_label, fill="#888888", font=id_font)
+        # 3. Line 3: Conducted Line
+        draw_centered_mixed_text(
+            H * 0.57,
+            ["conducted by ", "BM Academy."],
+            [font_reg, font_bold],
+            ["#444444", "#111111"]
+        )
 
-        # Save the result as PDF
-        img.save(output_path, "PDF", resolution=100.0)
+        # 4. Bottom Details (Aligned with dotted lines)
+        # Certificate ID (~22% W)
+        l, t, r, b = draw.textbbox((0, 0), certificate_id, font=font_bottom)
+        draw.text((int((W * 0.22) - (r - l) / 2), int(H * 0.812)), certificate_id, fill="#333333", font=font_bottom)
+
+        # Date of Issue (~78% W)
+        l, t, r, b = draw.textbbox((0, 0), date_str, font=font_bottom)
+        draw.text((int((W * 0.78) - (r - l) / 2), int(H * 0.812)), date_str, fill="#333333", font=font_bottom)
+
+        # Save result as PDF
+        img.save(output_path, "PDF", resolution=150.0)
+        print(f"Certificate {certificate_id} generated successfully at {output_path}")
         return output_path
         
     except Exception as e:
-        print(f"Error generating certificate: {e}")
+        # Log error to terminal and a local log file
+        err_msg = f"ERROR generating certificate {certificate_id}: {e}"
+        print(err_msg)
+        with open("cert_error.log", "a") as f:
+            f.write(f"{datetime.utcnow()}: {err_msg}\n")
         return None
 
 
@@ -117,43 +162,30 @@ class CertificateViewSet(viewsets.ViewSet):
     def _get_course_code(self, course_name):
         if not course_name:
             return "GEN"
-
-        # Split by spaces and filter out empty strings
         words = [w.strip() for w in course_name.split() if w.strip()]
-        
         if not words:
             return "GEN"
-            
-        # Extract the first letter of each word
-        # e.g., "Frontend Course" -> "FC"
-        # e.g., "Python Fullstack Development" -> "PFD"
         initials = "".join([w[0].upper() for w in words])
-        
         return initials if initials else "GEN"
 
     def _generate_manual_certificate_id(self, course_name, issued_date=None):
         year = issued_date.year if issued_date else datetime.utcnow().year
         course_code = self._get_course_code(course_name)
-
         prefix = f"BM{course_code}{year}"
-
-        # Get count of manual certificates for this prefix
         last_cert = (
             Certificate.objects(certificate_id__startswith=prefix)
             .order_by("-certificate_id")
             .first()
         )
-
         if last_cert:
-            # Extract last 3 digits
             try:
-                last_number = int(last_cert.certificate_id[-3:])
+                last_number = int(last_cert.certificate_id.split(prefix)[-1])
                 next_number = last_number + 1
             except (ValueError, IndexError):
-                next_number = 1
+                # Fallback to incrementing based on total count if pattern fails
+                next_number = Certificate.objects(certificate_id__startswith=prefix).count() + 1
         else:
             next_number = 1
-
         return f"{prefix}{next_number:03d}"
 
     # ---------------------------------------------------------
@@ -170,10 +202,8 @@ class CertificateViewSet(viewsets.ViewSet):
 
         current_time = datetime.utcnow()
         certificate_id = generate_certificate_id(current_time)
-
         user = MongoUser.objects(id=ObjectId(user_id)).first()
         user_name = user.name if user else "Unknown User"
-
         course_title = request.data.get("course_name", "Unknown Course")
 
         cert = Certificate(
@@ -183,8 +213,12 @@ class CertificateViewSet(viewsets.ViewSet):
             issue_date=current_time,
         )
         
-        # Generate the physical file
-        date_str = current_time.strftime("%d %B %Y")
+        # Use simple date format if system doesn't support stripped-zero
+        try:
+            date_str = current_time.strftime("%#m/%#d/%Y")
+        except:
+            date_str = current_time.strftime("%m/%d/%Y")
+            
         file_path = generate_certificate_file(certificate_id, user_name, course_title, date_str)
         if file_path:
             cert.file_path = file_path
@@ -207,7 +241,7 @@ class CertificateViewSet(viewsets.ViewSet):
         )
 
     # ---------------------------------------------------------
-    # MANUAL CERTIFICATE (UPDATED FORMAT)
+    # MANUAL CERTIFICATE (PERFECT ALIGNMENT)
     # ---------------------------------------------------------
     @action(
         detail=False,
@@ -242,8 +276,12 @@ class CertificateViewSet(viewsets.ViewSet):
             issue_date=issued_dt,
         )
         
-        # Generate the physical file
-        date_str = issued_dt.strftime("%d %B %Y")
+        # Format date for display on certificate
+        try:
+            date_str = issued_dt.strftime("%#m/%#d/%Y")
+        except:
+            date_str = issued_dt.strftime("%m/%d/%Y")
+            
         file_path = generate_certificate_file(certificate_id, name, course, date_str)
         if file_path:
             cert.file_path = file_path
@@ -268,24 +306,19 @@ class CertificateViewSet(viewsets.ViewSet):
     # ---------------------------------------------------------
     def list(self, request):
         certificates = Certificate.objects.all()
-
         range_param = request.query_params.get("range")
         from_date = request.query_params.get("from")
         to_date = request.query_params.get("to")
-
         now_dt = datetime.utcnow()
 
         if range_param == "today":
             start = now_dt.replace(hour=0, minute=0, second=0, microsecond=0)
             end = start + timedelta(days=1)
             certificates = certificates.filter(issue_date__gte=start, issue_date__lt=end)
-
         elif range_param == "7":
             certificates = certificates.filter(issue_date__gte=now_dt - timedelta(days=7))
-
         elif range_param == "30":
             certificates = certificates.filter(issue_date__gte=now_dt - timedelta(days=30))
-
         elif from_date and to_date:
             start = datetime.fromisoformat(from_date)
             end = datetime.fromisoformat(to_date) + timedelta(days=1)
@@ -302,7 +335,6 @@ class CertificateViewSet(viewsets.ViewSet):
             else:
                 user_name = cert.manual_name
                 course_name = cert.manual_course
-
             data.append(
                 {
                     "certificate_id": cert.certificate_id,
@@ -320,13 +352,10 @@ class CertificateViewSet(viewsets.ViewSet):
     # ---------------------------------------------------------
     def destroy(self, request, pk=None):
         cert = Certificate.objects(certificate_id=pk).first()
-
         if not cert and ObjectId.is_valid(pk):
             cert = Certificate.objects(id=ObjectId(pk)).first()
-
         if not cert:
             return Response({"error": "Certificate not found"}, status=status.HTTP_404_NOT_FOUND)
-
         cert.delete()
         return Response(
             {"message": "Certificate deleted successfully"}, status=status.HTTP_204_NO_CONTENT
@@ -341,10 +370,8 @@ class CertificateViewSet(viewsets.ViewSet):
 @permission_classes([AllowAny])
 def verify_certificate(request, certificate_id):
     cert = Certificate.objects(certificate_id=certificate_id).first()
-
     if not cert:
         return Response({"valid": False, "message": "Certificate not found"}, status=404)
-
     if cert.user_id:
         user = MongoUser.objects(id=ObjectId(cert.user_id)).first()
         user_name = user.name if user else "Unknown User"
@@ -352,7 +379,6 @@ def verify_certificate(request, certificate_id):
     else:
         user_name = cert.manual_name
         course_name = cert.manual_course
-
     return Response(
         {
             "valid": True,
@@ -368,36 +394,12 @@ def verify_certificate(request, certificate_id):
 # ---------------------------------------------------------
 def _serve_certificate_file(certificate_id, as_attachment=True):
     cert = Certificate.objects(certificate_id=certificate_id).first()
-
     if not cert:
         raise Http404("Certificate not found")
-
     if not cert.file_path:
         raise Http404("Certificate PDF not stored")
-
     if not os.path.exists(cert.file_path):
         raise Http404("Certificate file missing on server")
-
-    # SMART CONVERSION: If the file is a legacy PNG, convert it to PDF on-the-fly
-    if cert.file_path.endswith('.png'):
-        try:
-            from io import BytesIO
-            img = Image.open(cert.file_path).convert("RGB")
-            pdf_buffer = BytesIO()
-            img.save(pdf_buffer, "PDF", resolution=100.0)
-            pdf_buffer.seek(0)
-            
-            return FileResponse(
-                pdf_buffer,
-                content_type="application/pdf",
-                as_attachment=as_attachment,
-                filename=f"BM_CERT_{certificate_id}.pdf"
-            )
-        except Exception as e:
-            print(f"Conversion error: {e}")
-            raise Http404(f"Error converting legacy certificate to PDF: {str(e)}")
-
-    # For native PDF files
     return FileResponse(
         open(cert.file_path, "rb"),
         content_type="application/pdf",
