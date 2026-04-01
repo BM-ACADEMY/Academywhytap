@@ -121,13 +121,13 @@ export default function VerifyCertificate() {
               
               {result.valid ? (
                 <div className="space-y-8">
-                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-green-50/50 p-4 rounded-2xl border border-green-100">
+                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-100">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-green-500 shadow-sm">
+                      <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-[#9D1B50] shadow-sm border border-gray-100">
                         <Award size={24} />
                       </div>
                       <div>
-                        <Tag color="success" className="text-[10px] font-black uppercase leading-none px-2 rounded-full mb-2">Verified Credential</Tag>
+                        <Tag color="" className="text-[10px] font-black uppercase leading-none px-2 rounded-full mb-2 bg-[#fbe8f0] text-[#9D1B50] border-[#9D1B50]/20">Verified Credential</Tag>
                         <Title level={3} className="m-0 font-black text-gray-900">{result.name}</Title>
                         <Text strong className="text-gray-500 text-sm tracking-wide uppercase">{result.course}</Text>
                       </div>
@@ -136,7 +136,7 @@ export default function VerifyCertificate() {
                         <Button 
                             icon={<Download size={16} />} 
                             onClick={handleDownload}
-                            className="h-9 px-4 rounded-xl font-bold bg-white border-green-200 text-green-600 hover:bg-green-600 hover:text-white transition-all shadow-sm text-sm"
+                            className="h-9 px-4 rounded-xl font-bold bg-white border-[#9D1B50]/30 text-[#9D1B50] hover:bg-[#9D1B50] hover:text-white hover:border-[#9D1B50] transition-all shadow-sm text-sm"
                         >
                             Save Copy
                         </Button>
@@ -191,7 +191,11 @@ export default function VerifyCertificate() {
 
       <style>{`
         .ant-input:focus, .ant-input-focused {
-          box-shadow: 0 0 0 4px #9D1B5010 !important;
+          border-color: #9D1B50 !important;
+          box-shadow: 0 0 0 3px rgba(157, 27, 80, 0.1) !important;
+        }
+        .ant-input:hover {
+          border-color: #9D1B50 !important;
         }
         .ant-btn-primary {
           background-color: #9D1B50 !important;
@@ -200,6 +204,21 @@ export default function VerifyCertificate() {
         .ant-btn-primary:hover {
           background-color: #831643 !important;
           border-color: #831643 !important;
+        }
+        .ant-btn-default {
+          color: #9D1B50 !important;
+          border-color: rgba(157, 27, 80, 0.3) !important;
+        }
+        .ant-btn-default:hover {
+          color: white !important;
+          background-color: #9D1B50 !important;
+          border-color: #9D1B50 !important;
+        }
+        .ant-btn-default .anticon {
+          color: #9D1B50 !important;
+        }
+        .ant-btn-default:hover .anticon {
+          color: white !important;
         }
       `}</style>
     </div>
