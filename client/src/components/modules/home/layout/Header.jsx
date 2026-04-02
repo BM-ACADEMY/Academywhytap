@@ -40,7 +40,7 @@ const Header = () => {
   const navLinks = [
     { name: 'Home', href: '/', active: true },
     {
-      name: 'Courses',
+      name: 'Course',
       href: '#',
       hasDropdown: true,
       items: [
@@ -53,14 +53,14 @@ const Header = () => {
       ]
     },
     {
-      name: 'Placements',
+      name: 'Placement',
       href: '#',
       hasDropdown: true,
       items: ['Testimonials', 'Placement Records', 'Reviews']
     },
     { name: 'Events', href: '#' },
     {
-      name: 'Students Corner',
+      name: 'Student Corner',
       href: '#',
       hasDropdown: true,
       items: [
@@ -69,7 +69,8 @@ const Header = () => {
         'Student Login', 'Skill Test'
       ]
     },
-    { name: 'Contact Us', href: '/contact' },
+    { name: 'Verify Certificate', href: '/verify-certificate' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   const socialLinks = [
@@ -158,15 +159,6 @@ const Header = () => {
 
           {/* Header Action Buttons */}
           <div className="hidden lg:flex items-center gap-6">
-            <Link 
-              to="/verify-certificate" 
-              className="text-[14px] font-bold text-gray-600 hover:text-[#9D1B50] transition-colors flex items-center gap-2 group"
-            >
-              <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[#fbe8f0] transition-colors">
-                <Award size={16} className="text-gray-400 group-hover:text-[#9D1B50] transition-colors" />
-              </div>
-              <span className="hidden xl:inline">Verify Certificate</span>
-            </Link>
             <button
               onClick={() => setIsEnquiryModalOpen(true)}
               className="px-6 h-12 bg-[#9D1B50] text-white font-bold rounded-xl hover:bg-[#861B47] transition-all cursor-pointer text-sm shadow-md shadow-[#9D1B50]/20 active:scale-95"
@@ -209,14 +201,6 @@ const Header = () => {
                 )}
               </div>
             ))}
-            <Link
-              to="/verify-certificate"
-              onClick={() => setIsMenuOpen(false)}
-              className="flex items-center justify-center gap-3 w-full py-4 bg-gray-50 text-gray-700 font-bold rounded-xl hover:bg-[#fbe8f0] hover:text-[#9D1B50] transition-all text-lg"
-            >
-              <Award size={22} strokeWidth={2.5} />
-              Verify Certificate
-            </Link>
             <button
               onClick={() => {
                 setIsEnquiryModalOpen(true);
