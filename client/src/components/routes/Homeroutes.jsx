@@ -4,6 +4,7 @@ import Hero from '../modules/home/pages/Hero';
 import Welcome from '../modules/home/pages/Welcome';
 import Contact from '../modules/home/pages/Contact/Contact';
 import VerifyCertificate from '../modules/home/pages/certificate/VerifyCertificate';
+import Trendingcourses from '../modules/home/pages/Trendingcourses';
 
 export const Homeroutes = () => {
     return (
@@ -13,6 +14,7 @@ export const Homeroutes = () => {
                 <>
                     <Hero />
                     <Welcome />
+                    <Trendingcourses />
                 </>
             } />
             

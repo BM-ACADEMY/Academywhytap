@@ -1,19 +1,26 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { FileText, Play, ChevronLeft, ChevronRight, X } from 'lucide-react'; 
+import { 
+  Play, 
+  ChevronLeft, 
+  ChevronRight, 
+  X, 
+  Rocket, 
+  Phone,
+  CheckCircle2, 
+  Briefcase, 
+  Info
+} from 'lucide-react'; 
 
 const HeroSection = () => {
   const scrollContainerRef = useRef(null);
-  // State to track the currently selected video for the modal
   const [activeVideo, setActiveVideo] = useState(null);
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
 
   const courses = [
+    "Java Full Stack Development",
     "Data Analytics",
-    "Digital Marketing",
-    "Full Stack Development",
-    "Data Science",
-    "Video Editing",
-    "Python Programming"
+    "AI Digital Marketing",
+    "Video Editing"
   ];
 
   useEffect(() => {
@@ -34,13 +41,13 @@ const HeroSection = () => {
   const academyVideos = [
     {
       id: "Jd1EhinRUiE",
-      title: "Want a LinkedIn job search secret? 👀",
+      title: "Want a LinkedIn job search secret?",
       description: "Want a LinkedIn job search secret? Most people don't know this. Follow our steps to optimize your profile and land interviews faster.",
       thumbnail: "https://i.ytimg.com/vi/Jd1EhinRUiE/maxresdefault.jpg"
     },
     {
       id: "fQSYisy70RY",
-      title: "Are you confused about what your next plan should be? 🤔",
+      title: "Are you confused about what your next plan should be?",
       description: "Are you confused about what your next plan should be? Join our free consultation session and get clarity on your career path.",
       thumbnail: "https://i.ytimg.com/vi/fQSYisy70RY/maxresdefault.jpg"
     },
@@ -64,7 +71,6 @@ const HeroSection = () => {
     }
   ];
 
-  // Close modal when clicking the dark background overlay
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       setActiveVideo(null);
@@ -72,115 +78,187 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen bg-[#38062b] bg-gradient-to-br from-[#2a0420] via-[#4a0b3a] to-[#25031b] flex flex-col items-center justify-center pt-20 pb-12 px-4 font-sans text-white overflow-hidden">
+    <section className="relative font-sans overflow-hidden">
       
-      {/* Abstract Background Lines */}
-      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <line x1="0" y1="50%" x2="100%" y2="10%" stroke="white" strokeWidth="0.5" />
-          <line x1="20%" y1="100%" x2="80%" y2="0" stroke="white" strokeWidth="0.5" />
-          <circle cx="20%" cy="20%" r="2" fill="white" />
-          <circle cx="80%" cy="40%" r="1.5" fill="#ffcf24" />
-        </svg>
-      </div>
+      {/* ========================================
+        HERO SECTION (Dark Background - Centered)
+        ======================================== */}
+      <div className="bg-[#02182b] pt-20 pb-36 px-6 md:px-12 lg:px-20">
+        <div className="max-w-4xl mx-auto flex flex-col items-center text-center space-y-8">
+          
+          {/* Top Badge */}
+          <div className="inline-block px-4 py-1.5 rounded-full bg-[#063343] border border-[#0a4b60]">
+            <span className="text-[#38c8b4] text-xs font-bold tracking-wider uppercase">
+              Welcome to BM Academy - Building Careers in Tech & Digital Skills
+            </span>
+          </div>
 
-      {/* Main Content */}
-      <div className="z-10 flex flex-col items-center max-w-3xl text-center w-full">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight leading-tight min-h-[1.2em]">
-          Future-Proof Your Career in <br />
-          <span className="text-[#ffd028] transition-all duration-500 inline-block animate-in fade-in slide-in-from-bottom-2">
-            {courses[currentCourseIndex]}
-          </span>
-        </h1>
+          {/* Main Heading */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15]">
+            Best IT & Digital <br className="hidden md:block" />
+            Skills Training Institute in <br className="hidden md:block" />
+            <span className="text-[#e8be66]">Pondicherry</span>
+          </h1>
 
-        <p className="text-base md:text-lg lg:text-xl text-gray-100 mb-8 max-w-2xl leading-relaxed">
-          Our top-rated <span className="font-bold">classroom/online</span> tech programs take you from zero experience to an <span className="font-bold text-[#ffd028]">AI-ready job</span> in less than a year.
-        </p>
+          {/* Animated Course Highlight */}
+          <div className="text-xl md:text-2xl font-bold text-slate-200 min-h-[1.5em]">
+            Master <span className="text-[#e8be66] transition-all duration-500 inline-block animate-in fade-in slide-in-from-bottom-2">
+              {courses[currentCourseIndex]}
+            </span>
+          </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-8 w-full sm:w-auto">
-          <button className="flex items-center justify-center gap-2 bg-white text-[#4a0b3a] px-8 py-3.5 rounded-lg font-bold hover:bg-gray-100 w-full sm:w-auto transition-colors">
-            <FileText size={18} />
-            Explore Tech Programs
-          </button>
-          <button className="flex items-center justify-center px-8 py-3.5 rounded-lg border border-white font-bold hover:bg-white/10 w-full sm:w-auto transition-colors">
-            Talk to Career Advisor
-          </button>
+          {/* SEO Subheading */}
+          <p className="text-slate-300 text-base md:text-lg max-w-3xl leading-relaxed">
+            The <span className="font-bold text-white">Best Training Institute in Kottakuppam</span> & Pondicherry. Serving students across Tamil Nadu with top-rated programs including a <span className="font-bold text-white">Java Full Stack Development Course</span>, <span className="font-bold text-white">Data Analytics Course</span>, <span className="font-bold text-white">AI Digital Marketing Course</span>, and <span className="font-bold text-white">Video Editing Course</span>.
+          </p>
+
+          {/* Features List */}
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm md:text-base font-medium text-slate-300 pt-2">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={18} className="text-[#38c8b4]" />
+              <span>Learn from experts</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Rocket size={18} className="text-[#38c8b4]" />
+              <span>Work on live projects</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Briefcase size={18} className="text-[#38c8b4]" />
+              <span>100% Placement Assistance</span>
+            </div>
+          </div>
+
+          {/* Info Notice */}
+          <div className="flex items-center justify-center gap-2 text-[#e8be66] font-semibold text-sm md:text-base bg-[#0a4b60]/30 px-6 py-2 rounded-full border border-[#0a4b60]/50">
+            <Info size={18} />
+            <span>No coding background required | Beginner to Advanced</span>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 w-full sm:w-auto">
+            <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 bg-[#14937a] hover:bg-[#117a65] text-white rounded-full font-bold text-[16px] transition-all shadow-lg shadow-[#14937a]/20">
+              <Rocket size={18} />
+              Explore Courses
+            </button>
+            <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 bg-transparent border-2 border-slate-500 hover:border-slate-300 hover:bg-white/5 text-white rounded-full font-bold text-[16px] transition-all">
+              <Phone size={18} />
+              Book Free Demo
+            </button>
+          </div>
+
         </div>
-
-        <p className="text-xs md:text-sm text-gray-300 font-medium tracking-wide">
-          No prior experience required &bull; Free career guidance &bull; Limited Seats
-        </p>
       </div>
 
-      {/* Bottom Media Carousel/Grid with Arrows */}
-      <div className="z-10 mt-16 w-full max-w-[1500px] relative px-4 md:px-12 group">
-        
-        {/* Left Scroll Arrow */}
-        <button 
-          onClick={() => scroll('left')}
-          className="absolute left-0 md:left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 bg-[#2a2a2a]/90 hover:bg-[#4a4a4a] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)] border border-white/20 opacity-0 group-hover:opacity-100 cursor-pointer"
-          aria-label="Scroll left"
-        >
-          <ChevronLeft size={24} />
-        </button>
-
-        {/* Scrollable Container */}
-        <div 
-          ref={scrollContainerRef}
-          className="flex gap-4 overflow-x-auto pb-6 px-2 snap-x snap-mandatory justify-start md:justify-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-        >
-          {academyVideos.map((video) => (
-            <div 
-              key={video.id} 
-              onClick={() => setActiveVideo(video)}
-              className="flex-shrink-0 w-[300px] h-[200px] md:w-[340px] md:h-[220px] bg-[#1a0515] rounded-[1rem] overflow-hidden border border-white/10 snap-center relative block cursor-pointer group hover:border-[#ffd028]/40 hover:shadow-[0_0_20px_rgba(255,208,40,0.15)] transition-all duration-300"
-            >
-              <img 
-                src={video.thumbnail} 
-                alt={video.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent z-10"></div>
+      {/* ========================================
+        STATS BANNER (Overlapping Section)
+        ======================================== */}
+      <div className="bg-white relative z-20">
+        <div className="max-w-6xl mx-auto px-4 md:px-8 absolute left-0 right-0 -top-16">
+          <div className="bg-gradient-to-b from-[#f4f5f7] to-[#e4e7eb] rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] border border-white p-8 md:p-10">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-8 divide-x divide-slate-300/50">
               
-              <div className="absolute bottom-0 left-0 w-full p-5 z-20 flex flex-col justify-end">
-                <p className="text-[13px] md:text-sm font-medium text-gray-100 leading-snug line-clamp-3 mb-4 drop-shadow-md">
-                  {video.description}
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="bg-white rounded-full p-2 flex items-center justify-center shadow-md">
-                    <Play fill="black" size={14} className="text-black ml-0.5" />
+              <div className="flex flex-col items-center justify-center text-center px-2 border-none">
+                <h3 className="text-3xl md:text-4xl font-black text-[#a67c00] drop-shadow-sm mb-2">3,000+</h3>
+                <p className="text-[11px] md:text-xs font-bold text-slate-600 tracking-widest uppercase">Students Trained</p>
+              </div>
+              <div className="flex flex-col items-center justify-center text-center px-2">
+                <h3 className="text-3xl md:text-4xl font-black text-[#a67c00] drop-shadow-sm mb-2">100+</h3>
+                <p className="text-[11px] md:text-xs font-bold text-slate-600 tracking-widest uppercase">Hiring Partners</p>
+              </div>
+              <div className="flex flex-col items-center justify-center text-center px-2">
+                <h3 className="text-3xl md:text-4xl font-black text-[#a67c00] drop-shadow-sm mb-2">1,000+</h3>
+                <p className="text-[11px] md:text-xs font-bold text-slate-600 tracking-widest uppercase">Students Placed</p>
+              </div>
+              <div className="flex flex-col items-center justify-center text-center px-2">
+                <h3 className="text-3xl md:text-4xl font-black text-[#a67c00] drop-shadow-sm mb-2">50+</h3>
+                <p className="text-[11px] md:text-xs font-bold text-slate-600 tracking-widest uppercase">Industry Experts</p>
+              </div>
+              <div className="flex flex-col items-center justify-center text-center px-2 col-span-2 md:col-span-1 border-none md:border-solid">
+                <h3 className="text-3xl md:text-4xl font-black text-[#a67c00] drop-shadow-sm mb-2">5+</h3>
+                <p className="text-[11px] md:text-xs font-bold text-slate-600 tracking-widest uppercase">Years Experience</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================
+        VIDEO CAROUSEL SECTION (Light Background)
+        ======================================== */}
+      <div className="bg-white pt-32 pb-16 px-4 md:px-12">
+        <div className="max-w-[1500px] mx-auto relative group">
+          
+          <h2 className="text-2xl font-bold text-[#02182b] mb-8 px-2 md:px-6">Latest Updates & Student Success</h2>
+
+          {/* Left Scroll Arrow */}
+          <button 
+            onClick={() => scroll('left')}
+            className="absolute left-0 md:left-2 top-[60%] -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 bg-white/90 hover:bg-white text-[#02182b] rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-xl border border-slate-200 opacity-0 group-hover:opacity-100 cursor-pointer"
+            aria-label="Scroll left"
+          >
+            <ChevronLeft size={24} />
+          </button>
+
+          {/* Scrollable Container */}
+          <div 
+            ref={scrollContainerRef}
+            className="flex gap-4 overflow-x-auto pb-8 px-2 md:px-6 snap-x snap-mandatory justify-start [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          >
+            {academyVideos.map((video) => (
+              <div 
+                key={video.id} 
+                onClick={() => setActiveVideo(video)}
+                className="flex-shrink-0 w-[300px] h-[200px] md:w-[340px] md:h-[220px] bg-[#02182b] rounded-[1rem] overflow-hidden shadow-lg snap-center relative block cursor-pointer group hover:ring-2 hover:ring-[#14937a] hover:-translate-y-1 transition-all duration-300"
+              >
+                <img 
+                  src={video.thumbnail} 
+                  alt={video.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#02182b] via-[#02182b]/80 to-transparent z-10"></div>
+                
+                <div className="absolute bottom-0 left-0 w-full p-5 z-20 flex flex-col justify-end">
+                  <p className="text-[13px] md:text-sm font-medium text-slate-200 leading-snug line-clamp-3 mb-4 drop-shadow-md">
+                    {video.description}
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <div className="bg-[#14937a] rounded-full p-2 flex items-center justify-center shadow-md">
+                      <Play fill="white" size={14} className="text-white ml-0.5" />
+                    </div>
+                    <span className="text-xs font-bold text-white tracking-wide uppercase">
+                      Watch Now
+                    </span>
                   </div>
-                  <span className="text-xs font-bold text-white tracking-wide">
-                    Watch Now
-                  </span>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Right Scroll Arrow */}
-        <button 
-          onClick={() => scroll('right')}
-          className="absolute right-0 md:right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 bg-[#2a2a2a]/90 hover:bg-[#4a4a4a] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)] border border-white/20 opacity-0 group-hover:opacity-100 cursor-pointer"
-          aria-label="Scroll right"
-        >
-          <ChevronRight size={24} />
-        </button>
+          {/* Right Scroll Arrow */}
+          <button 
+            onClick={() => scroll('right')}
+            className="absolute right-0 md:right-2 top-[60%] -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 bg-white/90 hover:bg-white text-[#02182b] rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-xl border border-slate-200 opacity-0 group-hover:opacity-100 cursor-pointer"
+            aria-label="Scroll right"
+          >
+            <ChevronRight size={24} />
+          </button>
+        </div>
       </div>
 
-      {/* Video Modal Overlay */}
+      {/* ========================================
+        VIDEO MODAL
+        ======================================== */}
       {activeVideo && (
         <div 
           onClick={handleOverlayClick}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm transition-opacity"
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-[#02182b]/95 p-4 backdrop-blur-md transition-opacity"
         >
-          <div className="relative w-full max-w-5xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-white/10 animate-in fade-in zoom-in-95 duration-300">
+          <div className="relative w-full max-w-5xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-slate-700 animate-in fade-in zoom-in-95 duration-300">
             {/* Close Button */}
             <button 
               onClick={() => setActiveVideo(null)}
-              className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-[#ffd028] text-white hover:text-black rounded-full transition-colors"
+              className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-[#e8be66] text-white hover:text-black rounded-full transition-colors"
               aria-label="Close video"
             >
               <X size={24} />
