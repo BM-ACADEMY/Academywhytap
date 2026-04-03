@@ -5,6 +5,7 @@ import Welcome from '../modules/home/pages/Welcome';
 import Contact from '../modules/home/pages/Contact/Contact';
 import VerifyCertificate from '../modules/home/pages/certificate/VerifyCertificate';
 import DigitalMarketingRoute from '../modules/home/pages/Course/Route/DigitalMarketingRoute';
+import Trendingcourses from '../modules/home/pages/Trendingcourses';
 
 export const Homeroutes = () => {
     return (
@@ -14,6 +15,7 @@ export const Homeroutes = () => {
                 <>
                     <Hero />
                     <Welcome />
+                    <Trendingcourses />
                 </>
             } />
             
