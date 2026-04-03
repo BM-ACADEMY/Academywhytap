@@ -10,6 +10,7 @@ import {
   Briefcase, 
   Info
 } from 'lucide-react'; 
+import desktopBg from '../../../../assets/course/digital-marketing/desktop.png';
 
 const HeroSection = () => {
   const scrollContainerRef = useRef(null);
@@ -83,8 +84,13 @@ const HeroSection = () => {
       {/* ========================================
         HERO SECTION (Dark Background - Centered)
         ======================================== */}
-      <div className="bg-[#02182b] pt-20 pb-36 px-6 md:px-12 lg:px-20">
-        <div className="max-w-4xl mx-auto flex flex-col items-center text-center space-y-8">
+      <div className="relative bg-[#02182b] pt-20 pb-36 px-6 md:px-12 lg:px-20 overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-30"
+          style={{ backgroundImage: `url(${desktopBg})` }}
+        />
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center space-y-8">
           
           {/* Top Badge */}
           <div className="inline-block px-4 py-1.5 rounded-full bg-[#063343] border border-[#0a4b60]">
@@ -154,7 +160,7 @@ const HeroSection = () => {
         ======================================== */}
       <div className="bg-white relative z-20">
         <div className="max-w-6xl mx-auto px-4 md:px-8 absolute left-0 right-0 -top-16">
-          <div className="bg-gradient-to-b from-[#f4f5f7] to-[#e4e7eb] rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] border border-white p-8 md:p-10">
+          <div className="bg-linear-to-b from-[#f4f5f7] to-[#e4e7eb] rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] border border-white p-8 md:p-10">
             <div className="grid grid-cols-2 md:grid-cols-5 gap-8 divide-x divide-slate-300/50">
               
               <div className="flex flex-col items-center justify-center text-center px-2 border-none">
@@ -187,7 +193,7 @@ const HeroSection = () => {
         VIDEO CAROUSEL SECTION (Light Background)
         ======================================== */}
       <div className="bg-white pt-32 pb-16 px-4 md:px-12">
-        <div className="max-w-[1500px] mx-auto relative group">
+        <div className="max-w-375 mx-auto relative group">
           
           <h2 className="text-2xl font-bold text-[#02182b] mb-8 px-2 md:px-6">Latest Updates & Student Success</h2>
 
