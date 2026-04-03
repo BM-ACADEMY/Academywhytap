@@ -44,19 +44,23 @@ const Header = () => {
       href: '#',
       hasDropdown: true,
       items: [
-        'PG Certification in AI-Powered Digital Marketing',
-        'PG Certification in AI-Powered MER Stack Development',
-        'PG Certification in AI-Powered Full Stack Development',
-        'PG Certification in AI-Powered Data Science',
-        'Basic to Advanced Video Editing with AI',
-        'Certification in AI-Powered Data Analytics'
+        { name: 'PG Certification in AI-Powered Digital Marketing', path: '/course/pg-certification-in-ai-powered-digital-marketing' },
+        { name: 'PG Certification in AI-Powered MER Stack Development', path: '#' },
+        { name: 'PG Certification in AI-Powered Full Stack Development', path: '#' },
+        { name: 'PG Certification in AI-Powered Data Science', path: '#' },
+        { name: 'Basic to Advanced Video Editing with AI', path: '#' },
+        { name: 'Certification in AI-Powered Data Analytics', path: '#' }
       ]
     },
     {
       name: 'Placement',
       href: '#',
       hasDropdown: true,
-      items: ['Testimonials', 'Placement Records', 'Reviews']
+      items: [
+        { name: 'Testimonials', path: '#' },
+        { name: 'Placement Records', path: '#' },
+        { name: 'Reviews', path: '#' }
+      ]
     },
     { name: 'Events', href: '#' },
     {
@@ -64,9 +68,16 @@ const Header = () => {
       href: '#',
       hasDropdown: true,
       items: [
-        'Blogs', 'CEO Writes', 'Masterclasses', 'Interview Questions',
-        'Resume Builder', 'FAQs', 'Resources', 'Apply For Jobs',
-        'Student Login', 'Skill Test'
+        { name: 'Blogs', path: '#' },
+        { name: 'CEO Writes', path: '#' },
+        { name: 'Masterclasses', path: '#' },
+        { name: 'Interview Questions', path: '#' },
+        { name: 'Resume Builder', path: '#' },
+        { name: 'FAQs', path: '#' },
+        { name: 'Resources', path: '#' },
+        { name: 'Apply For Jobs', path: '#' },
+        { name: 'Student Login', path: '#' },
+        { name: 'Skill Test', path: '#' }
       ]
     },
     { name: 'Verify Certificate', href: '/verify-certificate' },
@@ -143,13 +154,14 @@ const Header = () => {
                 {link.hasDropdown && activeDropdown === idx && (
                   <div className="absolute top-full left-0 w-80 bg-white shadow-2xl mt-0 overflow-hidden rounded-xl border border-gray-50 transform transition-all duration-300 ease-out origin-top z-50 animate-in fade-in slide-in-from-top-2">
                     {link.items.map((item, i) => (
-                      <a
+                      <Link
                         key={i}
-                        href="#"
+                        to={item.path}
                         className="block px-6 py-3.5 text-[14px] font-bold transition-colors border-b border-gray-50 last:border-none bg-white text-gray-700 hover:bg-[#9D1B50] hover:text-white"
+                        onClick={() => setActiveDropdown(null)}
                       >
-                        {item}
-                      </a>
+                        {item.name}
+                      </Link>
                     ))}
                   </div>
                 )}
@@ -191,11 +203,19 @@ const Header = () => {
                 </div>
 
                 {link.hasDropdown && (
-                  <div className={`bg-gray-50 flex flex-col mt-1 rounded-xl overflow-hidden transition-all duration-300 ${activeDropdown === idx ? 'max-h-[500px] py-2' : 'max-h-0'}`}>
+                  <div className={`bg-gray-50 flex flex-col mt-1 rounded-xl overflow-hidden transition-all duration-300 ${activeDropdown === idx ? 'max-h-[800px] py-2' : 'max-h-0'}`}>
                     {link.items.map((item, i) => (
-                      <a key={i} href="#" className="px-8 py-3.5 text-sm font-bold text-gray-500 hover:text-[#9D1B50] transition-colors">
-                        {item}
-                      </a>
+                      <Link 
+                        key={i} 
+                        to={item.path} 
+                        className="px-8 py-3.5 text-sm font-bold text-gray-500 hover:text-[#9D1B50] transition-colors"
+                        onClick={() => {
+                          setIsMenuOpen(false);
+                          setActiveDropdown(null);
+                        }}
+                      >
+                        {item.name}
+                      </Link>
                     ))}
                   </div>
                 )}

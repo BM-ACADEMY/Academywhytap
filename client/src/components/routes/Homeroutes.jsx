@@ -4,6 +4,7 @@ import Hero from '../modules/home/pages/Hero';
 import Welcome from '../modules/home/pages/Welcome';
 import Contact from '../modules/home/pages/Contact/Contact';
 import VerifyCertificate from '../modules/home/pages/certificate/VerifyCertificate';
+import DigitalMarketingRoute from '../modules/home/pages/Course/Route/DigitalMarketingRoute';
 
 export const Homeroutes = () => {
     return (
@@ -19,6 +20,9 @@ export const Homeroutes = () => {
             {/* Inner Pages */}
             <Route path="contact" element={<Contact />} />
             <Route path="verify-certificate" element={<VerifyCertificate />} />
+
+            {/* Course Routes */}
+            <Route path="course/pg-certification-in-ai-powered-digital-marketing/*" element={<DigitalMarketingRoute />} />
         </Routes>
     );
 };
