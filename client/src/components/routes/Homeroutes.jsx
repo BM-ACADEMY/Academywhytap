@@ -7,6 +7,7 @@ import VerifyCertificate from '../modules/home/pages/certificate/VerifyCertifica
 import DigitalMarketingRoute from '../modules/home/pages/Course/Route/DigitalMarketingRoute';
 import Trendingcourses from '../modules/home/pages/Trendingcourses';
 import CeoSection from '../modules/home/pages/CeoSection';
+import Whychoose from '../modules/home/pages/Whychoose';
 
 export const Homeroutes = () => {
     return (
@@ -18,6 +19,7 @@ export const Homeroutes = () => {
                     <Welcome />
                     <Trendingcourses />
                     <CeoSection />
+                    <Whychoose />
                 </>
             } />
             

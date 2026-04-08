@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link2, AtSign } from 'lucide-react';
+import CeoImage from '../../../../assets/kamar1.png';
 
 const CeoSection = () => {
   return (
@@ -62,14 +63,12 @@ const CeoSection = () => {
         {/* Right Column: Image */}
         <div className="flex-1 w-full lg:w-1/2 flex justify-center relative">
             {/* Diamond Border Decoration */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-slate-400/30 rounded-3xl transform rotate-45 pointer-events-none"></div>
             
-            <div className="w-full max-w-[450px] relative z-10 p-2 bg-[#1e3a8a] rounded-xl">
+            <div className="w-full max-w-[450px] relative z-10 p-2 bg-[#1e3a8a] rounded-xl overflow-hidden">
               <img 
-                // Replace this URL with the actual path to your CEO's image
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                src={CeoImage} 
                 alt="Kamarudeen BM - CEO & Founder" 
-                className="w-full h-auto object-cover rounded-lg shadow-2xl"
+                className="w-full h-auto object-cover rounded-lg shadow-2xl transition-transform duration-500 hover:scale-105"
               />
             </div>
         </div>

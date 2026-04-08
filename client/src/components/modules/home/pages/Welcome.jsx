@@ -1,5 +1,6 @@
 import React from 'react';
 import { Phone, ArrowRight, GraduationCap, Briefcase, Building2, Users, Home } from 'lucide-react';
+import AcademyBanner from '../../../../assets/Academy-banner.png';
 
 const WelcomeSection = () => {
   return (
@@ -8,16 +9,16 @@ const WelcomeSection = () => {
       {/* Background Decorative Glow (Top Left) */}
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-gradient-to-br from-[#14937a]/5 to-transparent rounded-full blur-[80px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20 relative z-10">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-start gap-12 lg:gap-20 relative z-10">
         
         {/* Left Column: Image Area */}
         <div className="flex-1 w-full max-w-xl relative group">
           
-          {/* Main Image */}
-          <div className="relative rounded-[2rem] overflow-hidden shadow-xl border-4 border-white aspect-[5/4] sm:aspect-[4/3]">
+          {/* Main Image - UPDATED TO LOCAL ASSET */}
+          <div className="relative rounded-[2rem] overflow-hidden shadow-xl border-4 border-white aspect-[5/4] sm:aspect-[4/3] bg-slate-100">
             <img 
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-              alt="Students collaborating" 
+              src={AcademyBanner} 
+              alt="BM Academy Banner" 
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
