@@ -4,7 +4,6 @@ import {
   ChevronDown,
   Menu,
   X as LucideX,
-  Search,
   Award
 } from 'lucide-react';
 import {
@@ -87,7 +86,11 @@ const Header = () => {
           
           {/* Logo (Updated to match design text) */}
           <Link to="/" className="flex items-center cursor-pointer group">
-            <span className="text-[26px] font-bold text-[#001f3f] tracking-tight">BM Academy</span>
+            <img 
+              src="/assets/logo/logo.png" 
+              alt="BM Academy Logo" 
+              className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -135,11 +138,7 @@ const Header = () => {
 
           {/* Header Action Buttons (Updated to match design) */}
           <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-            {/* Search Button */}
-            <div className="flex items-center space-x-2 text-slate-500 cursor-pointer hover:text-slate-700 transition-colors">
-              <Search size={20} />
-              <span className="text-[16px] font-medium hidden xl:block">Search</span>
-            </div>
+
 
             {/* Pill-shaped CTA Button */}
             <button
@@ -192,10 +191,7 @@ const Header = () => {
             
             {/* Mobile Actions */}
             <div className="flex flex-col gap-3 mt-4 px-2">
-              <div className="flex items-center space-x-3 py-3 text-slate-500 justify-center bg-gray-50 rounded-full">
-                <Search size={20} />
-                <span className="font-medium">Search</span>
-              </div>
+
               <button
                 onClick={() => {
                   setIsEnquiryModalOpen(true);

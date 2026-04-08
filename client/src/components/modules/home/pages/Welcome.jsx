@@ -1,135 +1,143 @@
 import React from 'react';
-import { Phone, ArrowRight, CheckCircle2, GraduationCap, Briefcase, Building2 } from 'lucide-react';
+import { Phone, ArrowRight, GraduationCap, Briefcase, Building2, Users, Home } from 'lucide-react';
 
 const WelcomeSection = () => {
   return (
-    <section className="bg-[#fcfcfc] py-20 px-6 md:px-12 lg:px-20 font-sans overflow-hidden">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
+    <section className="bg-[#fcfcfc] py-16 px-6 md:px-12 lg:px-20 font-sans relative overflow-hidden">
+      
+      {/* Background Decorative Glow (Top Left) */}
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-gradient-to-br from-[#14937a]/5 to-transparent rounded-full blur-[80px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20 relative z-10">
         
-        {/* Left Column: Content */}
+        {/* Left Column: Image Area */}
+        <div className="flex-1 w-full max-w-xl relative group">
+          
+          {/* Main Image */}
+          <div className="relative rounded-[2rem] overflow-hidden shadow-xl border-4 border-white aspect-[5/4] sm:aspect-[4/3]">
+            <img 
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+              alt="Students collaborating" 
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+
+          {/* Floating Overlapping Stats Card */}
+          <div className="absolute -bottom-6 -right-2 sm:-right-6 bg-white p-5 sm:p-6 rounded-[1.5rem] shadow-[0_15px_35px_rgba(0,0,0,0.08)] border border-slate-50 max-w-[240px] sm:max-w-[300px] animate-float overflow-hidden">
+            
+            {/* Bubble Decoration */}
+            <div className="absolute top-0 right-0 w-16 h-16 bg-[#14937a]/10 rounded-bl-[100%] pointer-events-none translate-x-1/3 -translate-y-1/3 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"></div>
+
+            {/* Top Stat */}
+            <div className="flex items-center gap-3 mb-4 border-b border-slate-100 pb-4 relative z-10">
+              <div className="w-12 h-12 bg-[#05243b] rounded-xl flex items-center justify-center text-white shadow-md">
+                <Users size={22} />
+              </div>
+              <div>
+                <p className="text-[#05243b] font-extrabold text-xl leading-none">3,000+</p>
+                <p className="text-slate-500 text-[12px] font-bold mt-1 tracking-tight">Students Trained</p>
+              </div>
+            </div>
+
+            {/* Bottom Row Stats */}
+            <div className="grid grid-cols-2 gap-3 relative z-10">
+              <div className="space-y-0.5">
+                <p className="text-[#14937a] font-extrabold text-base">1,000+</p>
+                <p className="text-slate-400 text-[10px] font-bold leading-tight uppercase tracking-wider">Students<br/>Placed</p>
+              </div>
+              <div className="space-y-0.5 border-l border-slate-100 pl-3">
+                <p className="text-[#14937a] font-extrabold text-base">100+</p>
+                <p className="text-slate-400 text-[10px] font-bold leading-tight uppercase tracking-wider">Hiring<br/>Partners</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Content */}
         <div className="flex-1 space-y-6">
           
-          {/* Small Top Line */}
-          <div className="inline-block px-4 py-1.5 rounded-full bg-[#14937a]/10 border border-[#14937a]/20">
-            <span className="text-[#14937a] text-[13px] font-bold tracking-wide">
-              Welcome to BM Academy – Building Careers in Tech & Digital Skills
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#05243b]/5 border border-[#05243b]/10">
+            <Home size={14} className="text-[#05243b]" />
+            <span className="text-[#05243b] text-[12px] font-bold tracking-wide">
+              Welcome to BM Academy – Tech & Digital Skills
             </span>
           </div>
 
-          {/* Main Heading */}
-          <h2 className="text-4xl md:text-5xl lg:text-[52px] font-extrabold text-[#05243b] leading-[1.15] tracking-tight">
-            Empowering Students, <br className="hidden md:block" />
-            Building Careers in <br className="hidden md:block" />
+          {/* Heading */}
+          <h2 className="text-3xl md:text-4xl lg:text-[44px] font-extrabold text-[#05243b] leading-[1.12] tracking-tight">
+            Empowering Students, <br />
+            Building Careers in <br />
             Pondicherry
           </h2>
 
-          {/* SEO Description */}
-          <p className="text-slate-600 text-[16px] md:text-[17px] leading-relaxed max-w-xl font-medium">
-            At BM Academy, we provide industry-focused training in Kottakuppam, Pondicherry, helping students gain real-world skills in Full Stack Development, Data Analytics, AI Digital Marketing, and Video Editing.
+          {/* Description */}
+          <p className="text-slate-600 text-base leading-relaxed max-w-lg font-medium">
+            At BM Academy, we provide industry-focused training in Kottakuppam, Pondicherry, helping students gain real-world skills in Full Stack Development, Data Analytics, and AI Digital Marketing.
             <br /><br />
-            With hands-on projects, expert mentors, and placement support, we prepare you to succeed in today’s competitive job market.
+            With hands-on projects and placement support, we prepare you to succeed in today’s competitive job market.
           </p>
 
-          {/* Actions Flex Container */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8 pt-4">
-            
-            {/* Explore Link */}
+          {/* Explore Link */}
+          <div>
             <a 
               href="#programs" 
-              className="group flex items-center gap-2 text-[#05243b] font-bold text-[17px] pb-1 border-b-2 border-[#e8be66] hover:text-[#14937a] hover:border-[#14937a] transition-colors"
+              className="group inline-flex items-center gap-2 text-[#05243b] font-bold text-base hover:text-[#14937a] transition-all duration-300"
             >
-              Explore Our Programs
-              <ArrowRight size={20} className="transform group-hover:translate-x-1 transition-transform" />
+              Explore Our Vision
+              <ArrowRight size={18} className="transform group-hover:translate-x-2 transition-transform text-[#14937a]" />
             </a>
+          </div>
 
-            {/* Contact Box (WITH HOVER BUBBLE EFFECT) */}
-            <div className="relative flex items-center gap-4 bg-[#f8fafc] px-6 py-4 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-all duration-300 cursor-pointer group overflow-hidden">
-              
-              {/* Elastic Bubble Background */}
-              <div className="absolute -top-10 -right-10 w-24 h-24 bg-[#14937a]/10 rounded-full transition-transform duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-[3] z-0 pointer-events-none"></div>
-
-              {/* Icon */}
-              <div className="relative z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#14937a] shadow-sm flex-shrink-0 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300">
+          {/* Bottom Card Grid */}
+          <div className="flex flex-wrap gap-4 pt-2">
+            
+            {/* Contact Card */}
+            <div className="flex-1 min-w-[260px] bg-white p-5 rounded-[1.25rem] shadow-sm border border-slate-100 flex items-center gap-4 group hover:shadow-md transition-all duration-300 relative overflow-hidden">
+               {/* Bubble Decoration */}
+               <div className="absolute top-0 right-0 w-14 h-14 bg-[#14937a]/10 rounded-bl-[100%] pointer-events-none translate-x-1/3 -translate-y-1/3 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"></div>
+               
+              <div className="w-11 h-11 bg-[#05243b] rounded-xl flex items-center justify-center text-white group-hover:scale-105 transition-transform duration-300 relative z-10">
                 <Phone size={20} className="fill-current" />
               </div>
-
-              {/* Text */}
-              <div className="relative z-10 flex flex-col transition-transform duration-300 group-hover:translate-x-1">
-                <span className="text-slate-500 text-[11px] font-bold uppercase tracking-wider mb-0.5 group-hover:text-[#14937a] transition-colors duration-300">
-                  Talk To Our Experts
-                </span>
-                <span className="text-[#05243b] font-extrabold text-lg">
-                  Call Us: +91 9403892971
-                </span>
+              <div className="relative z-10">
+                <p className="text-slate-500 text-[11px] font-bold uppercase tracking-wider">Contact Our Experts</p>
+                <p className="text-[#05243b] font-extrabold text-lg">+91 9403892971</p>
               </div>
             </div>
 
-          </div>
+            {/* Stat Card 1 */}
+            <div className="bg-white px-5 py-5 rounded-[1.25rem] shadow-sm border border-slate-100 flex flex-col justify-center min-w-[125px] relative overflow-hidden group hover:shadow-md transition-all duration-300">
+              {/* Bubble Decoration */}
+              <div className="absolute top-0 right-0 w-10 h-10 bg-[#14937a]/10 rounded-bl-[100%] pointer-events-none translate-x-1/3 -translate-y-1/3 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"></div>
+              
+              <p className="text-[#05243b] font-extrabold text-xl group-hover:text-[#14937a] transition-colors relative z-10">25K+</p>
+              <p className="text-slate-500 text-[11px] font-bold uppercase tracking-tight relative z-10">Students</p>
+            </div>
 
-          {/* Integrated Sleek Stats Row */}
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-6 mt-2 border-t border-slate-200/60">
-            <div className="flex items-center gap-2.5">
-              <GraduationCap size={18} className="text-[#14937a]" />
-              <div>
-                <p className="text-[#05243b] font-extrabold text-[15px] leading-none">3,000+</p>
-                <p className="text-slate-500 text-[11px] font-bold uppercase">Students Trained</p>
-              </div>
+            {/* Stat Card 2 */}
+            <div className="bg-white px-5 py-5 rounded-[1.25rem] shadow-sm border border-slate-100 flex flex-col justify-center min-w-[125px] relative overflow-hidden group hover:shadow-md transition-all duration-300">
+              {/* Bubble Decoration */}
+              <div className="absolute top-0 right-0 w-10 h-10 bg-[#14937a]/10 rounded-bl-[100%] pointer-events-none translate-x-1/3 -translate-y-1/3 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"></div>
+              
+              <p className="text-[#05243b] font-extrabold text-xl group-hover:text-[#14937a] transition-colors relative z-10">600+</p>
+              <p className="text-slate-500 text-[11px] font-bold uppercase tracking-tight relative z-10">Companies</p>
             </div>
-            <div className="flex items-center gap-2.5">
-              <Briefcase size={18} className="text-[#14937a]" />
-              <div>
-                <p className="text-[#05243b] font-extrabold text-[15px] leading-none">1,000+</p>
-                <p className="text-slate-500 text-[11px] font-bold uppercase">Students Placed</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2.5">
-              <Building2 size={18} className="text-[#14937a]" />
-              <div>
-                <p className="text-[#05243b] font-extrabold text-[15px] leading-none">100+</p>
-                <p className="text-slate-500 text-[11px] font-bold uppercase">Hiring Partners</p>
-              </div>
-            </div>
+
           </div>
 
         </div>
-
-        {/* Right Column: Overlapping Images */}
-        <div className="flex-1 w-full max-w-lg lg:max-w-none relative mt-12 lg:mt-0 px-4 md:px-0">
-          
-          <div className="relative w-full aspect-square md:h-[500px]">
-            
-            {/* Back Image (Left, lower) */}
-            <div className="absolute left-0 bottom-4 w-[60%] aspect-[4/5] rounded-3xl overflow-hidden shadow-xl z-0 transition-transform duration-500 hover:-translate-y-2 border-4 border-white">
-              <img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                alt="Students collaborating at BM Academy" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            {/* Front Image (Right, higher) */}
-            <div className="absolute right-0 top-0 w-[55%] aspect-[3/4] md:h-[95%] rounded-3xl overflow-hidden shadow-[0_20px_50px_-12px_rgba(5,36,59,0.3)] z-10 transition-transform duration-500 hover:-translate-y-2 border-4 border-white bg-[#05243b]">
-              <img 
-                src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                alt="Tech career focus" 
-                className="w-full h-full object-cover opacity-90"
-              />
-            </div>
-
-            {/* Decorative element behind images */}
-            <div className="absolute -right-6 -bottom-6 w-32 h-32 opacity-10 pointer-events-none -z-10 text-[#05243b]">
-              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                  <circle cx="3" cy="3" r="3" fill="currentColor" />
-                </pattern>
-                <rect x="0" y="0" width="100" height="100" fill="url(#dots)" />
-              </svg>
-            </div>
-
-          </div>
-        </div>
-
       </div>
+
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 };

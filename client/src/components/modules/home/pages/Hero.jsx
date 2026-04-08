@@ -103,12 +103,12 @@ const HeroSection = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15]">
             Best IT & Digital <br className="hidden md:block" />
             Skills Training Institute in <br className="hidden md:block" />
-            <span className="text-[#e8be66]">Pondicherry</span>
+            <span className="bg-linear-to-r from-[#FEDA00] to-[#D99000] bg-clip-text text-transparent inline-block">Pondicherry</span>
           </h1>
 
           {/* Animated Course Highlight */}
           <div className="text-xl md:text-2xl font-bold text-slate-200 min-h-[1.5em]">
-            Master <span className="text-[#e8be66] transition-all duration-500 inline-block animate-in fade-in slide-in-from-bottom-2">
+            Master <span className="bg-linear-to-r from-[#FEDA00] to-[#D99000] bg-clip-text text-transparent transition-all duration-500 inline-block animate-in fade-in slide-in-from-bottom-2">
               {courses[currentCourseIndex]}
             </span>
           </div>
