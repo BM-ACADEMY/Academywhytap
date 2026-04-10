@@ -1,13 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Hero from '../modules/home/pages/Hero';
-import Welcome from '../modules/home/pages/Welcome';
 import Contact from '../modules/home/pages/Contact/Contact';
 import VerifyCertificate from '../modules/home/pages/certificate/VerifyCertificate';
 import DigitalMarketingRoute from '../modules/home/pages/Course/Route/DigitalMarketingRoute';
-import Trendingcourses from '../modules/home/pages/Trendingcourses';
-import CeoSection from '../modules/home/pages/CeoSection';
-import Whychoose from '../modules/home/pages/Whychoose';
+import { Homepages } from '../modules/home/pages/homepages/Homepages';
 
 export const Homeroutes = () => {
     return (
@@ -15,11 +11,7 @@ export const Homeroutes = () => {
             {/* Main Landing Components */}
             <Route index element={
                 <>
-                    <Hero />
-                    <Welcome />
-                    <Trendingcourses />
-                    <CeoSection />
-                    <Whychoose />
+                    <Homepages />
                 </>
             } />
             

@@ -80,7 +80,7 @@ const Header = () => {
       {/* Sticky Main Nav */}
       <nav 
         className={`sticky top-0 z-[100] w-full bg-white transition-all duration-300 transform-gpu font-sans
-          ${isScrolled ? 'shadow-md py-2' : 'shadow-sm py-4 border-b border-gray-100'}`}
+          ${isScrolled ? 'shadow-md' : 'shadow-sm border-b border-gray-100'} py-4`}
       >
         <div className="px-6 md:px-8 flex justify-between items-center relative max-w-[1920px] mx-auto">
           
