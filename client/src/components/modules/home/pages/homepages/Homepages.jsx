@@ -4,6 +4,8 @@ import WelcomeSection from './Welcome'
 import FutureReady from './FutureReady'
 import PlacementSupport from './PlacementSupport'
 import StudentsWorkAt from './StudentsWorkAt'
+import LearningEnvironment from './LearningEnvironment'
+import SuccessStories from './SuccessStories'
 import Trendingcourses from './Trendingcourses'
 import CeoSection from './CeoSection'
 import Whychoose from './Whychoose'
@@ -19,6 +21,8 @@ export const Homepages = () => {
         <FutureReady />
         <PlacementSupport />
         <StudentsWorkAt />
+        <LearningEnvironment />
+        <SuccessStories />
     </div>
   )
 }

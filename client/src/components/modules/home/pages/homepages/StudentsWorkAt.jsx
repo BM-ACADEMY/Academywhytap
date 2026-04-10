@@ -53,7 +53,7 @@ const StudentsWorkAt = () => {
                 <div className="flex flex-col lg:flex-row gap-8 items-stretch">
                     
                     {/* Left Side: Logos Grid */}
-                    <div className="flex-grow grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    <div className="grow grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                         {companies.map((company, idx) => (
                             <div 
                                 key={idx} 
@@ -67,12 +67,12 @@ const StudentsWorkAt = () => {
                     </div>
 
                     {/* Right Side: Join the Elite Card */}
-                    <div className="lg:w-[380px] shrink-0">
+                    <div className="lg:w-95 shrink-0">
                         <div className="bg-[#f3f4f6] h-full rounded-[3.5rem] p-10 flex flex-col items-center text-center shadow-lg border border-white relative overflow-hidden group">
                            
                             {/* Visual Asset (Avatar) */}
                             <div className="relative w-full aspect-square mb-10 group-hover:scale-105 transition-transform duration-700">
-                                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#05243b]/5 rounded-full blur-3xl opacity-50"></div>
+                                <div className="absolute inset-0 bg-linear-to-b from-transparent to-[#05243b]/5 rounded-full blur-3xl opacity-50"></div>
                                 <img 
                                     src={avatar} 
                                     alt="Elite Alumnus" 
