@@ -17,8 +17,6 @@ const PlacementSupport = () => {
         { label: "Student Rating", value: "4.8", icon: <Star className="text-yellow-500 fill-yellow-500" size={20} />, subtext: "Average Rating" }
     ];
 
-    const jobRoles = ["Frontend Developer", "Digital Marketer", "Data Analyst"];
-
     return (
         <section className="bg-white py-20 px-4 md:px-12 lg:px-20 font-sans overflow-hidden">
             <div className="max-w-7xl mx-auto">
@@ -90,16 +88,8 @@ const PlacementSupport = () => {
                         </div>
 
                         {/* Right Column: Visuals */}
-                        <div className="space-y-8 flex flex-col items-center lg:items-end">
-                            {/* Role Tabs (Visual only) */}
-                            <div className="flex flex-wrap justify-center lg:justify-end gap-3 w-full">
-                                {jobRoles.map((role, idx) => (
-                                    <span key={idx} className="px-5 py-2.5 bg-slate-50 border border-slate-100 rounded-2xl text-slate-600 font-bold text-sm hover:border-[#14937a] transition-all cursor-default">
-                                        {role}
-                                    </span>
-                                ))}
-                            </div>
-
+                        <div className="flex flex-col items-center lg:items-end w-full">
+                            
                             {/* Main Professional Image */}
                             <div className="w-full relative group/img">
                                 <div className="absolute inset-0 bg-blue-900/10 rounded-[3rem] -rotate-1 group-hover/img:rotate-0 transition-all duration-500"></div>
@@ -108,11 +98,6 @@ const PlacementSupport = () => {
                                     alt="Professional placement success" 
                                     className="relative w-full aspect-4/3 object-cover rounded-[2.5rem] shadow-2xl transition-all duration-500 hover:scale-[1.01]"
                                 />
-                                <div className="mt-6 text-center lg:text-right">
-                                    <p className="text-slate-500 text-sm font-medium italic">
-                                        Students placed in startups & growing companies across <span className="text-slate-700 font-bold">Pondicherry & Tamil Nadu</span>
-                                    </p>
-                                </div>
                             </div>
                         </div>
 
