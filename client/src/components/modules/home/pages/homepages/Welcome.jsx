@@ -73,10 +73,10 @@ const WelcomeSection = () => {
           </h2>
 
           {/* Description */}
-          <p className="text-slate-600 text-base leading-relaxed max-w-lg font-medium">
-            At BM Academy, we provide industry-focused training in Kottakuppam, Pondicherry, helping students gain real-world skills in Full Stack Development, Data Analytics, and AI Digital Marketing.
+          <p className="text-slate-600 text-base leading-relaxed max-w-xl font-medium">
+            At BM Academy, we provide industry-focused training in Kottakuppam, Pondicherry, helping students gain real-world skills in Full Stack Development, Data Analytics, AI Digital Marketing, and Video Editing.
             <br /><br />
-            With hands-on projects and placement support, we prepare you to succeed in today’s competitive job market.
+            With hands-on projects, expert mentors, and placement support, we prepare you to succeed in today’s competitive job market.
           </p>
 
           {/* Explore Link */}
@@ -85,7 +85,7 @@ const WelcomeSection = () => {
               href="#programs" 
               className="group inline-flex items-center gap-2 text-[#05243b] font-bold text-base hover:text-[#14937a] transition-all duration-300"
             >
-              Explore Our Vision
+              Explore Our Programs
               <ArrowRight size={18} className="transform group-hover:translate-x-2 transition-transform text-[#14937a]" />
             </a>
           </div>
@@ -102,8 +102,8 @@ const WelcomeSection = () => {
                 <Phone size={20} className="fill-current" />
               </div>
               <div className="relative z-10">
-                <p className="text-slate-500 text-[11px] font-bold uppercase tracking-wider">Contact Our Experts</p>
-                <p className="text-[#05243b] font-extrabold text-lg">+91 9403892971</p>
+                <p className="text-slate-500 text-[11px] font-bold uppercase tracking-wider">Talk to Our Experts</p>
+                <p className="text-[#05243b] font-extrabold text-lg">Call Us: +91 9403892971</p>
               </div>
             </div>
 
@@ -112,8 +112,8 @@ const WelcomeSection = () => {
               {/* Bubble Decoration */}
               <div className="absolute top-0 right-0 w-10 h-10 bg-[#14937a]/10 rounded-bl-[100%] pointer-events-none translate-x-1/3 -translate-y-1/3 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"></div>
               
-              <p className="text-[#05243b] font-extrabold text-xl group-hover:text-[#14937a] transition-colors relative z-10">25K+</p>
-              <p className="text-slate-500 text-[11px] font-bold uppercase tracking-tight relative z-10">Students</p>
+              <p className="text-[#05243b] font-extrabold text-xl group-hover:text-[#14937a] transition-colors relative z-10">50+</p>
+              <p className="text-slate-500 text-[11px] font-bold uppercase tracking-tight relative z-10">Industry Experts</p>
             </div>
 
             {/* Stat Card 2 */}
@@ -121,8 +121,8 @@ const WelcomeSection = () => {
               {/* Bubble Decoration */}
               <div className="absolute top-0 right-0 w-10 h-10 bg-[#14937a]/10 rounded-bl-[100%] pointer-events-none translate-x-1/3 -translate-y-1/3 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"></div>
               
-              <p className="text-[#05243b] font-extrabold text-xl group-hover:text-[#14937a] transition-colors relative z-10">600+</p>
-              <p className="text-slate-500 text-[11px] font-bold uppercase tracking-tight relative z-10">Companies</p>
+              <p className="text-[#05243b] font-extrabold text-xl group-hover:text-[#14937a] transition-colors relative z-10">5+</p>
+              <p className="text-slate-500 text-[11px] font-bold uppercase tracking-tight relative z-10">Years Experience</p>
             </div>
 
           </div>

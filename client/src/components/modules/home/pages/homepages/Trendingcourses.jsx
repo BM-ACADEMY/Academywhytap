@@ -14,7 +14,7 @@ const TrendingCourses = () => {
             duration: "3–4 Months",
             support: "Placement + Internship Support",
             badge: "POPULAR",
-            students: "7,300+",
+            students: "7.3K",
             image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
         },
         {
@@ -23,7 +23,7 @@ const TrendingCourses = () => {
             duration: "6 Months",
             support: "100% Placement Assistance",
             badge: "MOST WANTED",
-            students: "7,530+",
+            students: "7.5K",
             image: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
         },
         {
@@ -31,8 +31,8 @@ const TrendingCourses = () => {
             title: "Certification in Data Analytics & Business Intelligence",
             duration: "6 Months",
             support: "Placement Support",
-            badge: null,
-            students: "7,900+",
+            badge: "TRENDING",
+            students: "7.9K",
             image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
         },
         {
@@ -40,8 +40,8 @@ const TrendingCourses = () => {
             title: "Creative Video Editing Course with AI Tools",
             duration: "3–6 Months",
             support: "Premiere Pro + After Effects",
-            badge: null,
-            students: "6,800+",
+            badge: "CREATIVE",
+            students: "6.8K",
             image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
             isEditing: true
         }
@@ -82,13 +82,13 @@ const TrendingCourses = () => {
             <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-gradient-to-br from-[#14937a]/5 to-transparent rounded-full blur-[80px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
             <div className="max-w-4xl mx-auto text-center mb-12 space-y-3 relative z-10">
-                <div className="inline-flex items-center gap-2 text-[#05243b] justify-center">
-                    <BarChart3 size={24} className="text-[#14937a]" />
-                    <h2 className="text-2xl md:text-3xl lg:text-[38px] font-extrabold tracking-tight">
+                <div className="flex flex-col items-center justify-center gap-2 text-[#05243b]">
+                    <BarChart3 size={32} className="text-[#14937a] mb-2" />
+                    <h2 className="text-3xl md:text-4xl lg:text-[42px] font-extrabold tracking-tight leading-tight">
                         Top Job-Oriented Courses in Pondicherry
                     </h2>
                 </div>
-                <p className="text-slate-500 text-sm md:text-base max-w-2xl mx-auto font-medium">
+                <p className="text-slate-500 text-sm md:text-[17px] max-w-2xl mx-auto font-medium leading-relaxed">
                     Upgrade your career with industry-focused training programs in Kottakuppam, Pondicherry with placement support
                 </p>
             </div>

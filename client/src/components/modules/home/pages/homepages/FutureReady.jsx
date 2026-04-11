@@ -53,7 +53,7 @@ const FutureReady = () => {
                 <div className="text-center mb-16 space-y-4 max-w-4xl">
                     <div className="flex items-center justify-center gap-2 text-[#05243b] mb-2 group">
                         <Rocket size={24} className="group-hover:animate-bounce" />
-                        <span className="font-bold text-lg md:text-xl">Future Ready with BM Academy for Top Notch Training</span>
+                        <span className="font-bold text-lg md:text-xl">Future-Ready Skills with BM Academy</span>
                     </div>
                     <p className="text-slate-600 text-sm md:text-lg font-medium leading-relaxed">
                         BM Academy empowers students in Kottakuppam, Pondicherry with job-oriented training in Full Stack Development, Data Analytics, AI Digital Marketing, and Video Editing through hands-on learning and real-world projects

@@ -105,12 +105,12 @@ const HeroSection = () => {
           
           {/* Top Badge */}
           <div className="inline-block px-4 py-1.5 rounded-full bg-[#063343] border border-[#0a4b60]">
-            <span className="text-[#38c8b4] text-xs font-bold tracking-wider uppercase">
-              Welcome to BM Academy - Building Careers in Tech & Digital Skills
+            <span className="text-[#38c8b4] text-[11px] font-bold tracking-wider uppercase">
+              Welcome to BM Academy - Best Training Institute in Kottakuppam
             </span>
           </div>
 
-          {/* Main Heading */}
+          {/* Main Heading (H1) */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15]">
             Best IT & Digital <br className="hidden md:block" />
             Skills Training Institute in <br className="hidden md:block" />
@@ -120,15 +120,16 @@ const HeroSection = () => {
           </h1>
 
           {/* Animated Course Highlight */}
-          <div className="text-xl md:text-2xl font-bold text-slate-200 min-h-[1.5em]">
-            Master <span key={currentCourseIndex} className="bg-linear-to-r from-[#FEDA00] to-[#D99000] bg-clip-text text-transparent transition-all duration-500 inline-block animate-in fade-in slide-in-from-bottom-2">
-              {courses[currentCourseIndex]}
+          <div className="text-xl md:text-2xl font-bold min-h-[1.5em] flex flex-wrap items-center justify-center gap-x-2">
+            <span key={currentCourseIndex} className="bg-linear-to-r from-[#FEDA00] to-[#D99000] bg-clip-text text-transparent transition-all duration-500 inline-block animate-in fade-in slide-in-from-bottom-2">
+              {courses[currentCourseIndex]} Course
             </span>
+            <span className="text-white">in Pondicherry</span>
           </div>
 
           {/* SEO Subheading */}
-          <p className="text-slate-300 text-base md:text-lg max-w-3xl leading-relaxed">
-             <span className="font-bold text-white"></span>Serving students across Tamil Nadu with top-rated programs including a <span className="font-bold text-white">Java Full Stack Development Course</span>, <span className="font-bold text-white">Data Analytics Course</span>, <span className="font-bold text-white">AI Digital Marketing Course</span>, and <span className="font-bold text-white">Video Editing Course</span>.
+          <p className="text-slate-300 text-base md:text-lg max-w-4xl leading-relaxed">
+            Serving students across <span className="text-white font-bold">Pondicherry & Tamil Nadu</span> with expert-led courses in <span className="text-white font-semibold">Full Stack Development</span>, <span className="text-white font-semibold">Data Analytics</span>, <span className="text-white font-semibold">AI Digital Marketing</span> & <span className="text-white font-semibold">Video Editing</span>.
           </p>
 
           {/* Features List */}
@@ -208,19 +209,19 @@ const HeroSection = () => {
       <div className="bg-white pt-32 pb-16 px-4 md:px-12">
         <div className="max-w-375 mx-auto relative group">
           
-          <h2 className="text-2xl font-bold text-[#02182b] mb-8 px-2 md:px-6">Latest Updates & Student Success</h2>
+          {/* <h2 className="text-2xl font-bold text-[#02182b] mb-8 px-2 md:px-6">Latest Updates & Student Success</h2> */}
 
           {/* Left Scroll Arrow */}
-          <button 
+          {/* <button 
             onClick={() => scroll('left')}
             className="absolute left-0 md:left-2 top-[60%] -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 bg-white/90 hover:bg-white text-[#02182b] rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-xl border border-slate-200 opacity-0 group-hover:opacity-100 cursor-pointer"
             aria-label="Scroll left"
           >
             <ChevronLeft size={24} />
-          </button>
+          </button> */}
 
           {/* Scrollable Container */}
-          <div 
+          {/* <div 
             ref={scrollContainerRef}
             className="flex gap-4 overflow-x-auto pb-8 px-2 md:px-6 snap-x snap-mandatory justify-start [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           >
@@ -252,7 +253,7 @@ const HeroSection = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
 
           {/* Right Scroll Arrow */}
           <button 

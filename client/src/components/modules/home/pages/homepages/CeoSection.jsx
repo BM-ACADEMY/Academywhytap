@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link2, AtSign } from 'lucide-react';
 import CeoImage from '../../../../../assets/kamar1.png';
 
 const CeoSection = () => {
@@ -14,47 +13,43 @@ const CeoSection = () => {
         {/* Left Column: Text Content */}
         <div className="flex-1 w-full lg:w-1/2">
           
-          {/* Top Label */}
-          <span className="block text-slate-300 text-[12px] font-bold tracking-[0.2em] uppercase mb-6">
-            Visionary Leadership
-          </span>
+          {/* Top Label Badge */}
+          <div className="inline-block px-4 py-1.5 rounded-full bg-[#14937a]/15 border border-[#14937a]/30 mb-6 relative z-10">
+            <span className="text-[#38c8b4] text-[11px] font-extrabold tracking-[0.12em] uppercase">
+              Learn with Kamar
+            </span>
+          </div>
 
           {/* Main Heading */}
-          <h2 className="text-4xl md:text-5xl lg:text-[56px] font-extrabold leading-[1.1] tracking-tight mb-8">
-            Meet Kamarudeen BM<br />
-            <span className="text-[#60a5fa]">CEO & Founder</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] tracking-tight mb-4">
+            Meet Our CEO & Founder
           </h2>
 
-          {/* Blockquote */}
-          <blockquote className="mb-10">
-            <p className="text-[#93c5fd] text-xl md:text-[22px] italic leading-relaxed font-light">
-              "Our mission is to democratize high-end tech education. 
-              We don't just teach courses; we build professionals who are 
-              ready to lead the future of the IT industry from the heart of 
-              Pondicherry."
-            </p>
-          </blockquote>
+          {/* Name & Role */}
+          <div className="mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold text-white">Kamarudeen BM</h3>
+            <p className="text-[#60a5fa] text-lg font-semibold mt-1">CEO & Founder, BM Academy</p>
+          </div>
 
           {/* Description Paragraph */}
-          <p className="text-slate-300 text-[15px] leading-relaxed mb-12 max-w-xl font-medium">
-            With over a decade of experience in digital transformation and education, 
-            Kamarudeen has pioneered a unique mentorship model that focuses on 
-            character building and technical excellence simultaneously.
-          </p>
+          <div className="space-y-6 mb-10 max-w-xl">
+            <p className="text-slate-200 text-lg leading-relaxed font-medium">
+              Kamar founded BM Academy with a vision to make quality tech and digital education accessible to students.
+            </p>
+            <p className="text-slate-300 text-[16px] leading-relaxed">
+              With strong industry experience, he focuses on helping learners build job-ready skills through practical training and real-world projects.
+            </p>
+            <p className="text-slate-300 text-[16px] leading-relaxed">
+              His mission is to guide every student towards a successful career in Full Stack Development, Data Analytics, Digital Marketing, and Creative Video Editing through mentorship, hands-on learning, and career support.
+            </p>
+          </div>
 
-          {/* Action Buttons (Link & Email) */}
-          <div className="flex items-center gap-4">
+            {/* Action Buttons */}
+          <div className="flex flex-wrap items-center gap-6">
             <button 
-              className="w-12 h-12 bg-transparent border border-[#3b82f6] hover:bg-[#3b82f6]/20 rounded-xl flex items-center justify-center text-white transition-colors"
-              aria-label="Copy Link"
+              className="group flex items-center gap-2 px-8 py-4 bg-[#3b82f6] hover:bg-[#2563eb] text-white rounded-xl font-bold text-[16px] transition-all shadow-lg shadow-blue-500/20 active:scale-95"
             >
-              <Link2 size={20} strokeWidth={2} />
-            </button>
-            <button 
-              className="w-12 h-12 bg-transparent border border-[#3b82f6] hover:bg-[#3b82f6]/20 rounded-xl flex items-center justify-center text-white transition-colors"
-              aria-label="Send Email"
-            >
-              <AtSign size={20} strokeWidth={2} />
+              Know His Journey
             </button>
           </div>
 
