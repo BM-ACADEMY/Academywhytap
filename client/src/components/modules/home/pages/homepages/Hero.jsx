@@ -16,6 +16,7 @@ const HeroSection = () => {
   const scrollContainerRef = useRef(null);
   const [activeVideo, setActiveVideo] = useState(null);
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
+  const [currentLocationIndex, setCurrentLocationIndex] = useState(0);
 
   const courses = [
     "Java Full Stack Development",
@@ -24,11 +25,21 @@ const HeroSection = () => {
     "Video Editing"
   ];
 
+  const locations = ["Pondicherry", "Kottakuppam"];
+
   useEffect(() => {
-    const timer = setInterval(() => {
+    const courseTimer = setInterval(() => {
       setCurrentCourseIndex((prev) => (prev + 1) % courses.length);
     }, 3000);
-    return () => clearInterval(timer);
+    
+    const locationTimer = setInterval(() => {
+      setCurrentLocationIndex((prev) => (prev + 1) % locations.length);
+    }, 4000);
+
+    return () => {
+      clearInterval(courseTimer);
+      clearInterval(locationTimer);
+    };
   }, []);
 
   const scroll = (direction) => {
@@ -103,19 +114,21 @@ const HeroSection = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15]">
             Best IT & Digital <br className="hidden md:block" />
             Skills Training Institute in <br className="hidden md:block" />
-            <span className="bg-linear-to-r from-[#FEDA00] to-[#D99000] bg-clip-text text-transparent inline-block">Pondicherry</span>
+            <span key={currentLocationIndex} className="bg-linear-to-r from-[#FEDA00] to-[#D99000] bg-clip-text text-transparent transition-all duration-500 inline-block animate-in fade-in slide-in-from-bottom-2">
+              {locations[currentLocationIndex]}
+            </span>
           </h1>
 
           {/* Animated Course Highlight */}
           <div className="text-xl md:text-2xl font-bold text-slate-200 min-h-[1.5em]">
-            Master <span className="bg-linear-to-r from-[#FEDA00] to-[#D99000] bg-clip-text text-transparent transition-all duration-500 inline-block animate-in fade-in slide-in-from-bottom-2">
+            Master <span key={currentCourseIndex} className="bg-linear-to-r from-[#FEDA00] to-[#D99000] bg-clip-text text-transparent transition-all duration-500 inline-block animate-in fade-in slide-in-from-bottom-2">
               {courses[currentCourseIndex]}
             </span>
           </div>
 
           {/* SEO Subheading */}
           <p className="text-slate-300 text-base md:text-lg max-w-3xl leading-relaxed">
-            The <span className="font-bold text-white">Best Training Institute in Kottakuppam</span> & Pondicherry. Serving students across Tamil Nadu with top-rated programs including a <span className="font-bold text-white">Java Full Stack Development Course</span>, <span className="font-bold text-white">Data Analytics Course</span>, <span className="font-bold text-white">AI Digital Marketing Course</span>, and <span className="font-bold text-white">Video Editing Course</span>.
+             <span className="font-bold text-white"></span>Serving students across Tamil Nadu with top-rated programs including a <span className="font-bold text-white">Java Full Stack Development Course</span>, <span className="font-bold text-white">Data Analytics Course</span>, <span className="font-bold text-white">AI Digital Marketing Course</span>, and <span className="font-bold text-white">Video Editing Course</span>.
           </p>
 
           {/* Features List */}

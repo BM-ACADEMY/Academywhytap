@@ -4,6 +4,7 @@ import Layout from '../modules/admin/layout/Layout';
 import Dashboard from '../modules/admin/layout/Dashboard';
 import AdminContact from '../modules/admin/contact/Contact';
 import AdminCertificate from '../modules/admin/certificate/Certificate';
+import EnquiryList from '../modules/admin/Enquiry/EnquiryList';
 
 import AdminLogin from '../modules/admin/auth/Login';
 import AdminSignup from '../modules/admin/auth/Signup';
@@ -29,6 +30,7 @@ const Adminroutes = () => {
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="certificates" element={<AdminCertificate />} />
                 <Route path="messages" element={<AdminContact />} />
+                <Route path="enquiries" element={<EnquiryList />} />
                 
                 {/* Internal catch-all for admin area */}
                 <Route path="*" element={<Navigate to="dashboard" replace />} />

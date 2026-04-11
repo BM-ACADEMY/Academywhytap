@@ -40,6 +40,12 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             label: 'Message Center',
             onClick: () => navigate('/admin/messages')
         },
+        {
+            key: '/admin/enquiries',
+            icon: <LucideIcons.GraduationCap size={20} />,
+            label: 'Course Enquiries',
+            onClick: () => navigate('/admin/enquiries')
+        },
     ];
 
     const handleLogout = () => {

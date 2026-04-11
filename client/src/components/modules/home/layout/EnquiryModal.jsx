@@ -1,11 +1,19 @@
-import React from 'react';
-import { Modal, Form, Input, Select, Button, ConfigProvider } from 'antd';
-import { X } from 'lucide-react';
+import React, { useState } from 'react';
+import { Modal, Form, Input, Select, Button, ConfigProvider, App } from 'antd';
+import { X, User, Phone, Mail, GraduationCap, Calendar, BookOpen, Send } from 'lucide-react';
+import axios from 'axios';
 
 const { Option } = Select;
 
-const EnquiryModal = ({ isOpen, onClose }) => {
+const EnquiryModalContent = ({ isOpen, onClose }) => {
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
+  const { message } = App.useApp();
+
+  // Get the base URI from environment variables
+  const API_BASE_URL = import.meta.env.VITE_BASE_URI.endsWith('/') 
+    ? import.meta.env.VITE_BASE_URI 
+    : `${import.meta.env.VITE_BASE_URI}/`;
 
   const courses = [
     "Data Analytics",
@@ -29,190 +37,216 @@ const EnquiryModal = ({ isOpen, onClose }) => {
     "2026", "2025", "2024", "2023", "2022", "2021", "2020", "Before 2020"
   ];
 
-  const onFinish = (values) => {
-    console.log('Form Values:', values);
-    onClose();
-    form.resetFields();
+  const onFinish = async (values) => {
+    setLoading(true);
+    try {
+      // Fix: Use correct endpoint path (VITE_BASE_URI already contains /api/)
+      const response = await axios.post(`${API_BASE_URL}enquiry/list/`.replace('list/', 'create/'), values);
+      
+      if (response.status === 201) {
+        message.success('Thank you! Your enquiry has been submitted successfully.');
+        form.resetFields();
+        setTimeout(() => {
+          onClose();
+        }, 1500);
+      }
+    } catch (error) {
+      console.error('Enquiry Submission Error:', error);
+      message.error(error.response?.data?.message || 'Failed to submit enquiry. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: '#9D1B50', // The exact maroon/magenta color from the reference
-          borderRadius: 6,
-          fontFamily: 'inherit',
-        },
-        components: {
-          Modal: {
-            contentPadding: 0,
-            borderRadiusLG: 12,
-          },
-          Input: {
-            controlHeight: 42, // Slimmer height to prevent screen stretching
-            paddingInline: 12,
-            colorBorder: '#d9d9d9', // Ensure borders are visible
-          },
-          Select: {
-            controlHeight: 42,
-            colorBorder: '#d9d9d9',
-          },
-          Form: {
-            itemMarginBottom: 16, // Tighter vertical gap between fields
-            verticalLabelPadding: '0 0 4px',
-          }
-        }
+    <Modal
+      title={null}
+      open={isOpen}
+      onCancel={onClose}
+      footer={null}
+      width={480}
+      closeIcon={null}
+      centered
+      styles={{ 
+        content: { overflow: 'hidden', padding: 0 },
+        mask: { backdropFilter: 'blur(8px)', backgroundColor: 'rgba(5, 36, 59, 0.4)' }
       }}
     >
-      <Modal
-        title={null}
-        open={isOpen}
-        onCancel={onClose}
-        footer={null}
-        width={420} // Slimmer modal width matching the reference
-        closeIcon={null} // We will use a custom close icon layout
-        centered
-        styles={{ 
-          content: { overflow: 'hidden', padding: 0 },
-          mask: { backdropFilter: 'blur(2px)' }
-        }}
-      >
-        {/* Scrollable wrapper prevents vertical stretching on small screens */}
-        <div className="bg-white relative max-h-[90vh] overflow-y-auto overflow-x-hidden p-6 md:p-8 custom-scrollbar">
+      <div className="relative bg-white font-sans">
+        
+        {/* Branded Header Section */}
+        <div className="bg-[#05243b] p-8 text-center relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#2a9b87]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-[#2a9b87]/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
           
-          {/* Custom Close Icon */}
+          <h2 className="text-2xl font-black text-white relative z-10 tracking-tight">
+            Start Your Journey
+          </h2>
+          <p className="text-[#2a9b87] text-sm font-bold uppercase tracking-widest mt-1 relative z-10">
+            BM Academy Enquiry Form
+          </p>
+
           <button 
             onClick={onClose}
-            className="absolute top-4 right-4 p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors z-10"
+            type="button"
+            className="absolute top-4 right-4 p-2 text-white/40 hover:text-white hover:bg-white/10 rounded-full transition-all z-20 group"
           >
-            <X size={20} strokeWidth={2} />
+            <X size={20} className="group-hover:rotate-90 transition-transform duration-300" />
           </button>
+        </div>
 
-          <div className="pb-5 text-center">
-            <h2 className="text-2xl font-bold text-gray-800">Enquiry Now</h2>
-          </div>
-
+        <div className="p-8 md:p-10">
           <Form
             form={form}
             layout="vertical"
             onFinish={onFinish}
-            requiredMark={true} // Enables AntD's native red asterisks
+            requiredMark={false}
             className="flex flex-col"
           >
             <Form.Item
-              label={<span className="text-[13px] font-medium text-gray-700">Name</span>}
+              label={<span className="font-bold text-slate-600">Full Name</span>}
               name="name"
               rules={[{ required: true, message: 'Please enter your name' }]}
             >
-              <Input placeholder="Name" className="font-medium hover:border-[#9D1B50] focus:border-[#9D1B50]" />
-            </Form.Item>
-
-            <Form.Item
-              label={<span className="text-[13px] font-medium text-gray-700">Phone</span>}
-              name="phone"
-              rules={[{ required: true, message: 'Please enter your phone number' }]}
-            >
               <Input 
-                prefix={<span className="text-gray-800 font-medium border-r pr-2 mr-1 text-[13px]">+91</span>} 
-                placeholder="Phone" 
-                className="font-medium hover:border-[#9D1B50] focus:border-[#9D1B50]" 
+                prefix={<User size={18} className="text-slate-400 mr-2" />} 
+                placeholder="e.g. John Doe" 
+                className="rounded-xl border-slate-200"
               />
             </Form.Item>
 
-            <Form.Item
-              label={<span className="text-[13px] font-medium text-gray-700">E-mail</span>}
-              name="email"
-              rules={[
-                { required: true, message: 'Please enter your email' },
-                { type: 'email', message: 'Please enter a valid email' }
-              ]}
-            >
-              <Input placeholder="E-mail" className="font-medium hover:border-[#9D1B50] focus:border-[#9D1B50]" />
-            </Form.Item>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Form.Item
+                label={<span className="font-bold text-slate-600">Phone Number</span>}
+                name="phone"
+                rules={[{ required: true, message: 'Please enter your phone number' }]}
+              >
+                <Input 
+                  prefix={<Phone size={18} className="text-slate-400 mr-2" />} 
+                  placeholder="+91 00000 00000" 
+                  className="rounded-xl border-slate-200"
+                />
+              </Form.Item>
+
+              <Form.Item
+                label={<span className="font-bold text-slate-600">Email Address</span>}
+                name="email"
+                rules={[
+                  { required: true, message: 'Please enter your email' },
+                  { type: 'email', message: 'Please enter a valid email' }
+                ]}
+              >
+                <Input 
+                  prefix={<Mail size={18} className="text-slate-400 mr-2" />} 
+                  placeholder="john@example.com" 
+                  className="rounded-xl border-slate-200"
+                />
+              </Form.Item>
+            </div>
 
             <Form.Item
-              label={<span className="text-[13px] font-medium text-gray-700">Select a Course</span>}
+              label={<span className="font-bold text-slate-600">Interested Course</span>}
               name="course"
               rules={[{ required: true, message: 'Please select a course' }]}
             >
-              <Select placeholder="Select a Course" className="font-medium">
+              <Select 
+                placeholder="Choose your path" 
+                className="rounded-xl"
+                suffixIcon={<BookOpen size={18} className="text-slate-400" />}
+              >
                 {courses.map(course => <Option key={course} value={course}>{course}</Option>)}
               </Select>
             </Form.Item>
 
-            <Form.Item
-              label={<span className="text-[13px] font-medium text-gray-700">Select Your Qualification</span>}
-              name="qualification"
-              rules={[{ required: true, message: 'Please select your qualification' }]}
-            >
-              <Select placeholder="Select Your Qualification" className="font-medium">
-                {qualifications.map(q => <Option key={q} value={q}>{q}</Option>)}
-              </Select>
-            </Form.Item>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Form.Item
+                label={<span className="font-bold text-slate-600">Qualification</span>}
+                name="qualification"
+                rules={[{ required: true, message: 'Please select qualification' }]}
+              >
+                <Select 
+                  placeholder="Your education" 
+                  className="rounded-xl"
+                  suffixIcon={<GraduationCap size={18} className="text-slate-400" />}
+                >
+                  {qualifications.map(q => <Option key={q} value={q}>{q}</Option>)}
+                </Select>
+              </Form.Item>
 
-            <Form.Item
-              label={<span className="text-[13px] font-medium text-gray-700">Select Year of Passing</span>}
-              name="passingYear"
-              rules={[{ required: true, message: 'Please select your passing year' }]}
-            >
-              <Select placeholder="Select Year of Passing" className="font-medium">
-                {passingYears.map(year => <Option key={year} value={year}>{year}</Option>)}
-              </Select>
-            </Form.Item>
+              <Form.Item
+                label={<span className="font-bold text-slate-600">Year of Passing</span>}
+                name="passing_year"
+                rules={[{ required: true, message: 'Please select year' }]}
+              >
+                <Select 
+                  placeholder="Year" 
+                  className="rounded-xl"
+                  suffixIcon={<Calendar size={18} className="text-slate-400" />}
+                >
+                  {passingYears.map(year => <Option key={year} value={year}>{year}</Option>)}
+                </Select>
+              </Form.Item>
+            </div>
 
-            <Form.Item className="mb-0 mt-2">
+            <Form.Item className="mb-0 mt-6">
               <Button 
                 type="primary" 
                 htmlType="submit" 
                 block 
-                className="h-11 font-semibold text-[15px] rounded-md shadow-none hover:opacity-90 transition-opacity"
-                style={{ backgroundColor: '#9D1B50' }}
+                loading={loading}
+                className="h-14 font-black text-base rounded-2xl shadow-xl shadow-[#2a9b87]/20 border-none flex items-center justify-center gap-3 group"
               >
-                Submit
+                {loading ? 'Submitting...' : 'Submit Enquiry'}
+                <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </Button>
             </Form.Item>
 
-            {/* Footer Section matching the reference layout */}
-            <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-100">
-                <a href="#" className="text-[11px] font-medium text-gray-400 hover:text-gray-600 hover:underline">
-                  Report abuse
-                </a>
-
-                <div className="flex items-center gap-2 p-2 bg-[#f9fafd] rounded border border-[#e5e7eb]">
-                    <div className="flex flex-col items-end leading-none">
-                      <span className="text-[9px] text-gray-600 mb-[2px]">
-                        protected by <strong className="text-gray-800">reCAPTCHA</strong>
-                      </span>
-                      <span className="text-[8px] text-gray-500">
-                        <a href="#" className="hover:underline">Privacy</a> - <a href="#" className="hover:underline">Terms</a>
-                      </span>
-                    </div>
-                    <img 
-                      src="https://www.gstatic.com/recaptcha/api2/logo_48.png" 
-                      alt="reCAPTCHA" 
-                      className="w-7 h-7 object-contain bg-white rounded-sm p-0.5 shadow-sm border border-gray-100" 
-                    />
-                </div>
-            </div>
+            <p className="text-center text-slate-400 text-xs mt-6 font-medium">
+              By submitting this form, you agree to our Terms and Privacy Policy.
+            </p>
           </Form>
         </div>
-      </Modal>
-
-      {/* Optional: Add this CSS to your global index.css to hide the scrollbar cleanly if it appears on small screens */}
-      <style>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #e5e7eb;
-          border-radius: 4px;
-        }
-      `}</style>
-    </ConfigProvider>
+      </div>
+    </Modal>
   );
 };
+
+const EnquiryModal = (props) => (
+  <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary: '#2a9b87',
+        borderRadius: 12,
+        fontFamily: 'Inter, sans-serif',
+        colorTextBase: '#05243b',
+      },
+      components: {
+        Modal: {
+          contentPadding: 0,
+          borderRadiusLG: 24,
+        },
+        Input: {
+          controlHeight: 48,
+          paddingInline: 16,
+          colorBorder: '#e2e8f0',
+          hoverBorderColor: '#2a9b87',
+        },
+        Select: {
+          controlHeight: 48,
+          colorBorder: '#e2e8f0',
+        },
+        Form: {
+          itemMarginBottom: 20,
+          verticalLabelPadding: '0 0 6px',
+          labelFontSize: 13,
+        }
+      }
+    }}
+  >
+    <App>
+      <EnquiryModalContent {...props} />
+    </App>
+  </ConfigProvider>
+);
 
 export default EnquiryModal;
