@@ -42,11 +42,11 @@ const StudentsWorkAt = () => {
                             <User size={20} />
                         </div>
                         <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-                            Our Alumni Work at
+                            Our Students Work At
                         </h2>
                     </div>
-                    <p className="text-slate-600 text-sm md:text-base font-medium max-w-3xl mx-auto">
-                        Trained at <span className="text-[#14937a] font-black">BM Academy</span>, placed at leading tech companies – see where our learners are making an impact.
+                    <p className="text-slate-600 text-sm md:text-[17px] font-medium max-w-3xl mx-auto leading-relaxed">
+                        Our students have secured opportunities in various companies and startups
                     </p>
                 </div>
 
@@ -83,10 +83,10 @@ const StudentsWorkAt = () => {
                             {/* Content */}
                             <div className="space-y-4">
                                 <h3 className="text-2xl font-black text-[#05243b]">
-                                    Join the Elite
+                                    Build Your Career with BM Academy
                                 </h3>
                                 <p className="text-slate-500 text-sm font-semibold leading-relaxed px-4">
-                                    Become part of our growing alumni community today.
+                                    Join our growing community of learners and start your journey towards a successful career with practical training and career support.
                                 </p>
                                 
                                 <div className="pt-6">

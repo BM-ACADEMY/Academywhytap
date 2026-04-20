@@ -1,14 +1,14 @@
 import React from 'react';
-import { Rocket, CheckCircle2, Star, Briefcase, GraduationCap, Users } from 'lucide-react';
+import { Rocket, Star, Briefcase, GraduationCap, Users, FileCheck } from 'lucide-react';
 import jobImage from '../../../../../assets/img10.jpg';
 
 const PlacementSupport = () => {
     const careerPoints = [
-        "Placement Assistance",
-        "Resume Building & Portfolio",
-        "Mock Interviews & Career Guidance",
-        "Hiring Partner Network",
-        "Internship Opportunities"
+        { text: "Placement Assistance", icon: <Briefcase size={18} /> },
+        { text: "Resume Building & Portfolio", icon: <FileCheck size={18} /> },
+        { text: "Mock Interviews & Career Guidance", icon: <Users size={18} /> },
+        { text: "Hiring Partner Network", icon: <Briefcase size={18} /> },
+        { text: "Internship Opportunities", icon: <Rocket size={18} /> }
     ];
 
     const stats = [
@@ -57,11 +57,11 @@ const PlacementSupport = () => {
                             <ul className="space-y-4">
                                 {careerPoints.map((point, idx) => (
                                     <li key={idx} className="flex items-center gap-4 group/item">
-                                        <div className="bg-pink-50 text-[#05243b] p-1.5 rounded-full group-hover/item:bg-[#05243b] group-hover/item:text-white transition-all duration-300">
-                                            <CheckCircle2 size={18} />
+                                        <div className="bg-[#14937a]/10 text-[#14937a] p-2 rounded-xl group-hover/item:bg-[#14937a] group-hover/item:text-white transition-all duration-300">
+                                            {point.icon}
                                         </div>
                                         <span className="text-slate-700 font-bold text-base md:text-lg group-hover/item:text-[#05243b] transition-colors">
-                                            {point}
+                                            {point.text}
                                         </span>
                                     </li>
                                 ))}

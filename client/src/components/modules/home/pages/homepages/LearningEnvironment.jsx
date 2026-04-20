@@ -8,20 +8,20 @@ import kamar2 from '../../../../../assets/class/class3.png';
 const LearningEnvironment = () => {
     const topGallery = [
         {
-            title: "Live Training Session",
-            desc: "Hands-on training with real-time projects to help students build industry-ready skills.",
-            icon: <Play size={20} />,
-            image: class2
-        },
-        {
             title: "Classroom Training",
-            desc: "Learn in a structured classroom environment with expert trainers and interactive sessions.",
+            desc: "Learn in a structured classroom environment with expert trainers and interactive sessions focused on real-world skills.",
             icon: <Users size={20} />,
             image: class1
         },
         {
+            title: "Live Training Session",
+            desc: "Hands-on training with real-time projects to help students build industry-ready skills and confidence.",
+            icon: <Play size={20} />,
+            image: class2
+        },
+        {
             title: "Computer Lab Training",
-            desc: "Participate in workshops, seminars and events to enhance your knowledge and confidence.",
+            desc: "Practice in a modern computer lab setup with guided sessions and practical implementation.",
             icon: <Monitor size={20} />,
             image: kamar2
         },
@@ -60,13 +60,13 @@ const LearningEnvironment = () => {
                     <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#05243b]">
                         BM Academy Classroom & Training Gallery in Pondicherry
                     </h2>
-                    <p className="text-slate-500 text-sm md:text-base font-medium max-w-4xl mx-auto leading-relaxed">
-                        Explore our modern classrooms and hands-on training sessions at <span className="text-[#05243b] font-bold">BM Academy, Kottakuppam (Pondicherry)</span>, where students gain practical skills in Full Stack Development, Data Analytics, Digital Marketing, and Video Editing.
+                    <p className="text-slate-500 text-sm md:text-lg font-medium max-w-5xl mx-auto leading-relaxed">
+                        Explore our modern classrooms and hands-on training sessions at <span className="text-[#05243b] font-bold">BM Academy</span>, where students gain practical skills in <span className="text-[#14937a] font-semibold">Full Stack Development</span>, <span className="text-[#14937a] font-semibold">Data Analytics</span>, <span className="text-[#14937a] font-semibold">Digital Marketing</span>, and <span className="text-[#14937a] font-semibold">Video Editing</span> through real-time learning.
                     </p>
                 </div>
 
                 {/* Top Row Grid: Framed Gallery Style */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                     {topGallery.map((item, idx) => (
                         <div key={idx} className="bg-white p-2.5 rounded-[2rem] shadow-[0_8px_30px_rgba(5,36,59,0.04)] hover:shadow-[0_15px_45px_rgba(5,36,59,0.1)] hover:-translate-y-1 transition-all duration-500 border border-[#05243b] group cursor-pointer">
                             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-slate-100">
@@ -88,6 +88,15 @@ const LearningEnvironment = () => {
                             </div>
                         </div>
                     ))}
+                </div>
+
+                {/* Bottom SEO Text */}
+                <div className="text-center pt-12 mt-8 border-t border-slate-300">
+                    <div className="inline-block bg-[#05243b]/5 px-8 py-4 rounded-3xl border border-[#05243b]/10">
+                        <p className="text-[#05243b] text-[10px] md:text-xs font-black leading-relaxed max-w-4xl mx-auto uppercase tracking-[0.25em]">
+                            Experience real-time classroom training & practical learning designed to help students build job-ready skills at BM Academy.
+                        </p>
+                    </div>
                 </div>
 
             </div>

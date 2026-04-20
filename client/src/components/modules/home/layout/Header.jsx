@@ -87,7 +87,7 @@ const Header = () => {
           {/* Logo (Updated to match design text) */}
           <Link to="/" className="flex items-center cursor-pointer group">
             <img 
-              src="/assets/logo/logo.png" 
+              src="/assets/logo/bmlogot.png" 
               alt="BM Academy Logo" 
               className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
             />
