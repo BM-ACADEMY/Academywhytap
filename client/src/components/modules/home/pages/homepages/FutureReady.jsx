@@ -1,39 +1,25 @@
 import React from 'react';
 import { 
-    Rocket, 
-    FileCheck, 
-    Users2, 
-    HandCoins, 
-    ChevronLeft, 
-    ChevronRight 
+  Star, 
+  Laptop, 
+  CheckCircle, 
+  Briefcase, 
+  Users, 
+  Award, 
+  Clock,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 
 const FutureReady = () => {
-    const featureCards = [
-        {
-            title: "Upskill Your Career",
-            desc: "Master in-demand skills and build a strong foundation for your future",
-            icon: <FileCheck size={40} className="text-[#02182b]" />,
-            bgColor: "bg-[#02182b]", // Navy
-            height: "h-[400px]",
-            offset: "lg:translate-y-12"
-        },
-        {
-            title: "Build Confidence & Personality",
-            desc: "Improve communication, confidence, and become industry-ready",
-            icon: <Users2 size={40} className="text-[#14937a]" />,
-            bgColor: "bg-[#14937a]", // Teal
-            height: "h-[480px]",
-            offset: "lg:-translate-y-8"
-        },
-        {
-            title: "Become Job-Ready",
-            desc: "Gain practical experience and prepare for real job opportunities",
-            icon: <HandCoins size={40} className="text-[#05243b]" />,
-            bgColor: "bg-[#05243b]", // Deep Navy
-            height: "h-[400px]",
-            offset: "lg:translate-y-12"
-        }
+    const steps = [
+        { title: 'Career Consultation', desc: 'Identify your ideal career path', icon: <Star size={32} /> },
+        { title: 'Technical Training', desc: 'Master in-demand IT skills', icon: <Laptop size={32} /> },
+        { title: 'Live Projects', desc: 'Work on real-world industry tasks', icon: <CheckCircle size={32} /> },
+        { title: 'Soft Skills Training', desc: 'Improve personality & comms', icon: <Users size={32} /> },
+        { title: 'Career Prep', desc: 'Resume & mock interviews', icon: <Award size={32} /> },
+        { title: 'Cert & Support', desc: 'Get certified & job ready', icon: <Clock size={32} /> },
+        { title: 'Placement Support', desc: 'Connect with hiring partners', icon: <Briefcase size={32} /> }
     ];
 
     const partners = [
@@ -41,118 +27,91 @@ const FutureReady = () => {
         { name: "Microsoft", logo: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" },
         { name: "Meta", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" },
         { name: "Amazon", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
-        { name: "Netflix", logo: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
-        { name: "Apple", logo: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" },
+        { name: "Zoho", logo: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Zoho_logo.svg" },
+        { name: "TCS", logo: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Tata_Consultancy_Services_Logo.svg" },
     ];
 
     return (
-        <section className="bg-[#f3f4f6] py-20 px-4 md:px-12 lg:px-20 font-sans overflow-hidden">
-            <div className="max-w-7xl mx-auto flex flex-col items-center">
-                
-                {/* Header Section */}
-                <div className="text-center mb-16 space-y-4 max-w-4xl">
-                    <div className="flex items-center justify-center gap-2 text-[#05243b] mb-2 group">
-                        <Rocket size={24} className="group-hover:animate-bounce" />
-                        <span className="font-bold text-lg md:text-xl">Future-Ready Skills with BM Academy</span>
+        <section className="py-32 bg-white overflow-hidden relative">
+            <div className="max-w-7xl mx-auto px-4">
+                <div className="text-center mb-24">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#14937a]/10 border border-[#14937a]/20 mb-6">
+                        <span className="text-[#14937a] text-[11px] font-black uppercase tracking-[0.2em]">The Journey to Success</span>
                     </div>
-                    <p className="text-slate-600 text-sm md:text-lg font-medium leading-relaxed">
-                        BM Academy empowers students in Kottakuppam, Pondicherry with job-oriented training in Full Stack Development, Data Analytics, AI Digital Marketing, and Video Editing through hands-on learning and real-world projects
+                    <h2 className="text-3xl md:text-5xl font-black text-[#05243b]">
+                        How You’ll Learn at <span className="text-[#14937a]">BM Academy</span>
+                    </h2>
+                    <p className="text-slate-500 max-w-2xl mx-auto text-lg font-medium mt-4">
+                        Our proven learning methodology designed to take you from a beginner to a job-ready professional.
                     </p>
                 </div>
 
-                {/* Main Content Container (Pill Shaped) */}
-                <div className="w-full bg-[#f4f7fa] rounded-[4rem] px-8 pt-24 pb-16 md:px-12 lg:px-16 flex flex-col items-center relative">
-                    
-                    {/* Staggered Cards Container */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-4 w-full relative z-10">
-                        {featureCards.map((card, idx) => (
-                            <div 
-                                key={idx}
-                                className={`${card.bgColor} ${card.height} ${card.offset} p-8 rounded-[3.5rem] flex flex-col items-center text-center shadow-2xl transition-all duration-500 hover:scale-[1.02] justify-center group overflow-hidden border border-white/10`}
-                            >
-                                {/* Subtle Glow Effect */}
-                                <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative mb-32">
+                    {/* Dashed Connecting Line (Desktop) */}
+                    <div className="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 border-t-2 border-dashed border-slate-200 -translate-y-1/2 z-0" />
 
-                                {/* Icon Container (Restyled to match reference) */}
-                                <div className="bg-white w-24 h-24 rounded-[2rem] shadow-xl flex items-center justify-center mb-10 overflow-hidden transform group-hover:rotate-6 transition-transform">
-                                    {card.icon}
+                    <div className="grid lg:grid-cols-7 gap-8 relative z-10">
+                        {steps.map((step, i) => (
+                            <div key={i} className="flex flex-col items-center text-center group">
+                                <div className="relative">
+                                    <div className="w-20 h-20 rounded-full bg-white border-4 border-slate-50 shadow-xl flex items-center justify-center text-[#14937a] transition-all duration-500 group-hover:bg-[#14937a] group-hover:text-white group-hover:scale-110 relative z-10">
+                                        {step.icon}
+                                    </div>
+                                    <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-[#05243b] text-white text-xs font-black flex items-center justify-center border-2 border-white shadow-lg">
+                                        {i + 1}
+                                    </div>
                                 </div>
 
-                                {/* Title Area */}
-                                <div className="space-y-5 px-2">
-                                    <h3 className="text-white text-2xl lg:text-3xl font-extrabold leading-tight">
-                                        {card.title}
+                                <div className="mt-8 space-y-2">
+                                    <h3 className="font-black text-[#05243b] text-sm group-hover:text-[#14937a] transition-colors leading-tight">
+                                        {step.title}
                                     </h3>
-                                    <p className="text-white/80 text-[15px] lg:text-base font-medium leading-relaxed line-clamp-3">
-                                        {card.desc}
+                                    <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider leading-relaxed max-w-[120px] mx-auto opacity-60">
+                                        {step.desc}
                                     </p>
                                 </div>
+
+                                {i < 6 && (
+                                    <div className="lg:hidden w-0.5 h-12 border-l-2 border-dashed border-slate-200 my-4" />
+                                )}
                             </div>
                         ))}
                     </div>
+                </div>
 
-                    {/* Hiring Partners Section (Integrated into the box) */}
-                    <div className="w-full mt-4 mb-4">
-                        <div className="flex items-center justify-center gap-6 mb-12">
-                            <div className="h-[1px] flex-grow bg-slate-300 max-w-[200px]"></div>
-                            <span className="text-slate-500 text-[11px] font-black uppercase tracking-[0.3em] whitespace-nowrap">
-                                Our Hiring Partners
-                            </span>
-                            <div className="h-[1px] flex-grow bg-slate-300 max-w-[200px]"></div>
+                {/* Partners Scroll */}
+                <div className="pt-20 border-t border-slate-50">
+                    <div className="text-center mb-12">
+                        <span className="text-slate-400 text-[11px] font-black uppercase tracking-[0.3em]">Our Graduates Work At</span>
+                    </div>
+                    <div className="relative w-full overflow-hidden">
+                        <div className="flex gap-8 items-center animate-scroll whitespace-nowrap py-4">
+                            {[...partners, ...partners].map((partner, idx) => (
+                                <div key={idx} className="inline-flex flex-none bg-white px-8 py-6 rounded-2xl border border-slate-100 items-center justify-center min-w-[160px] h-[80px] hover:shadow-xl transition-all grayscale opacity-60 hover:grayscale-0 hover:opacity-100">
+                                    <img src={partner.logo} alt={partner.name} className="h-8 w-auto object-contain" />
+                                </div>
+                            ))}
                         </div>
-
-                        <div className="relative group/carousel px-10">
-                            {/* Navigation Arrows (Visual only for now) */}
-                            <div className="absolute left-0 top-1/2 -translate-y-1/2 z-20">
-                                <button className="w-8 h-8 rounded-full bg-white shadow-md text-slate-300 hover:text-slate-600 flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-all cursor-pointer">
-                                    <ChevronLeft size={20} />
-                                </button>
-                            </div>
-                            <div className="absolute right-0 top-1/2 -translate-y-1/2 z-20">
-                                <button className="w-8 h-8 rounded-full bg-white shadow-md text-slate-300 hover:text-slate-600 flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-all cursor-pointer">
-                                    <ChevronRight size={20} />
-                                </button>
-                            </div>
-
-                            {/* Logos Grid (as shown in ref image) */}
-                        <div className="relative w-full overflow-hidden">
-                             {/* Infinite Scroll Container */}
-                            <div className="flex gap-4 lg:gap-6 items-center animate-scroll whitespace-nowrap py-4">
-                                {[...partners, ...partners].map((partner, idx) => (
-                                    <div 
-                                        key={idx} 
-                                        className="inline-flex flex-none bg-white px-6 py-5 rounded-2xl shadow-sm border border-slate-100 items-center justify-center min-w-[140px] h-[70px] hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer group"
-                                    >
-                                        <img 
-                                            src={partner.logo} 
-                                            alt={partner.name}
-                                            className="h-7 w-auto object-contain transition-all duration-500"
-                                        />
-                                    </div>
-                                ))}
-                            </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-        <style>{`
-            @keyframes scroll {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(calc(-50% - 12px)); }
-            }
-            .animate-scroll {
-                display: flex;
-                width: max-content;
-                animation: scroll 25s linear infinite;
-            }
-            .animate-scroll:hover {
-                animation-play-state: paused;
-            }
-        `}</style>
-    </section>
-);
+            <style dangerouslySetInnerHTML={{ __html: `
+                @keyframes scroll {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(calc(-50% - 16px)); }
+                }
+                .animate-scroll {
+                    display: flex;
+                    width: max-content;
+                    animation: scroll 30s linear infinite;
+                }
+                .animate-scroll:hover {
+                    animation-play-state: paused;
+                }
+            `}} />
+        </section>
+    );
 };
 
 export default FutureReady;
