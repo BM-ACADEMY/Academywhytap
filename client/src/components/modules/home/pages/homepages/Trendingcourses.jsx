@@ -60,116 +60,104 @@ const TrendingCourses = () => {
     }, []);
 
     const nextSlide = () => {
-        if (currentIndex < courses.length - cardsToShow) {
-            setCurrentIndex(currentIndex + 1);
-        } else {
-            setCurrentIndex(0);
-        }
+        if (currentIndex < courses.length - cardsToShow) setCurrentIndex(currentIndex + 1);
+        else setCurrentIndex(0);
     };
 
     const prevSlide = () => {
-        if (currentIndex > 0) {
-            setCurrentIndex(currentIndex - 1);
-        } else {
-            setCurrentIndex(courses.length - cardsToShow);
-        }
+        if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
+        else setCurrentIndex(courses.length - cardsToShow);
     };
 
     return (
-        <section className="bg-[#fcfcfc] py-16 px-6 md:px-12 lg:px-20 font-sans relative overflow-hidden">
-
+        <section className="bg-white py-24 px-6 md:px-12 lg:px-20 font-sans relative overflow-hidden" id="trending-courses">
             {/* Background Decorative Glow */}
-            <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-gradient-to-br from-[#14937a]/5 to-transparent rounded-full blur-[80px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-[#14937a]/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
-            <div className="max-w-4xl mx-auto text-center mb-12 space-y-3 relative z-10">
-                <div className="flex flex-col items-center justify-center gap-2 text-[#05243b]">
-                    <BarChart3 size={32} className="text-[#14937a] mb-2" />
-                    <h2 className="text-3xl md:text-4xl lg:text-[42px] font-extrabold tracking-tight leading-tight">
-                        Top Job-Oriented Courses in Pondicherry
-                    </h2>
+            <div className="max-w-7xl mx-auto text-center mb-20 space-y-4 relative z-10">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#14937a]/10 border border-[#14937a]/20 mb-2">
+                    <span className="text-[#14937a] text-[11px] font-black uppercase tracking-[0.2em]">Our Programs</span>
                 </div>
-                <p className="text-slate-500 text-sm md:text-[17px] max-w-2xl mx-auto font-medium leading-relaxed">
-                    Upgrade your career with industry-focused training programs in Kottakuppam, Pondicherry with placement support
+                <h2 className="text-3xl md:text-5xl font-black text-[#05243b] leading-tight">
+                    Top Job-Oriented <span className="text-[#14937a]">Courses</span>
+                </h2>
+                <p className="text-slate-500 text-lg max-w-2xl mx-auto font-medium">
+                    Upgrade your career with industry-focused training programs and placement support.
                 </p>
             </div>
 
             {/* Carousel Container */}
-            <div className="max-w-7xl mx-auto relative px-4 md:px-12 z-10">
-
+            <div className="max-w-[1440px] mx-auto relative z-10">
                 {/* Arrows */}
                 <button
                     onClick={prevSlide}
-                    className="absolute left-0 top-[40%] -translate-y-1/2 -translate-x-2 md:-translate-x-4 w-10 md:w-12 h-10 md:h-12 bg-white rounded-full shadow-lg border border-slate-100 flex items-center justify-center text-slate-400 hover:text-[#05243b] transition-all z-20 hover:scale-110 active:scale-95"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-6 w-12 md:h-12 w-12 h-12 bg-white rounded-full shadow-2xl border border-slate-100 flex items-center justify-center text-[#05243b] hover:bg-[#14937a] hover:text-white transition-all z-20 active:scale-90"
                 >
                     <ChevronLeft size={24} />
                 </button>
                 <button
                     onClick={nextSlide}
-                    className="absolute right-0 top-[40%] -translate-y-1/2 translate-x-2 md:translate-x-4 w-10 md:w-12 h-10 md:h-12 bg-white rounded-full shadow-lg border border-slate-100 flex items-center justify-center text-slate-400 hover:text-[#05243b] transition-all z-20 hover:scale-110 active:scale-95"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-6 w-12 md:h-12 w-12 h-12 bg-white rounded-full shadow-2xl border border-slate-100 flex items-center justify-center text-[#05243b] hover:bg-[#14937a] hover:text-white transition-all z-20 active:scale-90"
                 >
                     <ChevronRight size={24} />
                 </button>
 
-                <div className="overflow-hidden py-4 px-1">
+                <div className="overflow-hidden py-10 px-2">
                     <div 
-                        className="flex transition-transform duration-500 ease-out" 
+                        className="flex transition-transform duration-700 cubic-bezier(0.4, 0, 0.2, 1)" 
                         style={{ transform: `translateX(-${currentIndex * (100 / cardsToShow)}%)` }}
                     >
                         {courses.map((course) => (
                             <div
                                 key={course.id}
                                 style={{ flex: `0 0 ${100 / cardsToShow}%` }}
-                                className="px-3"
+                                className="px-4"
                             >
-                                {/* EXACT LINE BORDER UPDATED HERE: border-[#05243b] */}
-                                <div className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-[0_20px_50px_rgba(5,36,59,0.08)] transition-all duration-500 group border border-[#05243b] p-2.5 relative">
+                                <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_60px_rgba(20,147,122,0.12)] transition-all duration-500 group border border-slate-50 p-3 relative">
                                     
-                                    {/* Bubble Decoration */}
-                                    <div className="absolute top-0 right-0 w-12 h-12 bg-[#14937a]/10 rounded-bl-[100%] pointer-events-none translate-x-1/3 -translate-y-1/3 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500 opacity-30"></div>
-
                                     {course.badge && (
-                                        <div className="absolute top-6 right-6 z-30 bg-[#e8be66] text-[#05243b] text-[10px] font-black px-3 py-1 rounded-full shadow-sm tracking-wider uppercase">
+                                        <div className="absolute top-6 right-6 z-30 bg-[#e8be66] text-[#05243b] text-[10px] font-black px-4 py-1.5 rounded-full shadow-lg tracking-wider uppercase">
                                             {course.badge}
                                         </div>
                                     )}
 
-                                    <div className="relative w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden">
+                                    <div className="relative w-full aspect-[16/10] rounded-[1.8rem] overflow-hidden">
                                         <img
                                             src={course.image}
                                             alt={course.title}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-[#05243b]/60 to-transparent"></div>
 
-                                        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-20 bg-white text-[#14937a] px-5 py-1.5 rounded-full text-[12px] font-bold shadow-md border border-slate-100 flex items-center gap-1.5 min-w-max">
+                                        <div className="absolute bottom-4 left-4 z-20 bg-white/95 backdrop-blur-md text-[#14937a] px-5 py-2 rounded-2xl text-[12px] font-black shadow-xl flex items-center gap-2">
                                             <Clock size={14} />
                                             {course.duration}
                                         </div>
                                     </div>
 
-                                    <div className="pt-8 pb-3 px-4 text-center space-y-3.5">
-                                        <h3 className="text-[18px] font-extrabold text-[#05243b] leading-[1.3] px-1 h-[48px] flex items-center justify-center">
+                                    <div className="pt-8 pb-4 px-5 text-center">
+                                        <h3 className="text-[20px] font-black text-[#05243b] mb-4 leading-tight min-h-[60px] flex items-center justify-center">
                                             {course.title}
                                         </h3>
 
-                                        <div className="flex items-center justify-center gap-2 text-[#14937a] font-bold text-[13px] tracking-wide uppercase">
-                                            {course.isEditing ? <PlayCircle size={14} /> : <Briefcase size={14} />}
+                                        <div className="flex items-center justify-center gap-2 text-[#14937a] font-black text-[12px] tracking-wider uppercase mb-8">
+                                            {course.isEditing ? <PlayCircle size={16} /> : <Briefcase size={16} />}
                                             {course.support}
                                         </div>
 
-                                        <div className="flex items-center justify-between border-t border-slate-100 pt-4 mt-1">
-                                            <div className="flex items-center gap-1.5 text-slate-400">
-                                                <Users size={14} />
-                                                <span className="text-[12px] font-bold">{course.students} Students</span>
+                                        <div className="flex items-center justify-between border-t border-slate-100 pt-6 mb-8">
+                                            <div className="flex items-center gap-2 text-slate-400">
+                                                <Users size={16} />
+                                                <span className="text-[13px] font-black">{course.students}</span>
                                             </div>
                                             <div className="flex items-center gap-0.5">
                                                 {[...Array(5)].map((_, i) => (
-                                                    <Star key={i} size={13} className="fill-[#e8be66] text-[#e8be66]" />
+                                                    <Star key={i} size={14} className="fill-[#e8be66] text-[#e8be66]" />
                                                 ))}
                                             </div>
                                         </div>
 
-                                        <button className="w-full mt-2 py-3.5 rounded-xl bg-[#05243b] text-white font-bold text-[14px] uppercase tracking-wider transform transition-all duration-300 hover:bg-[#14937a] hover:shadow-lg active:scale-95">
+                                        <button className="w-full py-5 rounded-[1.2rem] bg-[#05243b] text-white font-black text-sm uppercase tracking-widest transition-all duration-300 group-hover:bg-[#14937a] shadow-xl shadow-[#05243b]/10 active:scale-95">
                                             Start Learning
                                         </button>
                                     </div>
@@ -180,24 +168,23 @@ const TrendingCourses = () => {
                 </div>
 
                 {/* Status Dots */}
-                <div className="flex justify-center gap-2.5 mt-10">
+                <div className="flex justify-center gap-3 mt-4">
                     {[...Array(courses.length - cardsToShow + 1)].map((_, i) => (
                         <button
                             key={i}
                             onClick={() => setCurrentIndex(i)}
-                            className={`h-1.5 rounded-full transition-all duration-300 ${currentIndex === i ? 'w-5 bg-[#05243b]' : 'w-1.5 bg-slate-200'}`}
+                            className={`h-2 rounded-full transition-all duration-500 ${currentIndex === i ? 'w-8 bg-[#14937a]' : 'w-2 bg-slate-200'}`}
                         />
                     ))}
                 </div>
 
-                <div className="flex justify-center mt-10">
-                    <button className="group flex items-center gap-2 px-8 py-3.5 bg-white border-2 border-[#05243b] text-[#05243b] rounded-full font-bold text-[15px] hover:bg-[#05243b] hover:text-white transition-all shadow-sm">
+                <div className="flex justify-center mt-16">
+                    <button className="group flex items-center gap-3 px-10 py-5 bg-white border-2 border-[#05243b] text-[#05243b] rounded-2xl font-black text-[16px] hover:bg-[#05243b] hover:text-white transition-all shadow-xl shadow-slate-100">
                         Explore All Courses
-                        <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight size={20} className="transform group-hover:translate-x-2 transition-transform" />
                     </button>
                 </div>
             </div>
-
         </section>
     );
 };

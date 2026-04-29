@@ -1,137 +1,133 @@
 import React from 'react';
 import { 
-  ShieldCheck, 
-  Laptop, 
   Award, 
+  CheckCircle, 
   Users, 
-  BadgeIndianRupee, 
-  MessageSquare, 
-  Cpu, 
-  Monitor, 
+  Laptop, 
+  Clock, 
+  CreditCard,
   ChevronRight 
 } from 'lucide-react';
+import robotImg from '../../../../../assets/course/data-analysis/robot_v2.png';
 
 const WhyChoose = () => {
-  const features = [
-    {
-      id: "01",
-      title: "100% Placement Support",
-      desc: "Get career guidance, resume building, and interview preparation to help you land your first job.",
-      icon: <ShieldCheck size={28} className="text-[#14937a]" />,
-    },
-    {
-      id: "02",
-      title: "Real-Time Projects",
-      desc: "Work on live projects to gain practical experience in real-world scenarios.",
-      icon: <Laptop size={28} className="text-[#14937a]" />,
-    },
-    {
-      id: "03",
-      title: "Industry-Recognized Certification",
-      desc: "Earn certifications that add value to your resume and boost your career opportunities.",
-      icon: <Award size={28} className="text-[#14937a]" />,
-    },
-    {
-      id: "04",
-      title: "Learn from Industry Mentors",
-      desc: "Get trained by experienced professionals with real industry knowledge.",
-      icon: <Users size={28} className="text-[#14937a]" />,
-    },
-    {
-      id: "05",
-      title: "Affordable Fees & EMI Options",
-      desc: "Flexible payment options to make quality education accessible for everyone.",
-      icon: <BadgeIndianRupee size={28} className="text-[#14937a]" />,
-    },
-    {
-      id: "06",
-      title: "Soft Skills & Interview Training",
-      desc: "Improve communication, confidence, and interview skills to succeed in your career.",
-      icon: <MessageSquare size={28} className="text-[#14937a]" />,
-    },
-    {
-      id: "07",
-      title: "Updated Curriculum & Latest Tools",
-      desc: "Learn modern technologies like MERN Stack, Data Analytics, AI tools, and more.",
-      icon: <Cpu size={28} className="text-[#14937a]" />,
-    },
-    {
-      id: "08",
-      title: "Flexible Learning Options",
-      desc: "Choose online or offline classes with a comfortable learning environment.",
-      icon: <Monitor size={28} className="text-[#14937a]" />,
-    },
-  ];
-
   return (
-    <section className="bg-[#fcfcfc] py-20 px-6 md:px-12 lg:px-20 font-sans relative overflow-hidden text-[#05243b]">
-      
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#14937a]/5 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#05243b]/5 rounded-full blur-[80px] -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        
-        {/* Section Header */}
-        <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#14937a]/10 border border-[#14937a]/20">
+    <section className="py-24 bg-white relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#14937a]/10 border border-[#14937a]/20 mb-6">
             <span className="text-[#14937a] text-[11px] font-black uppercase tracking-[0.2em]">Our Advantage</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-[42px] font-extrabold tracking-tight leading-tight">
-            Why Choose BM Academy?
+          <h2 className="text-3xl md:text-5xl font-black text-[#05243b]">
+            Why Choose <span className="text-[#14937a]">BM Academy?</span>
           </h2>
-          <p className="text-slate-500 text-base md:text-lg max-w-2xl mx-auto font-medium leading-relaxed">
-            Get industry-focused training in Kottakuppam, Pondicherry with hands-on learning, expert mentorship, and placement support
+          <p className="text-slate-500 font-medium mt-4 max-w-2xl mx-auto">
+            Elevate your career with industry-focused learning, hands-on projects, and expert guidance.
           </p>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {features.map((feature) => (
-            <div 
-              key={feature.id} 
-              className="group bg-white p-7 rounded-[2rem] border border-[#05243b]/10 shadow-sm hover:shadow-xl hover:border-[#14937a]/30 transition-all duration-500 hover:-translate-y-1.5 relative overflow-hidden"
-            >
-              
-              {/* Large Decorative Number */}
-              <div className="absolute top-6 right-8 text-[44px] font-black text-[#05243b]/5 pointer-events-none select-none group-hover:text-[#14937a]/10 transition-colors duration-500">
-                {feature.id}
+        <div className="grid lg:grid-cols-3 gap-8 md:gap-12 items-center">
+          {/* Left Features */}
+          <div className="space-y-12 text-right order-2 lg:order-1">
+            {[
+              { 
+                title: "Placement Support", 
+                desc: "100% assistance with resume building and mock interviews.", 
+                icon: <Award size={24} /> 
+              },
+              { 
+                title: "Live Projects", 
+                desc: "Work on real-time client applications and industry case studies.", 
+                icon: <CheckCircle size={24} /> 
+              },
+              { 
+                title: "Soft Skills Training", 
+                desc: "Personality development and professional communication sessions.", 
+                icon: <Users size={24} /> 
+              }
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-6 justify-end group">
+                <div className="order-2 lg:order-1">
+                  <h3 className="text-xl font-black text-[#05243b] mb-2 group-hover:text-[#14937a] transition-colors">{item.title}</h3>
+                  <p className="text-slate-500 text-sm font-bold leading-relaxed">{item.desc}</p>
+                </div>
+                <div className="w-14 h-14 rounded-2xl bg-white shadow-xl shadow-slate-200/50 flex items-center justify-center text-[#14937a] shrink-0 order-1 lg:order-2 group-hover:bg-[#14937a] group-hover:text-white transition-all duration-300">
+                  {item.icon}
+                </div>
               </div>
+            ))}
+          </div>
 
-              {/* Icon Container */}
-              <div className="w-14 h-14 rounded-2xl bg-[#fcfcfc] border border-[#f0f0f0] flex items-center justify-center mb-6 group-hover:bg-[#14937a] group-hover:text-white transition-all duration-500 shadow-sm">
-                <span className="group-hover:scale-110 transition-transform">
-                    {React.cloneElement(feature.icon, { 
-                        className: "text-[#14937a] group-hover:text-white transition-colors" 
-                    })}
-                </span>
+          {/* Center Illustration */}
+          <div className="relative flex justify-center order-1 lg:order-2 mb-12 lg:mb-0">
+            <div className="absolute inset-0 bg-[#14937a]/5 blur-[100px] rounded-full scale-150" />
+            <div className="relative">
+              <img 
+                src={robotImg} 
+                alt="Practical Training Robot" 
+                className="w-full max-w-[320px] h-auto animate-float"
+                style={{ 
+                  mixBlendMode: 'multiply',
+                  filter: 'contrast(1.1) brightness(1.05)'
+                }}
+              />
+              <div className="absolute -bottom-4 -right-4 bg-[#05243b] p-6 rounded-[2rem] shadow-2xl border border-white/10 text-center min-w-[140px] transform rotate-3">
+                <p className="text-white font-black text-2xl leading-none">100%</p>
+                <p className="text-[#14937a] font-black text-[10px] uppercase tracking-widest mt-1">Practical</p>
               </div>
-
-              {/* Text Content */}
-              <div className="space-y-3 relative z-10">
-                <h3 className="text-[19px] font-extrabold leading-snug tracking-tight group-hover:text-[#14937a] transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-slate-500 text-[14px] leading-relaxed font-medium">
-                  {feature.desc}
-                </p>
-              </div>
-
-              {/* Bottom Decorative Line */}
-              <div className="absolute bottom-0 left-0 w-0 h-1 bg-[#14937a] transition-all duration-500 group-hover:w-full"></div>
             </div>
-          ))}
+          </div>
+
+          {/* Right Features */}
+          <div className="space-y-12 text-left order-3">
+            {[
+              { 
+                title: "Flexible Learning", 
+                desc: "Choose between classroom or online training modes.", 
+                icon: <Laptop size={24} /> 
+              },
+              { 
+                title: "Expert Mentors", 
+                desc: "Learn from professionals with real-world industry experience.", 
+                icon: <Clock size={24} /> 
+              },
+              { 
+                title: "EMI Options", 
+                desc: "Accessible education with affordable and flexible payment plans.", 
+                icon: <CreditCard size={24} /> 
+              }
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-6 group">
+                <div className="w-14 h-14 rounded-2xl bg-white shadow-xl shadow-slate-200/50 flex items-center justify-center text-[#14937a] shrink-0 group-hover:bg-[#14937a] group-hover:text-white transition-all duration-300">
+                  {item.icon}
+                </div>
+                <div>
+                  <h3 className="text-xl font-black text-[#05243b] mb-2 group-hover:text-[#14937a] transition-colors">{item.title}</h3>
+                  <p className="text-slate-500 text-sm font-bold leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Optional Call to Action Link */}
-        <div className="mt-16 text-center">
-            <button className="inline-flex items-center gap-2 px-8 py-4 bg-[#05243b] text-white rounded-full font-bold text-[15px] hover:bg-[#14937a] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95">
+        {/* CTA Link */}
+        <div className="mt-20 text-center">
+            <button className="inline-flex items-center gap-3 px-10 py-5 bg-[#14937a] text-white rounded-2xl font-black text-[16px] hover:bg-[#05243b] transition-all shadow-xl shadow-[#14937a]/20 active:scale-95">
                 Join our Next Batch
-                <ChevronRight size={20} />
+                <ChevronRight size={22} />
             </button>
         </div>
-
       </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-20px); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+      `}} />
     </section>
   );
 };
