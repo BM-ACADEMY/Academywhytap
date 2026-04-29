@@ -9,6 +9,7 @@ import SuccessStories from './SuccessStories'
 import Trendingcourses from './Trendingcourses'
 import CeoSection from './CeoSection'
 import Whychoose from './Whychoose'
+import SkillsAndTools from './SkillsAndTools'
 import BlogInsights from './BlogInsights'
 import FAQ from './FAQ'
 import FinalCTA from './FinalCTA'
@@ -21,6 +22,7 @@ export const Homepages = () => {
         <Trendingcourses/>
         <CeoSection />
         <Whychoose/>
+        <SkillsAndTools />
         <FutureReady />
         <PlacementSupport />
         <StudentsWorkAt />

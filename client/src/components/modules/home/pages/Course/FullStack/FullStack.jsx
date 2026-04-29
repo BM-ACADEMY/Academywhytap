@@ -4,6 +4,8 @@ import { CheckCircle, Clock,ChevronDown,Check ,Quote , TrendingUp, Users, Credit
 import academyImage from '../../../../../../assets/Acadmey.png';
 import graduationSuccess from '../../../../../../assets/graduation_success_clean.png';
 import aiDeveloperImg from '../../../../../../assets/ai_fsd_developer.png';
+import desktopBanner from '../../../../../../assets/course/digital-marketing/desktop.png';
+import mobileBanner from '../../../../../../assets/course/digital-marketing/mobile.png';
 
 const learnings = [
   'Frontend Development (React & Next.js)',
@@ -151,6 +153,13 @@ const FullStack = () => {
     <div className="min-h-screen bg-white font-sans selection:bg-[#14937a] selection:text-white">
       {/* Premium Hero Section */}
       <div className="relative pt-12 pb-24 md:pt-20 md:pb-32 overflow-hidden bg-[#05243b]">
+        {/* Responsive Background Images */}
+        <div className="absolute inset-0">
+          <img src={mobileBanner} alt="mobile banner" className="w-full h-full object-cover md:hidden opacity-40" />
+          <img src={desktopBanner} alt="desktop banner" className="w-full h-full object-cover hidden md:block opacity-40" />
+          <div className="absolute inset-0 bg-[#05243b]/80 md:bg-transparent md:bg-gradient-to-r md:from-[#05243b]/95 md:via-[#05243b]/40 md:to-transparent" />
+        </div>
+
         {/* Animated Background Elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[60%] bg-[#14937a] blur-[120px] rounded-full animate-pulse" />
