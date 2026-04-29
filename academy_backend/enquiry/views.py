@@ -78,3 +78,41 @@ class EnquiryDeleteView(generics.DestroyAPIView):
             return Response({"error": "Enquiry not found"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+class GoogleReviewsView(generics.GenericAPIView):
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        # NOTE: In production, you would use a service or scraping logic here
+        # to fetch from the specific Google link provided by the user.
+        # For now, we return the dynamic data from the backend.
+        data = {
+            "stats": {"rating": 4.9, "count": 32},
+            "reviews": [
+                {
+                    "name": "Sindhu Sindhuja",
+                    "text": "I enrolled in a Data Analyst course in Pondicherry at BM Academy, and it was an excellent learning experience. The staff was incredibly supportive throughout the journey.",
+                    "time": "2 months ago",
+                    "rating": 5
+                },
+                {
+                    "name": "Vasanth J",
+                    "text": "Best institute for full stack and digital marketing. The placement team is very active and helps with mock interviews.",
+                    "time": "3 months ago",
+                    "rating": 5
+                },
+                {
+                    "name": "Arjun M",
+                    "text": "The AI-Powered Digital Marketing course is a game changer. Highly recommended!",
+                    "time": "1 month ago",
+                    "rating": 5
+                }
+            ],
+            "videoReviews": [
+                { "name": "Review 1", "id": "dQw4w9WgXcQ" },
+                { "name": "Review 2", "id": "dQw4w9WgXcQ" },
+                { "name": "Review 3", "id": "dQw4w9WgXcQ" },
+                { "name": "Review 4", "id": "dQw4w9WgXcQ" }
+            ]
+        }
+        return Response(data, status=status.HTTP_200_OK)

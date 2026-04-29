@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   ChevronDown,
   Menu,
@@ -22,10 +22,11 @@ const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
+  const location = useLocation();
 
   // Updated brand color to match the design's deep teal
-  const brandColor = '#006d5b'; 
-  const logoColor = '#001f3f';
+  const brandColor = '#14937a'; 
+  const logoColor = '#05243b';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,18 +41,16 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '/', active: true },
+    { name: 'Home', href: '/' },
     {
       name: 'Course',
-      href: '#',
+      href: '/courses',
       hasDropdown: true,
       items: [
-        { name: 'PG Certification in AI-Powered Digital Marketing', href: '/course/pg-certification-in-ai-powered-digital-marketing' },
-        { name: 'PG Certification in AI-Powered MERN Stack Development', href: '#' },
-        { name: 'PG Certification in AI-Powered Full Stack Development', href: '#' },
-        { name: 'PG Certification in AI-Powered Data Science', href: '#' },
-        { name: 'Basic to Advanced Video Editing with AI', href: '#' },
-        { name: 'Certification in AI-Powered Data Analytics', href: '#' }
+        { name: 'PG Certification in AI-Powered Digital Marketing', href: '/course/digital-marketing' },
+        { name: 'PG Certification in AI-Powered Full Stack Development', href: '/course/full-stack-development' },
+        { name: 'Certification in AI-Powered Data Analytics', href: '/course/data-analysis' },
+        { name: 'Basic to Advanced Video Editing with AI', href: '/course/video-editing' }
       ]
     },
     {
@@ -74,6 +73,16 @@ const Header = () => {
     { name: 'Verify Certificate', href: '/verify-certificate' },
     { name: 'Contact', href: '/contact' },
   ];
+
+  const isLinkActive = (link) => {
+    if (link.href === '/') {
+      return location.pathname === '/';
+    }
+    if (link.name === 'Course') {
+      return location.pathname.startsWith('/course') || location.pathname === '/courses';
+    }
+    return location.pathname === link.href;
+  };
 
   return (
     <>
@@ -105,7 +114,7 @@ const Header = () => {
                 <Link
                   to={link.href}
                   className={`py-2 text-[16px] font-medium flex items-center gap-1.5 transition-all relative
-                    ${link.active ? 'text-[#006d5b]' : 'text-slate-600 hover:text-[#006d5b]'}`}
+                    ${isLinkActive(link) ? 'text-[#14937a]' : 'text-slate-600 hover:text-[#14937a]'}`}
                 >
                   {link.name}
                   {link.hasDropdown && (
@@ -113,8 +122,8 @@ const Header = () => {
                   )}
                   
                   {/* Design-matching active underline */}
-                  {link.active && (
-                    <div className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#006d5b]" />
+                  {isLinkActive(link) && (
+                    <div className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#14937a]" />
                   )}
                 </Link>
 
@@ -125,7 +134,7 @@ const Header = () => {
                       <Link
                         key={i}
                         to={typeof item === 'string' ? '#' : item.href}
-                        className="block px-6 py-3.5 text-[14px] font-medium transition-colors border-b border-gray-50 last:border-none bg-white text-gray-600 hover:bg-[#006d5b] hover:text-white"
+                        className="block px-6 py-3.5 text-[14px] font-medium transition-colors border-b border-gray-50 last:border-none bg-white text-gray-600 hover:bg-[#14937a] hover:text-white"
                       >
                         {typeof item === 'string' ? item : item.name}
                       </Link>
@@ -138,77 +147,92 @@ const Header = () => {
 
           {/* Header Action Buttons (Updated to match design) */}
           <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-
-
-            {/* Pill-shaped CTA Button */}
-            <button
+            <button className="text-[15px] font-bold text-[#05243b] hover:text-[#14937a] transition-colors">
+              Student Login
+            </button>
+            <button 
               onClick={() => setIsEnquiryModalOpen(true)}
-              className="px-8 py-2.5 bg-[#006d5b] text-white font-semibold rounded-full hover:bg-[#005a4b] transition-all cursor-pointer text-[15px] active:scale-95"
+              className="px-6 py-2.5 bg-[#14937a] text-white rounded-lg font-bold text-[15px] hover:bg-[#05243b] transition-all duration-300 shadow-lg shadow-[#14937a]/20 hover:shadow-none active:scale-95"
             >
               Apply Now
             </button>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="lg:hidden p-2 text-[#001f3f] hover:bg-slate-50 rounded-lg transition-colors border-none bg-transparent"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          {/* Mobile Menu Button */}
+          <button 
+            className="lg:hidden p-2 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors"
+            onClick={() => setIsMenuOpen(true)}
           >
-            {isMenuOpen ? <LucideX size={28} /> : <Menu size={28} />}
+            <Menu size={28} />
           </button>
         </div>
 
         {/* Mobile Navigation Sidebar */}
-        <div className={`lg:hidden bg-white w-full border-t border-gray-100 shadow-2xl absolute left-0 z-40 transition-all duration-300 ease-in-out overflow-hidden ${isMenuOpen ? 'max-h-screen opacity-100 visible' : 'max-h-0 opacity-0 invisible'}`}>
-          <div className="flex flex-col p-5 gap-2">
-            {navLinks.map((link, idx) => (
-              <div key={idx} className="border-b border-gray-50 last:border-none">
-                <div
-                  className={`flex justify-between items-center px-4 py-3.5 font-medium rounded-lg transition-colors
-                      ${link.active ? 'bg-[#e6f0ef] text-[#006d5b]' : 'text-slate-600 hover:bg-gray-50'}`}
-                  onClick={() => link.hasDropdown && setActiveDropdown(activeDropdown === idx ? null : idx)}
-                >
-                  <Link to={link.href} className="flex-grow" onClick={() => !link.hasDropdown && setIsMenuOpen(false)}>{link.name}</Link>
-                  {link.hasDropdown && <ChevronDown size={20} className={`${activeDropdown === idx ? 'rotate-180' : ''} transition-transform duration-300`} />}
-                </div>
-
-                {link.hasDropdown && (
-                  <div className={`bg-gray-50 flex flex-col mt-1 rounded-xl overflow-hidden transition-all duration-300 ${activeDropdown === idx ? 'max-h-[500px] py-2' : 'max-h-0'}`}>
-                    {link.items.map((item, i) => (
-                      <Link 
-                        key={i} 
-                        to={typeof item === 'string' ? '#' : item.href} 
-                        className="px-8 py-3 text-[14px] font-medium text-slate-500 hover:text-[#006d5b] transition-colors"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        {typeof item === 'string' ? item : item.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
+        <div className={`fixed inset-0 z-[200] lg:hidden transition-all duration-500 ${isMenuOpen ? 'visible' : 'invisible'}`}>
+          <div 
+            className={`absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-500 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}
+            onClick={() => setIsMenuOpen(false)}
+          />
+          <div className={`absolute right-0 top-0 bottom-0 w-[300px] bg-white shadow-2xl transition-transform duration-500 transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className="p-6 flex flex-col h-full">
+              <div className="flex justify-between items-center mb-8">
+                <img src="/assets/logo/bmlogot.png" alt="Logo" className="h-8" />
+                <button onClick={() => setIsMenuOpen(false)} className="p-2 hover:bg-slate-50 rounded-lg">
+                  <LucideX size={24} className="text-slate-600" />
+                </button>
               </div>
-            ))}
-            
-            {/* Mobile Actions */}
-            <div className="flex flex-col gap-3 mt-4 px-2">
-
-              <button
-                onClick={() => {
-                  setIsEnquiryModalOpen(true);
-                  setIsMenuOpen(false);
-                }}
-                className="w-full py-3.5 bg-[#006d5b] text-white font-semibold rounded-full shadow-md transform active:scale-95 transition-all text-[16px] cursor-pointer border-none"
-              >
-                Apply Now
-              </button>
+              <div className="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar">
+                {navLinks.map((link, idx) => (
+                  <div key={idx} className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <Link 
+                        to={link.href}
+                        className={`text-lg font-bold ${isLinkActive(link) ? 'text-[#14937a]' : 'text-slate-700'}`}
+                        onClick={() => !link.hasDropdown && setIsMenuOpen(false)}
+                      >
+                        {link.name}
+                      </Link>
+                      {link.hasDropdown && (
+                        <button 
+                          onClick={() => setActiveDropdown(activeDropdown === idx ? null : idx)}
+                          className="p-2 hover:bg-slate-50 rounded-lg"
+                        >
+                          <ChevronDown size={20} className={`transition-transform ${activeDropdown === idx ? 'rotate-180' : ''}`} />
+                        </button>
+                      )}
+                    </div>
+                    {link.hasDropdown && activeDropdown === idx && (
+                      <div className="pl-4 space-y-3 border-l-2 border-slate-100 ml-1">
+                        {link.items.map((item, i) => (
+                          <Link 
+                            key={i}
+                            to={typeof item === 'string' ? '#' : item.href}
+                            className="block text-slate-600 font-medium hover:text-[#14937a]"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            {typeof item === 'string' ? item : item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8 pt-6 border-t border-slate-100">
+                <button 
+                  onClick={() => { setIsEnquiryModalOpen(true); setIsMenuOpen(false); }}
+                  className="w-full py-4 bg-[#14937a] text-white rounded-xl font-bold shadow-lg shadow-[#14937a]/20"
+                >
+                  Apply Now
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </nav>
-
-      <EnquiryModal
-        isOpen={isEnquiryModalOpen}
-        onClose={() => setIsEnquiryModalOpen(false)}
+      <EnquiryModal 
+        isOpen={isEnquiryModalOpen} 
+        onClose={() => setIsEnquiryModalOpen(false)} 
       />
     </>
   );
