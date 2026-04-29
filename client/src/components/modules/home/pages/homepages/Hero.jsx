@@ -1,306 +1,162 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  Play, 
-  ChevronLeft, 
+  Star, 
   ChevronRight, 
-  X, 
+  Clock, 
+  Search, 
+  Award, 
+  CheckCircle, 
+  Users, 
+  Zap, 
   Rocket, 
-  Phone,
-  CheckCircle2, 
-  Briefcase, 
-  Info
+  Laptop 
 } from 'lucide-react'; 
-import desktopBg from '../../../../../assets/course/digital-marketing/desktop.png';
+import desktopBanner from '../../../../../assets/course/digital-marketing/desktop.png';
+import mobileBanner from '../../../../../assets/course/digital-marketing/mobile.png';
 
 const HeroSection = () => {
-  const scrollContainerRef = useRef(null);
-  const [activeVideo, setActiveVideo] = useState(null);
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
   const [currentLocationIndex, setCurrentLocationIndex] = useState(0);
+  const [formData, setFormData] = useState({ name: '', phone: '', city: '', course: 'Home Inquiry' });
 
-  const courses = [
-    "Java Full Stack Development",
-    "Data Analytics",
-    "AI Digital Marketing",
-    "Video Editing"
-  ];
-
+  const courses = ["Full Stack Development", "Data Analytics", "AI Digital Marketing", "Video Editing"];
   const locations = ["Pondicherry", "Kottakuppam"];
 
   useEffect(() => {
-    const courseTimer = setInterval(() => {
-      setCurrentCourseIndex((prev) => (prev + 1) % courses.length);
-    }, 3000);
-    
-    const locationTimer = setInterval(() => {
-      setCurrentLocationIndex((prev) => (prev + 1) % locations.length);
-    }, 4000);
-
-    return () => {
-      clearInterval(courseTimer);
-      clearInterval(locationTimer);
-    };
+    const courseTimer = setInterval(() => setCurrentCourseIndex((prev) => (prev + 1) % courses.length), 3000);
+    const locationTimer = setInterval(() => setCurrentLocationIndex((prev) => (prev + 1) % locations.length), 4000);
+    return () => { clearInterval(courseTimer); clearInterval(locationTimer); };
   }, []);
 
-  const scroll = (direction) => {
-    if (scrollContainerRef.current) {
-      const { current } = scrollContainerRef;
-      const scrollAmount = direction === 'left' ? -356 : 356;
-      current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
-
-  const academyVideos = [
-    {
-      id: "Jd1EhinRUiE",
-      title: "Want a LinkedIn job search secret?",
-      description: "Want a LinkedIn job search secret? Most people don't know this. Follow our steps to optimize your profile and land interviews faster.",
-      thumbnail: "https://i.ytimg.com/vi/Jd1EhinRUiE/maxresdefault.jpg"
-    },
-    {
-      id: "fQSYisy70RY",
-      title: "Are you confused about what your next plan should be?",
-      description: "Are you confused about what your next plan should be? Join our free consultation session and get clarity on your career path.",
-      thumbnail: "https://i.ytimg.com/vi/fQSYisy70RY/maxresdefault.jpg"
-    },
-    {
-      id: "dTxpHz4EsP0",
-      title: "Land Your Dream IT Job in 60 Days with BM Academy!",
-      description: "Automating over 1000 job applications tailored to your target roles, industries, and locations. Land your dream IT job.",
-      thumbnail: "https://i.ytimg.com/vi/dTxpHz4EsP0/maxresdefault.jpg"
-    },
-    {
-      id: "TKithZX0jD0",
-      title: "100days challenge Day 09 BM Academy",
-      description: "100 days challenge Day 09. Follow along our web development journey and learn how to build real-world projects from scratch.",
-      thumbnail: "https://i.ytimg.com/vi/TKithZX0jD0/maxresdefault.jpg"
-    },
-    {
-      id: "TdC6bRSL43o",
-      title: "BM Academy Official Website Launch Today",
-      description: "BM Academy's official website is Launch Today! Dive into a world of limitless learning opportunities with our specialized programs.",
-      thumbnail: "https://i.ytimg.com/vi/TdC6bRSL43o/maxresdefault.jpg"
-    }
-  ];
-
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      setActiveVideo(null);
-    }
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    window.open(`https://wa.me/919944940051?text=Hi, I'm interested in training at BM Academy. Name: ${formData.name}, Phone: ${formData.phone}, City: ${formData.city}`, '_blank');
   };
 
   return (
     <section className="relative font-sans overflow-hidden">
-      
-      {/* ========================================
-        HERO SECTION (Dark Background - Centered)
-        ======================================== */}
-      <div className="relative bg-[#02182b] pt-20 pb-36 px-6 md:px-12 lg:px-20 overflow-hidden">
-        {/* Background Image with Overlay */}
-        <div 
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-30"
-          style={{ backgroundImage: `url(${desktopBg})` }}
-        />
-        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center space-y-8">
-          
-          {/* Top Badge */}
-          <div className="inline-block px-4 py-1.5 rounded-full bg-[#063343] border border-[#0a4b60]">
-            <span className="text-[#38c8b4] text-[11px] font-bold tracking-wider uppercase">
-              Welcome to BM Academy - Best Training Institute in Kottakuppam
-            </span>
-          </div>
-
-          {/* Main Heading (H1) */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15]">
-            Best IT & Digital <br className="hidden md:block" />
-            Skills Training Institute in <br className="hidden md:block" />
-            <span key={currentLocationIndex} className="bg-linear-to-r from-[#FEDA00] to-[#D99000] bg-clip-text text-transparent transition-all duration-500 inline-block animate-in fade-in slide-in-from-bottom-2">
-              {locations[currentLocationIndex]}
-            </span>
-          </h1>
-
-          {/* Animated Course Highlight */}
-          <div className="text-xl md:text-2xl font-bold min-h-[1.5em] flex flex-wrap items-center justify-center gap-x-2">
-            <span key={currentCourseIndex} className="bg-linear-to-r from-[#FEDA00] to-[#D99000] bg-clip-text text-transparent transition-all duration-500 inline-block animate-in fade-in slide-in-from-bottom-2">
-              {courses[currentCourseIndex]} Course
-            </span>
-            <span className="text-white">in Pondicherry</span>
-          </div>
-
-          {/* SEO Subheading */}
-          <p className="text-slate-300 text-base md:text-lg max-w-4xl leading-relaxed">
-            Serving students across <span className="text-white font-bold">Pondicherry & Tamil Nadu</span> with expert-led courses in <span className="text-white font-semibold">Full Stack Development</span>, <span className="text-white font-semibold">Data Analytics</span>, <span className="text-white font-semibold">AI Digital Marketing</span> & <span className="text-white font-semibold">Video Editing</span>.
-          </p>
-
-          {/* Features List */}
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm md:text-base font-medium text-slate-300 pt-2">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 size={18} className="text-[#38c8b4]" />
-              <span>Learn from experts</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Rocket size={18} className="text-[#38c8b4]" />
-              <span>Work on live projects</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Briefcase size={18} className="text-[#38c8b4]" />
-              <span>100% Placement Assistance</span>
-            </div>
-          </div>
-
-          {/* Info Notice */}
-          <div className="flex items-center justify-center gap-2 text-[#e8be66] font-semibold text-sm md:text-base bg-[#0a4b60]/30 px-6 py-2 rounded-full border border-[#0a4b60]/50">
-            <Info size={18} />
-            <span>No coding background required | Beginner to Advanced</span>
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 w-full sm:w-auto">
-            <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 bg-[#14937a] hover:bg-[#117a65] text-white rounded-full font-bold text-[16px] transition-all shadow-lg shadow-[#14937a]/20">
-              <Rocket size={18} />
-              Explore Courses
-            </button>
-            <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 bg-transparent border-2 border-slate-500 hover:border-slate-300 hover:bg-white/5 text-white rounded-full font-bold text-[16px] transition-all">
-              <Phone size={18} />
-              Book Free Demo
-            </button>
-          </div>
-
+      {/* Premium Hero Section */}
+      <div className="relative pt-24 pb-12 md:pt-32 md:pb-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #02182b 0%, #05243b 100%)' }}>
+        {/* Responsive Background Images */}
+        <div className="absolute inset-0">
+          <img src={mobileBanner} alt="mobile banner" className="w-full h-full object-cover md:hidden opacity-40" />
+          <img src={desktopBanner} alt="desktop banner" className="w-full h-full object-cover hidden md:block opacity-40" />
+          <div className="absolute inset-0 bg-[#02182b]/60 md:bg-transparent md:bg-gradient-to-r md:from-[#02182b]/95 md:via-[#02182b]/50 md:to-transparent" />
         </div>
-      </div>
 
-      {/* ========================================
-        STATS BANNER (Overlapping Section)
-        ======================================== */}
-      <div className="bg-white relative z-20">
-        <div className="max-w-6xl mx-auto px-4 md:px-8 absolute left-0 right-0 -top-16">
-          <div className="bg-linear-to-b from-[#f4f5f7] to-[#e4e7eb] rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] border border-white p-8 md:p-10">
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-8 divide-x divide-slate-300/50">
-              
-              <div className="flex flex-col items-center justify-center text-center px-2 border-none">
-                <h3 className="text-3xl md:text-4xl font-black text-[#a67c00] drop-shadow-sm mb-2">3,000+</h3>
-                <p className="text-[11px] md:text-xs font-bold text-slate-600 tracking-widest uppercase">Students Trained</p>
+        <div className="relative max-w-7xl mx-auto px-4 grid lg:grid-cols-12 gap-12 items-center">
+          {/* Left Content */}
+          <div className="lg:col-span-7">
+            {/* Trust Line */}
+            <div className="flex items-center gap-4 mb-8">
+              <div className="flex -space-x-2">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-[#05243b] bg-slate-200 overflow-hidden">
+                    <img src={`https://i.pravatar.cc/100?img=${i+20}`} alt="user" />
+                  </div>
+                ))}
               </div>
-              <div className="flex flex-col items-center justify-center text-center px-2">
-                <h3 className="text-3xl md:text-4xl font-black text-[#a67c00] drop-shadow-sm mb-2">100+</h3>
-                <p className="text-[11px] md:text-xs font-bold text-slate-600 tracking-widest uppercase">Hiring Partners</p>
-              </div>
-              <div className="flex flex-col items-center justify-center text-center px-2">
-                <h3 className="text-3xl md:text-4xl font-black text-[#a67c00] drop-shadow-sm mb-2">1,000+</h3>
-                <p className="text-[11px] md:text-xs font-bold text-slate-600 tracking-widest uppercase">Students Placed</p>
-              </div>
-              <div className="flex flex-col items-center justify-center text-center px-2">
-                <h3 className="text-3xl md:text-4xl font-black text-[#a67c00] drop-shadow-sm mb-2">50+</h3>
-                <p className="text-[11px] md:text-xs font-bold text-slate-600 tracking-widest uppercase">Industry Experts</p>
-              </div>
-              <div className="flex flex-col items-center justify-center text-center px-2 col-span-2 md:col-span-1 border-none md:border-solid">
-                <h3 className="text-3xl md:text-4xl font-black text-[#a67c00] drop-shadow-sm mb-2">5+</h3>
-                <p className="text-[11px] md:text-xs font-bold text-slate-600 tracking-widest uppercase">Years Experience</p>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ========================================
-        VIDEO CAROUSEL SECTION (Light Background)
-        ======================================== */}
-      <div className="bg-white pt-32 pb-16 px-4 md:px-12">
-        <div className="max-w-375 mx-auto relative group">
-          
-          {/* <h2 className="text-2xl font-bold text-[#02182b] mb-8 px-2 md:px-6">Latest Updates & Student Success</h2> */}
-
-          {/* Left Scroll Arrow */}
-          {/* <button 
-            onClick={() => scroll('left')}
-            className="absolute left-0 md:left-2 top-[60%] -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 bg-white/90 hover:bg-white text-[#02182b] rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-xl border border-slate-200 opacity-0 group-hover:opacity-100 cursor-pointer"
-            aria-label="Scroll left"
-          >
-            <ChevronLeft size={24} />
-          </button> */}
-
-          {/* Scrollable Container */}
-          {/* <div 
-            ref={scrollContainerRef}
-            className="flex gap-4 overflow-x-auto pb-8 px-2 md:px-6 snap-x snap-mandatory justify-start [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-          >
-            {academyVideos.map((video) => (
-              <div 
-                key={video.id} 
-                onClick={() => setActiveVideo(video)}
-                className="flex-shrink-0 w-[300px] h-[200px] md:w-[340px] md:h-[220px] bg-[#02182b] rounded-[1rem] overflow-hidden shadow-lg snap-center relative block cursor-pointer group hover:ring-2 hover:ring-[#14937a] hover:-translate-y-1 transition-all duration-300"
-              >
-                <img 
-                  src={video.thumbnail} 
-                  alt={video.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#02182b] via-[#02182b]/80 to-transparent z-10"></div>
-                
-                <div className="absolute bottom-0 left-0 w-full p-5 z-20 flex flex-col justify-end">
-                  <p className="text-[13px] md:text-sm font-medium text-slate-200 leading-snug line-clamp-3 mb-4 drop-shadow-md">
-                    {video.description}
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="bg-[#14937a] rounded-full p-2 flex items-center justify-center shadow-md">
-                      <Play fill="white" size={14} className="text-white ml-0.5" />
-                    </div>
-                    <span className="text-xs font-bold text-white tracking-wide uppercase">
-                      Watch Now
-                    </span>
+              <div className="text-slate-300 text-sm font-medium">
+                <span className="text-white font-bold">Trusted by 5000+ Students</span>
+                <div className="flex items-center gap-1 mt-0.5">
+                  <span className="text-[#e8be66] font-bold">4.9</span>
+                  <div className="flex text-[#e8be66]">
+                    {[1, 2, 3, 4, 5].map((s) => <Star key={s} size={12} fill="currentColor" />)}
                   </div>
                 </div>
               </div>
-            ))}
-          </div> */}
+            </div>
 
-          {/* Right Scroll Arrow */}
-          <button 
-            onClick={() => scroll('right')}
-            className="absolute right-0 md:right-2 top-[60%] -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 bg-white/90 hover:bg-white text-[#02182b] rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-xl border border-slate-200 opacity-0 group-hover:opacity-100 cursor-pointer"
-            aria-label="Scroll right"
-          >
-            <ChevronRight size={24} />
-          </button>
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8">
+              <div className="w-2 h-2 rounded-full bg-[#14937a] animate-pulse" />
+              <span className="text-[#14937a] text-[13px] font-bold uppercase tracking-wide">Pondicherry's #1 Training Academy</span>
+            </div>
+
+            <h1 className="text-4xl md:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight">
+              Best IT & Digital <br />
+              <span className="text-[#14937a]">Skills Institute</span> in <br />
+              <span key={currentLocationIndex} className="text-[#e8be66] animate-in fade-in slide-in-from-bottom-2">
+                {locations[currentLocationIndex]}
+              </span>
+            </h1>
+
+            <div className="text-xl md:text-2xl font-bold text-white mb-10 flex flex-wrap items-center gap-x-3">
+              Master <span key={currentCourseIndex} className="text-[#14937a] animate-in fade-in slide-in-from-bottom-1">{courses[currentCourseIndex]}</span> from Industry Experts
+            </div>
+
+            <div className="flex flex-wrap gap-5">
+              <button 
+                onClick={() => document.getElementById('trending-courses')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-10 py-5 bg-[#14937a] text-white font-black rounded-2xl hover:bg-white hover:text-[#05243b] transition-all shadow-xl shadow-[#14937a]/20 flex items-center gap-3 active:scale-95 cursor-pointer"
+              >
+                Explore Courses
+                <ChevronRight size={20} />
+              </button>
+              <button 
+                onClick={() => window.open('https://wa.me/919944940051?text=Hi, I want to book a free demo class.', '_blank')}
+                className="px-10 py-5 bg-white/5 text-white font-black rounded-2xl hover:bg-white hover:text-[#05243b] transition-all border border-white/20 backdrop-blur-md active:scale-95 cursor-pointer"
+              >
+                Book Free Demo
+              </button>
+            </div>
+          </div>
+
+          {/* Right Form Card */}
+          <div className="lg:col-span-5 relative">
+            <div className="absolute inset-0 bg-[#14937a]/20 blur-[80px] rounded-full scale-75 animate-pulse" />
+            <div className="relative bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-white/20">
+              <div className="bg-[#e8be66] py-4 px-8 text-center">
+                <div className="flex items-center justify-center gap-2 text-[#05243b] font-black text-sm uppercase tracking-widest">
+                  <Clock size={16} />
+                  New Batches Starting Weekly
+                </div>
+              </div>
+
+              <div className="p-8 md:p-10">
+                <h3 className="text-2xl font-black text-[#05243b] mb-2 text-center">Get Career Counseling</h3>
+                <p className="text-slate-500 text-sm text-center mb-8 font-bold italic">Talk to our experts for a free roadmap</p>
+                
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div>
+                    <label className="block text-[11px] font-black text-[#05243b] uppercase tracking-widest mb-2 ml-1">Full Name *</label>
+                    <input type="text" name="name" required value={formData.name} onChange={handleChange} placeholder="e.g. John Doe" className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-[#14937a] focus:bg-white transition-all font-bold text-[#05243b]" />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-black text-[#05243b] uppercase tracking-widest mb-2 ml-1">Phone Number *</label>
+                    <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} placeholder="10 Digit Mobile Number" className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-[#14937a] focus:bg-white transition-all font-bold text-[#05243b]" />
+                  </div>
+                  <button type="submit" className="w-full py-5 bg-[#14937a] text-white font-black rounded-2xl hover:bg-[#05243b] transition-all duration-300 shadow-xl shadow-[#14937a]/20 uppercase tracking-widest text-sm mt-4 active:scale-95 cursor-pointer">
+                    Apply Now
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* ========================================
-        VIDEO MODAL
-        ======================================== */}
-      {activeVideo && (
-        <div 
-          onClick={handleOverlayClick}
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-[#02182b]/95 p-4 backdrop-blur-md transition-opacity"
-        >
-          <div className="relative w-full max-w-5xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-slate-700 animate-in fade-in zoom-in-95 duration-300">
-            {/* Close Button */}
-            <button 
-              onClick={() => setActiveVideo(null)}
-              className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-[#e8be66] text-white hover:text-black rounded-full transition-colors"
-              aria-label="Close video"
-            >
-              <X size={24} />
-            </button>
-            
-            {/* Embedded YouTube Player */}
-            <iframe
-              width="100%"
-              height="100%"
-              src={`https://www.youtube.com/embed/${activeVideo.id}?autoplay=1`}
-              title={activeVideo.title}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              className="w-full h-full"
-            ></iframe>
+      {/* Stats Banner */}
+      <div className="relative z-20 -mt-16 max-w-6xl mx-auto px-4">
+        <div className="bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 p-8 md:p-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-slate-100">
+            {[
+              { val: '3000+', label: 'Students' },
+              { val: '100+', label: 'Hiring Partners' },
+              { val: '1000+', label: 'Placements' },
+              { val: '5+', label: 'Years Experience' }
+            ].map((stat, i) => (
+              <div key={i} className={`flex flex-col items-center justify-center text-center px-4 ${i === 0 ? 'border-none' : ''}`}>
+                <h3 className="text-3xl md:text-5xl font-black text-[#05243b] mb-2">{stat.val}</h3>
+                <p className="text-[10px] md:text-xs font-black text-[#14937a] tracking-[0.2em] uppercase">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </div>
-      )}
-
+      </div>
     </section>
   );
 };
 
-export default HeroSection;
+export default HeroSection;
