@@ -16,12 +16,10 @@ const EnquiryModalContent = ({ isOpen, onClose }) => {
     : `${import.meta.env.VITE_BASE_URI}/`;
 
   const courses = [
-    "Data Analytics",
     "Full Stack Development",
     "Digital Marketing",
-    "Data Science",
-    "Video Editing",
-    "Other"
+    "Data Analytics",
+    "Video Editing"
   ];
 
   const qualifications = [
