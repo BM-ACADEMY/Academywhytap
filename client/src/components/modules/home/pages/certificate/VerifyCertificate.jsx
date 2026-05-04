@@ -6,7 +6,6 @@ import {
     Typography, 
     Result, 
     Divider, 
-    Space, 
     Tag, 
     message,
     Tooltip
@@ -17,7 +16,6 @@ import {
     FileBadge, 
     Download, 
     AlertCircle, 
-    ExternalLink,
     Award
 } from 'lucide-react';
 import API from "../../api";
@@ -67,37 +65,40 @@ export default function VerifyCertificate() {
   };
 
   return (
-    <div className=" bg-gray-50 flex flex-col items-center justify-center px-4 pt-10 pb-16 font-sans selection:bg-[#9D1B50]/10">
+    <div className="bg-[#f8fafc] flex flex-col items-center justify-center px-4 pt-20 pb-24 font-sans relative overflow-hidden min-h-screen">
       
       {/* Background Decor */}
-      <div className="absolute top-0 left-0 w-full h-80 bg-linear-to-b from-[#9D1B50]/5 to-transparent -z-10" />
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#14937a]/5 rounded-full blur-[120px] -translate-y-1/3 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#05243b]/5 rounded-full blur-[120px] translate-y-1/3 -translate-x-1/3" />
+      </div>
 
-      <div className="w-full max-w-lg space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+      <div className="w-full max-w-lg space-y-8 relative z-10 animate-in fade-in slide-in-from-bottom-8 duration-1000 mt-10">
         
         {/* Main Header Area */}
-        <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#fbe8f0] rounded-full">
-            <ShieldCheck size={13} className="text-[#9D1B50]" />
-            <span className="text-[10px] font-black uppercase text-[#9D1B50] tracking-widest">Authentication Portal</span>
+        <div className="text-center space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#14937a]/10 border border-[#14937a]/20 rounded-full shadow-sm">
+            <ShieldCheck size={14} className="text-[#14937a]" />
+            <span className="text-[10px] font-black uppercase text-[#14937a] tracking-[0.2em]">Authentication Portal</span>
           </div>
-          <Title className="m-0 font-black tracking-tight text-gray-900" style={{ fontSize: '32px' }}>
-            Verify <span className="text-[#9D1B50]">Credential</span>
+          <Title className="m-0 font-black tracking-tight text-[#05243b]" style={{ fontSize: '36px', lineHeight: '1.2' }}>
+            Verify <span className="text-[#14937a]">Credential</span>
           </Title>
-          <Text className="text-gray-500 text-sm block">Securely validate academic certifications issued by BM Academy.</Text>
+          <Text className="text-slate-500 text-[15px] font-medium block max-w-sm mx-auto">Securely validate academic certifications issued by BM Academy.</Text>
         </div>
 
         {/* Verification Card */}
-        <Card className="rounded-3xl border-gray-100 shadow-lg overflow-hidden">
-          <div className="space-y-4">
+        <Card className="rounded-[2.5rem] border-slate-100 shadow-xl overflow-hidden bg-white/80 backdrop-blur-md">
+          <div className="space-y-5 p-2">
             <div className="relative group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#9D1B50] transition-colors" size={18} />
               <Input
                 size="large"
+                prefix={<Search className="text-slate-400 group-focus-within:text-[#14937a] transition-colors mr-2" size={20} />}
                 value={certificateId}
                 onChange={(e) => setCertificateId(e.target.value)}
                 onPressEnter={handleVerify}
                 placeholder="Enter Certificate ID (e.g., BMMSD-2026)"
-                className="h-12 pl-11 pr-4 bg-gray-50 border-gray-100 rounded-xl text-sm font-medium placeholder-gray-400 transition-all outline-none"
+                className="h-14 px-4 bg-slate-50 border-slate-200 hover:border-slate-300 rounded-2xl text-[15px] font-bold text-[#05243b] placeholder:text-slate-400 placeholder:font-medium focus:border-[#14937a] focus:ring-4 focus:ring-[#14937a]/10 transition-all outline-none w-full"
                 disabled={loading}
               />
             </div>
@@ -108,53 +109,51 @@ export default function VerifyCertificate() {
               block
               loading={loading}
               onClick={handleVerify}
-              className="h-11 bg-[#9D1B50] hover:bg-[#831643] rounded-xl font-bold uppercase tracking-widest text-xs shadow-md shadow-[#9D1B50]/20 flex items-center justify-center gap-2 border-none"
+              className="h-14 bg-[#05243b] hover:bg-[#14937a] rounded-[1.2rem] font-black uppercase tracking-widest text-sm shadow-xl shadow-[#05243b]/20 flex items-center justify-center gap-3 border-none transition-all duration-300 hover:-translate-y-0.5"
             >
-              {!loading && <FileBadge size={16} />} Verify Authenticity
+              {!loading && <FileBadge size={18} />} Verify Authenticity
             </Button>
           </div>
 
           {/* Result Section */}
           {result && (
-            <div className="mt-6 animate-in zoom-in-95 fade-in duration-500">
-              <Divider className="border-gray-100 mb-4" />
+            <div className="mt-8 animate-in zoom-in-95 fade-in duration-500 px-2">
+              <Divider className="border-slate-100 mb-6" />
               
               {result.valid ? (
-                <div className="space-y-8">
-                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-100">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-[#9D1B50] shadow-sm border border-gray-100">
-                        <Award size={24} />
+                <div className="space-y-6">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-50 p-5 rounded-3xl border border-slate-100 group hover:border-[#14937a]/20 transition-colors">
+                    <div className="flex items-center gap-5">
+                      <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-[#14937a] shadow-sm border border-slate-100 group-hover:scale-110 transition-transform duration-300">
+                        <Award size={26} />
                       </div>
                       <div>
-                        <Tag color="" className="text-[10px] font-black uppercase leading-none px-2 rounded-full mb-2 bg-[#fbe8f0] text-[#9D1B50] border-[#9D1B50]/20">Verified Credential</Tag>
-                        <Title level={3} className="m-0 font-black text-gray-900">{result.name}</Title>
-                        <Text strong className="text-gray-500 text-sm tracking-wide uppercase">{result.course}</Text>
+                        <Tag color="" className="text-[10px] font-black uppercase tracking-widest leading-none px-2.5 py-1 rounded-full mb-2 bg-[#14937a]/10 text-[#14937a] border-[#14937a]/20">Verified Credential</Tag>
+                        <Title level={4} className="m-0 font-black text-[#05243b]">{result.name}</Title>
+                        <Text strong className="text-slate-500 text-xs tracking-wide uppercase">{result.course}</Text>
                       </div>
                     </div>
                     <Tooltip title="Download original PDF">
                         <Button 
                             icon={<Download size={16} />} 
                             onClick={handleDownload}
-                            className="h-9 px-4 rounded-xl font-bold bg-white border-[#9D1B50]/30 text-[#9D1B50] hover:bg-[#9D1B50] hover:text-white hover:border-[#9D1B50] transition-all shadow-sm text-sm"
+                            className="h-12 px-6 rounded-2xl font-bold bg-white border-slate-200 text-[#05243b] hover:bg-[#14937a] hover:text-white hover:border-[#14937a] transition-all shadow-sm text-sm flex items-center gap-2"
                         >
                             Save Copy
                         </Button>
                     </Tooltip>
                   </div>
 
-                  <Card className="bg-gray-50 border-none rounded-xl" bodyStyle={{ padding: '12px 16px' }}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="flex flex-col">
-                        <Text type="secondary" className="text-[11px] font-black uppercase tracking-widest">Issuance ID</Text>
-                        <Text strong className="font-mono text-[#9D1B50]">{result.certificateId}</Text>
-                      </div>
-                      <div className="flex flex-col">
-                        <Text type="secondary" className="text-[11px] font-black uppercase tracking-widest">Date of Award</Text>
-                        <Text strong className="text-gray-700">{result.issuedDate}</Text>
-                      </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                      <Text type="secondary" className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-1">Issuance ID</Text>
+                      <Text strong className="font-mono text-[#05243b] text-sm">{result.certificateId}</Text>
                     </div>
-                  </Card>
+                    <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                      <Text type="secondary" className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-1">Date of Award</Text>
+                      <Text strong className="text-[#05243b] text-sm">{result.issuedDate}</Text>
+                    </div>
+                  </div>
 
                   {/* Hidden Preview */}
                   <div style={{ position: "absolute", left: "-9999px", top: "-9999px" }}>
@@ -171,9 +170,10 @@ export default function VerifyCertificate() {
               ) : (
                 <Result
                   status="error"
-                  title={<span className="font-black text-gray-900">Certificate Not Found</span>}
-                  subTitle={<span className="font-bold text-gray-500">The provided ID does not match any official academic records in our database. Please contact helpdesk@bm-academy.com for assistance.</span>}
-                  icon={<div className="bg-red-50 p-6 rounded-full inline-block text-red-500 shadow-sm border border-red-100"><AlertCircle size={48} /></div>}
+                  title={<span className="font-black text-[#05243b] text-xl">Certificate Not Found</span>}
+                  subTitle={<span className="font-bold text-slate-500 text-sm">The provided ID does not match any official academic records in our database. Please contact support.</span>}
+                  icon={<div className="bg-red-50 p-6 rounded-full inline-flex items-center justify-center text-red-500 shadow-inner border border-red-100 mb-2"><AlertCircle size={40} /></div>}
+                  className="py-6"
                 />
               )}
             </div>
@@ -182,8 +182,8 @@ export default function VerifyCertificate() {
 
         {/* Footer */}
         <div className="text-center pt-8">
-            <div className="inline-flex items-center gap-3 text-gray-400 font-bold text-xs uppercase tracking-widest group cursor-default">
-                <ShieldCheck size={16} className="text-[#9D1B50] opacity-50 group-hover:opacity-100 transition-opacity" />
+            <div className="inline-flex items-center gap-2 text-slate-400 font-bold text-[11px] uppercase tracking-widest group cursor-default">
+                <ShieldCheck size={14} className="text-[#14937a] opacity-60 group-hover:opacity-100 transition-opacity" />
                 Protected by BM Academy Secure Verification Ledger
             </div>
         </div>
@@ -191,34 +191,20 @@ export default function VerifyCertificate() {
 
       <style>{`
         .ant-input:focus, .ant-input-focused {
-          border-color: #9D1B50 !important;
-          box-shadow: 0 0 0 3px rgba(157, 27, 80, 0.1) !important;
+          border-color: #14937a !important;
+          box-shadow: 0 0 0 4px rgba(20, 147, 122, 0.1) !important;
         }
         .ant-input:hover {
-          border-color: #9D1B50 !important;
+          border-color: #cbd5e1 !important;
         }
         .ant-btn-primary {
-          background-color: #9D1B50 !important;
-          border-color: #9D1B50 !important;
+          background-color: #05243b !important;
+          border-color: #05243b !important;
         }
         .ant-btn-primary:hover {
-          background-color: #831643 !important;
-          border-color: #831643 !important;
-        }
-        .ant-btn-default {
-          color: #9D1B50 !important;
-          border-color: rgba(157, 27, 80, 0.3) !important;
-        }
-        .ant-btn-default:hover {
-          color: white !important;
-          background-color: #9D1B50 !important;
-          border-color: #9D1B50 !important;
-        }
-        .ant-btn-default .anticon {
-          color: #9D1B50 !important;
-        }
-        .ant-btn-default:hover .anticon {
-          color: white !important;
+          background-color: #14937a !important;
+          border-color: #14937a !important;
+          box-shadow: 0 10px 25px -5px rgba(20, 147, 122, 0.4) !important;
         }
       `}</style>
     </div>
