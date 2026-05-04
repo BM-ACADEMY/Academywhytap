@@ -6,7 +6,7 @@ const SkillsAndTools = () => {
 
     const categories = [
         { id: 'Full Stack', label: 'Full Stack Development', icon: <Code size={20} /> },
-        { id: 'Data Science', label: 'Data Analytics & AI', icon: <BarChart size={20} /> },
+        { id: 'Data Analytics', label: 'Data Analytics & AI', icon: <BarChart size={20} /> },
         { id: 'Marketing', label: 'AI Digital Marketing', icon: <Globe size={20} /> },
         { id: 'Design', label: 'UI/UX & Video Editing', icon: <Layout size={20} /> }
     ];
@@ -18,7 +18,7 @@ const SkillsAndTools = () => {
             { name: 'MongoDB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
             { name: 'JavaScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' }
         ],
-        'Data Science': [
+        'Data Analytics': [
             { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
             { name: 'Pandas', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg' },
             { name: 'Tableau', logo: 'https://cdn.worldvectorlogo.com/logos/tableau-software.svg' },

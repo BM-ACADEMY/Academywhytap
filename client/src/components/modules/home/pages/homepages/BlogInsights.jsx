@@ -42,7 +42,7 @@ const BlogInsights = () => {
                             Latest News
                         </h2>
                         <p className="text-gray-600 text-sm md:text-[15px] font-medium max-w-4xl mx-auto leading-relaxed">
-                            Get updates on industry trends, career insights, and opportunities presented by the best IT training institute in Chennai with placement in Full Stack Development, Digital Marketing and Data Science courses.
+                            Get updates on industry trends, career insights, and opportunities presented by the best IT training institute in Chennai with placement in Full Stack Development, Digital Marketing, and Data Analytics courses.
                         </p>
                     </div>
                 </div>

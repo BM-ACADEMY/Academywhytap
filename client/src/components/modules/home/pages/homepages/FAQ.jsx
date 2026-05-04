@@ -25,7 +25,7 @@ const FAQ = () => {
             answer: "Yes, all our courses include real-time projects and practical sessions to ensure you gain industry-level experience."
         },
         {
-            question: "Why does BM Academy offer these specific courses in Full Stack, Digital Marketing, and Data Science with AI technologies?",
+            question: "Why does BM Academy offer these specific courses in Full Stack, Digital Marketing, and Data Analytics with AI technologies?",
             answer: "These are the highest-demand skills in the current global economy. We integrate AI tools into our tracks to ensure our students remain competitive in the evolving tech landscape."
         },
         {

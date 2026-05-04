@@ -55,19 +55,30 @@ const Header = () => {
     },
     {
       name: 'Placement',
-      href: '#',
+      href: '/placements#placement',
       hasDropdown: true,
-      items: ['Testimonials', 'Placement Records', 'Reviews']
+      items: [
+        { name: 'Testimonials', href: '/placements#testimonials' },
+        { name: 'Placement Records', href: '/placements#placement-records' },
+        { name: 'Reviews', href: '/placements#reviews' }
+      ]
     },
-    { name: 'Events', href: '#' },
+    { name: 'Events', href: '/events' },
     {
       name: 'Student Corner',
       href: '#',
       hasDropdown: true,
       items: [
-        'Blogs', 'CEO Writes', 'Masterclasses', 'Interview Questions',
-        'Resume Builder', 'FAQs', 'Resources', 'Apply For Jobs',
-        'Student Login', 'Skill Test'
+        { name: 'Blogs', href: '/blogs' },
+        'CEO Writes', 
+        { name: 'Masterclasses', href: '/masterclasses' },
+        { name: 'Interview Questions', href: '/interview-questions' },
+        { name: 'Resume Builder', href: 'https://coretalents.in/', external: true },
+        { name: 'FAQs', href: '/faqs' },
+        { name: 'Resources', href: '/resources' },
+        { name: 'Apply For Jobs', href: 'https://coretalents.in/', external: true },
+       
+        { name: 'Skill Test', href: 'https://coretalents.in/', external: true }
       ]
     },
     { name: 'Verify Certificate', href: '/verify-certificate' },
@@ -104,45 +115,79 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-            {navLinks.map((link, idx) => (
-              <div
-                key={idx}
-                className="relative"
-                onMouseEnter={() => link.hasDropdown && setActiveDropdown(idx)}
-                onMouseLeave={() => link.hasDropdown && setActiveDropdown(null)}
-              >
-                <Link
-                  to={link.href}
-                  className={`py-2 text-[16px] font-medium flex items-center gap-1.5 transition-all relative
-                    ${isLinkActive(link) ? 'text-[#14937a]' : 'text-slate-600 hover:text-[#14937a]'}`}
-                >
-                  {link.name}
-                  {link.hasDropdown && (
-                    <ChevronDown size={16} className={`${activeDropdown === idx ? 'rotate-180' : ''} transition-all duration-300 opacity-60`} />
-                  )}
-                  
-                  {/* Design-matching active underline */}
-                  {isLinkActive(link) && (
-                    <div className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#14937a]" />
-                  )}
-                </Link>
+            {navLinks.map((link, idx) => {
+              const handleNavClick = (e, href) => {
+                if (href.includes('#')) {
+                  const hash = href.split('#')[1];
+                  const element = document.getElementById(hash);
+                  if (element) {
+                    e.preventDefault();
+                    element.scrollIntoView({ behavior: 'smooth' });
+                    window.history.pushState(null, '', href);
+                  }
+                }
+              };
 
-                {/* Dropdown Menu */}
-                {link.hasDropdown && activeDropdown === idx && (
-                  <div className="absolute top-full left-0 w-80 bg-white shadow-xl mt-0 overflow-hidden rounded-xl border border-gray-100 transform transition-all duration-300 ease-out origin-top z-50">
-                    {link.items.map((item, i) => (
-                      <Link
-                        key={i}
-                        to={typeof item === 'string' ? '#' : item.href}
-                        className="block px-6 py-3.5 text-[14px] font-medium transition-colors border-b border-gray-50 last:border-none bg-white text-gray-600 hover:bg-[#14937a] hover:text-white"
-                      >
-                        {typeof item === 'string' ? item : item.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+              return (
+                <div
+                  key={idx}
+                  className="relative"
+                  onMouseEnter={() => link.hasDropdown && setActiveDropdown(idx)}
+                  onMouseLeave={() => link.hasDropdown && setActiveDropdown(null)}
+                >
+                  <Link
+                    to={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className={`py-2 text-[16px] font-medium flex items-center gap-1.5 transition-all relative
+                      ${isLinkActive(link) ? 'text-[#14937a]' : 'text-slate-600 hover:text-[#14937a]'}`}
+                  >
+                    {link.name}
+                    {link.hasDropdown && (
+                      <ChevronDown size={16} className={`${activeDropdown === idx ? 'rotate-180' : ''} transition-all duration-300 opacity-60`} />
+                    )}
+                    {isLinkActive(link) && (
+                      <div className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#14937a]" />
+                    )}
+                  </Link>
+
+                  {/* Dropdown Menu */}
+                  {link.hasDropdown && activeDropdown === idx && (
+                    <div className="absolute top-full left-0 w-80 bg-white shadow-xl mt-0 overflow-hidden rounded-xl border border-gray-100 transform transition-all duration-300 ease-out origin-top z-50">
+                      {link.items.map((item, i) => {
+                        const isExternal = typeof item === 'object' && item.external;
+                        const href = typeof item === 'string' ? '#' : item.href;
+                        const label = typeof item === 'string' ? item : item.name;
+                        const cls = "block px-6 py-3.5 text-[14px] font-medium transition-colors border-b border-gray-50 last:border-none bg-white text-gray-600 hover:bg-[#14937a] hover:text-white";
+                        return isExternal ? (
+                          <a
+                            key={i}
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setActiveDropdown(null)}
+                            className={cls}
+                          >
+                            {label}
+                          </a>
+                        ) : (
+                          <Link
+                            key={i}
+                            to={href}
+                            onClick={(e) => {
+                              handleNavClick(e, href);
+                              setActiveDropdown(null);
+                            }}
+                            className={cls}
+                          >
+                            {label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           {/* Header Action Buttons (Updated to match design) */}
@@ -182,41 +227,74 @@ const Header = () => {
                 </button>
               </div>
               <div className="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar">
-                {navLinks.map((link, idx) => (
-                  <div key={idx} className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <Link 
-                        to={link.href}
-                        className={`text-lg font-bold ${isLinkActive(link) ? 'text-[#14937a]' : 'text-slate-700'}`}
-                        onClick={() => !link.hasDropdown && setIsMenuOpen(false)}
-                      >
-                        {link.name}
-                      </Link>
-                      {link.hasDropdown && (
-                        <button 
-                          onClick={() => setActiveDropdown(activeDropdown === idx ? null : idx)}
-                          className="p-2 hover:bg-slate-50 rounded-lg"
+                {navLinks.map((link, idx) => {
+                  const handleNavClick = (e, href) => {
+                    if (href.includes('#')) {
+                      const hash = href.split('#')[1];
+                      const element = document.getElementById(hash);
+                      if (element) {
+                        e.preventDefault();
+                        element.scrollIntoView({ behavior: 'smooth' });
+                        window.history.pushState(null, '', href);
+                        setIsMenuOpen(false);
+                      }
+                    }
+                    if (!link.hasDropdown) setIsMenuOpen(false);
+                  };
+
+                  return (
+                    <div key={idx} className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <Link 
+                          to={link.href}
+                          onClick={(e) => handleNavClick(e, link.href)}
+                          className={`text-lg font-bold ${isLinkActive(link) ? 'text-[#14937a]' : 'text-slate-700'}`}
                         >
-                          <ChevronDown size={20} className={`transition-transform ${activeDropdown === idx ? 'rotate-180' : ''}`} />
-                        </button>
+                          {link.name}
+                        </Link>
+                        {link.hasDropdown && (
+                          <button 
+                            onClick={() => setActiveDropdown(activeDropdown === idx ? null : idx)}
+                            className="p-2 hover:bg-slate-50 rounded-lg"
+                          >
+                            <ChevronDown size={20} className={`transition-transform ${activeDropdown === idx ? 'rotate-180' : ''}`} />
+                          </button>
+                        )}
+                      </div>
+                      {link.hasDropdown && activeDropdown === idx && (
+                        <div className="pl-4 space-y-3 border-l-2 border-slate-100 ml-1">
+                          {link.items.map((item, i) => {
+                            const isExternal = typeof item === 'object' && item.external;
+                            const href = typeof item === 'string' ? '#' : item.href;
+                            const label = typeof item === 'string' ? item : item.name;
+                            const cls = "block text-slate-600 font-medium hover:text-[#14937a]";
+                            return isExternal ? (
+                              <a
+                                key={i}
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => setIsMenuOpen(false)}
+                                className={cls}
+                              >
+                                {label}
+                              </a>
+                            ) : (
+                              <Link
+                                key={i}
+                                to={href}
+                                onClick={(e) => handleNavClick(e, href)}
+                                className={cls}
+                              >
+                                {label}
+                              </Link>
+                            );
+                          })}
+                        </div>
                       )}
                     </div>
-                    {link.hasDropdown && activeDropdown === idx && (
-                      <div className="pl-4 space-y-3 border-l-2 border-slate-100 ml-1">
-                        {link.items.map((item, i) => (
-                          <Link 
-                            key={i}
-                            to={typeof item === 'string' ? '#' : item.href}
-                            className="block text-slate-600 font-medium hover:text-[#14937a]"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
-                            {typeof item === 'string' ? item : item.name}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               <div className="mt-8 pt-6 border-t border-slate-100">
                 <button 
